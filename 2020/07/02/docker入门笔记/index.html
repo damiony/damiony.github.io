@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="docker,linux,容器," />
 
 
 
@@ -87,15 +87,19 @@
 
 
 
-<meta name="description" content="易明辉的个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="damion">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Docker学习笔记一、windows10安装Docker开启Hyper-V windows10直接搜索【启用或关闭windows功能】 勾选Hyper-v，然后点击确定即可  下载Docker安装包 安装包下载地址为https:&#x2F;&#x2F;hub.docker.com&#x2F;editions&#x2F;community&#x2F;docker-ce-desktop-windows 点击安装包，然后按照提示直接安装即可  检查是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker入门笔记">
+<meta property="og:url" content="http://yoursite.com/2020/07/02/docker%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="damion">
-<meta property="og:description" content="易明辉的个人博客">
+<meta property="og:description" content="Docker学习笔记一、windows10安装Docker开启Hyper-V windows10直接搜索【启用或关闭windows功能】 勾选Hyper-v，然后点击确定即可  下载Docker安装包 安装包下载地址为https:&#x2F;&#x2F;hub.docker.com&#x2F;editions&#x2F;community&#x2F;docker-ce-desktop-windows 点击安装包，然后按照提示直接安装即可  检查是">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-07-02T13:26:35.000Z">
+<meta property="article:modified_time" content="2020-07-02T13:29:36.376Z">
 <meta property="article:author" content="damion">
-<meta property="article:tag" content="go nodejs linux mysql redis 算法 网络 经济">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="容器">
 <meta name="twitter:card" content="summary">
 
 
@@ -124,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/07/02/docker入门笔记/"/>
 
 
 
 
 
-  <title> damion </title>
+  <title> docker入门笔记 | damion </title>
 <meta name="generator" content="Hexo 4.2.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh">
@@ -155,9 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -240,9 +242,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -272,10 +274,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2020/07/02/docker%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" itemprop="url">
-                  docker入门笔记
-                </a>
+                docker入门笔记
               
             
           </h1>
@@ -326,9 +325,7 @@
       
 
       
-        
-          
-            <h1 id="Docker学习笔记"><a href="#Docker学习笔记" class="headerlink" title="Docker学习笔记"></a><code>Docker</code>学习笔记</h1><h2 id="一、windows10安装Docker"><a href="#一、windows10安装Docker" class="headerlink" title="一、windows10安装Docker"></a>一、<code>windows10</code>安装<code>Docker</code></h2><h3 id="开启Hyper-V"><a href="#开启Hyper-V" class="headerlink" title="开启Hyper-V"></a>开启<code>Hyper-V</code></h3><ol>
+        <h1 id="Docker学习笔记"><a href="#Docker学习笔记" class="headerlink" title="Docker学习笔记"></a><code>Docker</code>学习笔记</h1><h2 id="一、windows10安装Docker"><a href="#一、windows10安装Docker" class="headerlink" title="一、windows10安装Docker"></a>一、<code>windows10</code>安装<code>Docker</code></h2><h3 id="开启Hyper-V"><a href="#开启Hyper-V" class="headerlink" title="开启Hyper-V"></a>开启<code>Hyper-V</code></h3><ol>
 <li><code>windows10</code>直接搜索【启用或关闭<code>windows</code>功能】</li>
 <li>勾选<code>Hyper-v</code>，然后点击确定即可</li>
 </ol>
@@ -496,42 +493,60 @@
 <h3 id="删除本机的容器文件"><a href="#删除本机的容器文件" class="headerlink" title="删除本机的容器文件"></a>删除本机的容器文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container rm [containerID | containerName]</span><br></pre></td></tr></table></figure>
 
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag"># docker</a>
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+            <a href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag"># 容器</a>
+          
+        </div>
+      
+
+      
+        
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -539,6 +554,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -558,8 +577,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -612,6 +640,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker学习笔记"><span class="nav-number">1.</span> <span class="nav-text">Docker学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、windows10安装Docker"><span class="nav-number">1.1.</span> <span class="nav-text">一、windows10安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开启Hyper-V"><span class="nav-number">1.1.1.</span> <span class="nav-text">开启Hyper-V</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Docker安装包"><span class="nav-number">1.1.2.</span> <span class="nav-text">下载Docker安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查是否安装成功"><span class="nav-number">1.1.3.</span> <span class="nav-text">检查是否安装成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Centos7安装Docker"><span class="nav-number">1.2.</span> <span class="nav-text">二、Centos7安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看内核版本"><span class="nav-number">1.2.1.</span> <span class="nav-text">查看内核版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除旧的Docker版本"><span class="nav-number">1.2.2.</span> <span class="nav-text">移除旧的Docker版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除所有旧数据"><span class="nav-number">1.2.3.</span> <span class="nav-text">删除所有旧数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖"><span class="nav-number">1.2.4.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加Docker的源"><span class="nav-number">1.2.5.</span> <span class="nav-text">添加Docker的源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新yum缓存"><span class="nav-number">1.2.6.</span> <span class="nav-text">更新yum缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-CE和containerd"><span class="nav-number">1.2.7.</span> <span class="nav-text">安装Docker CE和containerd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查Docker是否安装成功"><span class="nav-number">1.2.8.</span> <span class="nav-text">检查Docker是否安装成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置镜像加速"><span class="nav-number">1.2.9.</span> <span class="nav-text">配置镜像加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Docker"><span class="nav-number">1.2.10.</span> <span class="nav-text">启动Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置当前用户对Docker的执行权限"><span class="nav-number">1.2.11.</span> <span class="nav-text">配置当前用户对Docker的执行权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载Docker"><span class="nav-number">1.2.12.</span> <span class="nav-text">卸载Docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、使用Docker安装软件"><span class="nav-number">1.3.</span> <span class="nav-text">三、使用Docker安装软件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker安装mysql"><span class="nav-number">1.3.1.</span> <span class="nav-text">Docker安装mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker安装redis"><span class="nav-number">1.3.2.</span> <span class="nav-text">Docker安装redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Docker常用命令"><span class="nav-number">1.4.</span> <span class="nav-text">四、Docker常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列出本机所有image文件"><span class="nav-number">1.4.1.</span> <span class="nav-text">列出本机所有image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除image文件"><span class="nav-number">1.4.2.</span> <span class="nav-text">删除image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从docker仓库抓取image文件"><span class="nav-number">1.4.3.</span> <span class="nav-text">从docker仓库抓取image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行image文件"><span class="nav-number">1.4.4.</span> <span class="nav-text">运行image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器运行状态"><span class="nav-number">1.4.5.</span> <span class="nav-text">查看容器运行状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动终止容器"><span class="nav-number">1.4.6.</span> <span class="nav-text">手动终止容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动已经生成的容器"><span class="nav-number">1.4.7.</span> <span class="nav-text">启动已经生成的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器运行时输出的日志"><span class="nav-number">1.4.8.</span> <span class="nav-text">查看容器运行时输出的日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入容器"><span class="nav-number">1.4.9.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝容器中的文件到本地"><span class="nav-number">1.4.10.</span> <span class="nav-text">拷贝容器中的文件到本地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出正在运行的容器文件"><span class="nav-number">1.4.11.</span> <span class="nav-text">列出正在运行的容器文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出本机所有容器文件"><span class="nav-number">1.4.12.</span> <span class="nav-text">列出本机所有容器文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除本机的容器文件"><span class="nav-number">1.4.13.</span> <span class="nav-text">删除本机的容器文件</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -719,6 +763,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
