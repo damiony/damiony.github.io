@@ -1,93 +1,26 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh">
+<!DOCTYPE html>
+<html lang="zh">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-  
-  
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="docker,linux,容器," />
-
-
-
-
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
-
-
-
-
-
-
-<meta name="description" content="Docker学习笔记一、windows10安装Docker开启Hyper-V windows10直接搜索【启用或关闭windows功能】 勾选Hyper-v，然后点击确定即可  下载Docker安装包 安装包下载地址为https:&#x2F;&#x2F;hub.docker.com&#x2F;editions&#x2F;community&#x2F;docker-ce-desktop-windows 点击安装包，然后按照提示直接安装即可  检查是">
+  <meta name="description" content="Docker学习笔记一、windows10安装Docker开启Hyper-V windows10直接搜索【启用或关闭windows功能】 勾选Hyper-v，然后点击确定即可  下载Docker安装包 安装包下载地址为https:&#x2F;&#x2F;hub.docker.com&#x2F;editions&#x2F;community&#x2F;docker-ce-desktop-windows 点击安装包，然后按照提示直接安装即可  检查是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker入门笔记">
 <meta property="og:url" content="http://yoursite.com/2020/07/02/docker%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html">
@@ -102,43 +35,20 @@
 <meta property="article:tag" content="容器">
 <meta name="twitter:card" content="summary">
 
+<link rel="canonical" href="http://yoursite.com/2020/07/02/docker%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh'
   };
 </script>
 
-
-
-  <link rel="canonical" href="http://yoursite.com/2020/07/02/docker入门笔记/"/>
-
-
-
-
-
-  <title> docker入门笔记 | damion </title>
-<meta name="generator" content="Hexo 4.2.0"></head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
-
+  <title>docker入门笔记 | damion</title>
   
 
 
@@ -146,183 +56,149 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
+</head>
 
-
-
-
-
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail ">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta custom-logo">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">damion</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle"></p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">damion</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
 
-  
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/02/docker%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="damion">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="damion">
+      <meta itemprop="description" content="易明辉的个人博客">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="damion">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                docker入门笔记
-              
-            
-          </h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          docker入门笔记
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
+              <span class="post-meta-item-text">Posted on</span>
               
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-02T21:26:35+08:00">
-                2020-07-02
-              </time>
-            
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+              <time title="Created: 2020-07-02 21:26:35 / Modified: 21:29:36" itemprop="dateCreated datePublished" datetime="2020-07-02T21:26:35+08:00">2020-07-02</time>
+            </span>
 
           
 
         </div>
       </header>
+
     
-
-
+    
+    
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <h1 id="Docker学习笔记"><a href="#Docker学习笔记" class="headerlink" title="Docker学习笔记"></a><code>Docker</code>学习笔记</h1><h2 id="一、windows10安装Docker"><a href="#一、windows10安装Docker" class="headerlink" title="一、windows10安装Docker"></a>一、<code>windows10</code>安装<code>Docker</code></h2><h3 id="开启Hyper-V"><a href="#开启Hyper-V" class="headerlink" title="开启Hyper-V"></a>开启<code>Hyper-V</code></h3><ol>
@@ -493,184 +369,124 @@
 <h3 id="删除本机的容器文件"><a href="#删除本机的容器文件" class="headerlink" title="删除本机的容器文件"></a>删除本机的容器文件</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container rm [containerID | containerName]</span><br></pre></td></tr></table></figure>
 
 
-      
     </div>
 
-    <div>
-      
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/docker/" rel="tag"># docker</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag"># 容器</a>
+          </div>
+
         
 
-      
-    </div>
 
-    <div>
-      
         
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/docker/" rel="tag"># docker</a>
-          
-            <a href="/tags/linux/" rel="tag"># linux</a>
-          
-            <a href="/tags/%E5%AE%B9%E5%99%A8/" rel="tag"># 容器</a>
-          
-        </div>
-      
-
-      
-        
-      
-
-      
-
-      
-      
-    </footer>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
 
-
-          
-  <div class="comments" id="comments">
-    
-  </div>
-
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
         </div>
-        
           
   
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
 
-  <aside id="sidebar" class="sidebar">
+  <aside class="sidebar">
     <div class="sidebar-inner">
 
-      
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/avatar.gif"
-               alt="damion" />
-          <p class="site-author-name" itemprop="name">damion</p>
-           
-              <p class="site-description motion-element" itemprop="description">易明辉的个人博客</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">posts</span>
-              </a>
-            </div>
-          
-
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">tags</span>
-              
-            </div>
-          
-
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker学习笔记"><span class="nav-number">1.</span> <span class="nav-text">Docker学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、windows10安装Docker"><span class="nav-number">1.1.</span> <span class="nav-text">一、windows10安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开启Hyper-V"><span class="nav-number">1.1.1.</span> <span class="nav-text">开启Hyper-V</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Docker安装包"><span class="nav-number">1.1.2.</span> <span class="nav-text">下载Docker安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查是否安装成功"><span class="nav-number">1.1.3.</span> <span class="nav-text">检查是否安装成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Centos7安装Docker"><span class="nav-number">1.2.</span> <span class="nav-text">二、Centos7安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看内核版本"><span class="nav-number">1.2.1.</span> <span class="nav-text">查看内核版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除旧的Docker版本"><span class="nav-number">1.2.2.</span> <span class="nav-text">移除旧的Docker版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除所有旧数据"><span class="nav-number">1.2.3.</span> <span class="nav-text">删除所有旧数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖"><span class="nav-number">1.2.4.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加Docker的源"><span class="nav-number">1.2.5.</span> <span class="nav-text">添加Docker的源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新yum缓存"><span class="nav-number">1.2.6.</span> <span class="nav-text">更新yum缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-CE和containerd"><span class="nav-number">1.2.7.</span> <span class="nav-text">安装Docker CE和containerd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查Docker是否安装成功"><span class="nav-number">1.2.8.</span> <span class="nav-text">检查Docker是否安装成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置镜像加速"><span class="nav-number">1.2.9.</span> <span class="nav-text">配置镜像加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Docker"><span class="nav-number">1.2.10.</span> <span class="nav-text">启动Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置当前用户对Docker的执行权限"><span class="nav-number">1.2.11.</span> <span class="nav-text">配置当前用户对Docker的执行权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载Docker"><span class="nav-number">1.2.12.</span> <span class="nav-text">卸载Docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、使用Docker安装软件"><span class="nav-number">1.3.</span> <span class="nav-text">三、使用Docker安装软件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker安装mysql"><span class="nav-number">1.3.1.</span> <span class="nav-text">Docker安装mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker安装redis"><span class="nav-number">1.3.2.</span> <span class="nav-text">Docker安装redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Docker常用命令"><span class="nav-number">1.4.</span> <span class="nav-text">四、Docker常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列出本机所有image文件"><span class="nav-number">1.4.1.</span> <span class="nav-text">列出本机所有image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除image文件"><span class="nav-number">1.4.2.</span> <span class="nav-text">删除image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从docker仓库抓取image文件"><span class="nav-number">1.4.3.</span> <span class="nav-text">从docker仓库抓取image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行image文件"><span class="nav-number">1.4.4.</span> <span class="nav-text">运行image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器运行状态"><span class="nav-number">1.4.5.</span> <span class="nav-text">查看容器运行状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动终止容器"><span class="nav-number">1.4.6.</span> <span class="nav-text">手动终止容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动已经生成的容器"><span class="nav-number">1.4.7.</span> <span class="nav-text">启动已经生成的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器运行时输出的日志"><span class="nav-number">1.4.8.</span> <span class="nav-text">查看容器运行时输出的日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入容器"><span class="nav-number">1.4.9.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝容器中的文件到本地"><span class="nav-number">1.4.10.</span> <span class="nav-text">拷贝容器中的文件到本地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出正在运行的容器文件"><span class="nav-number">1.4.11.</span> <span class="nav-text">列出正在运行的容器文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出本机所有容器文件"><span class="nav-number">1.4.12.</span> <span class="nav-text">列出本机所有容器文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除本机的容器文件"><span class="nav-number">1.4.13.</span> <span class="nav-text">删除本机的容器文件</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker学习笔记"><span class="nav-number">1.</span> <span class="nav-text">Docker学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、windows10安装Docker"><span class="nav-number">1.1.</span> <span class="nav-text">一、windows10安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开启Hyper-V"><span class="nav-number">1.1.1.</span> <span class="nav-text">开启Hyper-V</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载Docker安装包"><span class="nav-number">1.1.2.</span> <span class="nav-text">下载Docker安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查是否安装成功"><span class="nav-number">1.1.3.</span> <span class="nav-text">检查是否安装成功</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Centos7安装Docker"><span class="nav-number">1.2.</span> <span class="nav-text">二、Centos7安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看内核版本"><span class="nav-number">1.2.1.</span> <span class="nav-text">查看内核版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除旧的Docker版本"><span class="nav-number">1.2.2.</span> <span class="nav-text">移除旧的Docker版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除所有旧数据"><span class="nav-number">1.2.3.</span> <span class="nav-text">删除所有旧数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖"><span class="nav-number">1.2.4.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加Docker的源"><span class="nav-number">1.2.5.</span> <span class="nav-text">添加Docker的源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新yum缓存"><span class="nav-number">1.2.6.</span> <span class="nav-text">更新yum缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Docker-CE和containerd"><span class="nav-number">1.2.7.</span> <span class="nav-text">安装Docker CE和containerd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查Docker是否安装成功"><span class="nav-number">1.2.8.</span> <span class="nav-text">检查Docker是否安装成功</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置镜像加速"><span class="nav-number">1.2.9.</span> <span class="nav-text">配置镜像加速</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Docker"><span class="nav-number">1.2.10.</span> <span class="nav-text">启动Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置当前用户对Docker的执行权限"><span class="nav-number">1.2.11.</span> <span class="nav-text">配置当前用户对Docker的执行权限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载Docker"><span class="nav-number">1.2.12.</span> <span class="nav-text">卸载Docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、使用Docker安装软件"><span class="nav-number">1.3.</span> <span class="nav-text">三、使用Docker安装软件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker安装mysql"><span class="nav-number">1.3.1.</span> <span class="nav-text">Docker安装mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Docker安装redis"><span class="nav-number">1.3.2.</span> <span class="nav-text">Docker安装redis</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、Docker常用命令"><span class="nav-number">1.4.</span> <span class="nav-text">四、Docker常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列出本机所有image文件"><span class="nav-number">1.4.1.</span> <span class="nav-text">列出本机所有image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除image文件"><span class="nav-number">1.4.2.</span> <span class="nav-text">删除image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从docker仓库抓取image文件"><span class="nav-number">1.4.3.</span> <span class="nav-text">从docker仓库抓取image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行image文件"><span class="nav-number">1.4.4.</span> <span class="nav-text">运行image文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器运行状态"><span class="nav-number">1.4.5.</span> <span class="nav-text">查看容器运行状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动终止容器"><span class="nav-number">1.4.6.</span> <span class="nav-text">手动终止容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动已经生成的容器"><span class="nav-number">1.4.7.</span> <span class="nav-text">启动已经生成的容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看容器运行时输出的日志"><span class="nav-number">1.4.8.</span> <span class="nav-text">查看容器运行时输出的日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入容器"><span class="nav-number">1.4.9.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拷贝容器中的文件到本地"><span class="nav-number">1.4.10.</span> <span class="nav-text">拷贝容器中的文件到本地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出正在运行的容器文件"><span class="nav-number">1.4.11.</span> <span class="nav-text">列出正在运行的容器文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出本机所有容器文件"><span class="nav-number">1.4.12.</span> <span class="nav-text">列出本机所有容器文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除本机的容器文件"><span class="nav-number">1.4.13.</span> <span class="nav-text">删除本机的容器文件</span></a></li></ol></li></ol></li></ol></div>
+      </div>
       <!--/noindex-->
-      
 
-      
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">damion</p>
+  <div class="site-description" itemprop="description">易明辉的个人博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
 
     </div>
   </aside>
+  <div id="sidebar-dimmer"></div>
 
 
-        
       </div>
     </main>
 
-    <footer id="footer" class="footer">
+    <footer class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        
+
+        
+
+<div class="copyright">
   
   &copy; 
   <span itemprop="copyrightYear">2020</span>
@@ -679,131 +495,36 @@
   </span>
   <span class="author" itemprop="copyrightHolder">damion</span>
 </div>
-
-
-<div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
-</div>
-
-<div class="theme-info">
-  Theme -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
-    NexT.Pisces
-  </a>
-</div>
-
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a>
+  </div>
 
         
 
-        
+
+
+
+
+
+
+
       </div>
     </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
   </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
+<script src="/js/utils.js"></script>
 
-
-
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/pisces.js"></script>
 
 
-
-
-  
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -815,15 +536,14 @@
 
 
 
-  
 
 
 
 
 
-  
 
-  
+
+
 
   
 
