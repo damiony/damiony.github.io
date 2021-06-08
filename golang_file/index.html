@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/golang_file\/"
-        },"genre": "posts","keywords": "Golang, file","wordcount":  874 ,
+        },"genre": "posts","keywords": "Golang, file","wordcount":  847 ,
         "url": "http:\/\/example.org\/golang_file\/","datePublished": "2021-06-06T15:55:33+08:00","dateModified": "2021-06-06T15:55:33+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -106,8 +106,8 @@
             <div class="toc-content always-active" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">golang文件相关操作</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/golang/"><i class="far fa-folder fa-fw"></i>Golang</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-06-06">2021-06-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 874 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-06-06">2021-06-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 847 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -339,54 +339,7 @@
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><code>OpenFile</code>的方法签名为：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">OpenFile</span><span class="p">(</span><span class="nx">name</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">flag</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">perm</span> <span class="nx">FileMode</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">File</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><code>OpenFile</code>会根据给定的<code>flag</code>标志打开文件。如果文件不存在，并且标志被设置为<code>O_CREATE</code>，它将会根据给定的模式<code>perm</code>创建文件，然后返回。</p>
-<p><code>flag</code>的参数列表为：</p>
-<ul>
-<li>
-<p>O_RDONLY：只读模式打开</p>
-</li>
-<li>
-<p>O_WRONLY：只写模式打开</p>
-</li>
-<li>
-<p>O_RDWR：读写模式打开</p>
-</li>
-<li>
-<p>O_APPEND：以追加方式写入数据</p>
-</li>
-<li>
-<p>O_CREATE：当文件不存在时，创建一个新文件</p>
-</li>
-<li>
-<p>O_EXCL：和O_CREATE一起使用，含义是，要求被打开的文件必须不存在</p>
-</li>
-<li>
-<p>O_SYNC：以同步I/O的方式打开</p>
-</li>
-<li>
-<p>O_TRUNC：如果文件可写，打开时清空文件内容</p>
-</li>
-</ul>
-<p>可以使用<code>or</code>操作，让多个<code>flag</code>同时使用，如<code>os.O_CREWATE | os.O_APPEND</code>。</p>
-<p><code>perm</code>代表的是文件的权限，如：</p>
-<ul>
-<li>
-<p>0777：普通文件，所有人拥有读、写、执行权限。</p>
-</li>
-<li>
-<p>0666：普通文件，所有人拥有读、写权限，但是没有执行权限。</p>
-</li>
-</ul>
-<h3 id="7-删除空目录或文件">7. 删除空目录或文件</h3>
+</div><h3 id="7-删除空目录或文件">7. 删除空目录或文件</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
