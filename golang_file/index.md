@@ -1,7 +1,7 @@
 # golang文件相关操作
 
 
-## 说明
+## 介绍
 
 golang提供了文件相关的各种操作，包括创建、删除、和读写等。
 
@@ -110,6 +110,40 @@ func main() {
 	file.Close()
 }
 ```
+
+`OpenFile`的方法签名为：
+
+```go
+func OpenFile(name string, flag int, perm FileMode) (*File, error)
+```
+
+`OpenFile`会根据给定的`flag`标志打开文件。如果文件不存在，并且标志被设置为`O_CREATE`，它将会根据给定的模式`perm`创建文件，然后返回。
+
+`flag`的参数列表为：
+
+- O_RDONLY：只读模式打开
+
+- O_WRONLY：只写模式打开
+
+- O_RDWR：读写模式打开
+
+- O_APPEND：以追加方式写入数据
+
+- O_CREATE：当文件不存在时，创建一个新文件
+
+- O_EXCL：和O_CREATE一起使用，含义是，要求被打开的文件必须不存在
+
+- O_SYNC：以同步I/O的方式打开
+
+- O_TRUNC：如果文件可写，打开时清空文件内容
+
+可以使用`or`操作，让多个`flag`同时使用，如`os.O_CREWATE | os.O_APPEND`。
+
+`perm`代表的是文件的权限，如：
+
+- 0777：普通文件，所有人拥有读、写、执行权限。
+
+- 0666：普通文件，所有人拥有读、写权限，但是没有执行权限。
 
 ### 7. 删除空目录或文件
 
