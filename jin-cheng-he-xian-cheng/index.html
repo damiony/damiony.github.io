@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【操作系统】进程和线程 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【操作系统】进程和线程" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/jin-cheng-he-xian-cheng/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-12-04T00:32:26&#43;08:00" />
+<meta property="article:modified_time" content="2020-12-04T00:32:26&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【操作系统】进程和线程"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/jin-cheng-he-xian-cheng/" /><link rel="prev" href="http://example.org/mysql_grammer/" /><link rel="next" href="http://example.org/linux_sed/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【操作系统】进程和线程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/jin-cheng-he-xian-cheng\/"
+        },"genre": "posts","keywords": "操作系统","wordcount":  425 ,
+        "url": "http:\/\/example.org\/jin-cheng-he-xian-cheng\/","datePublished": "2020-12-04T00:32:26+08:00","dateModified": "2020-12-04T00:32:26+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【操作系统】进程和线程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="far fa-folder fa-fw"></i>操作系统</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-12-04">2020-12-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 425 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#进程基本概念">进程基本概念</a>
+      <ul>
+        <li><a href="#1-进程的定义">1. 进程的定义</a></li>
+        <li><a href="#2-进程的组成">2. 进程的组成</a></li>
+        <li><a href="#3-进程的特点">3. 进程的特点</a></li>
+        <li><a href="#4-进程和程序的区别">4. 进程和程序的区别</a></li>
+        <li><a href="#5-什么是进程实体">5. 什么是进程实体</a></li>
+        <li><a href="#6-常见寄存器">6. 常见寄存器</a></li>
+      </ul>
+    </li>
+    <li><a href="#进程状态">进程状态</a>
+      <ul>
+        <li><a href="#1-运行态">1. 运行态</a></li>
+        <li><a href="#2-就绪态">2. 就绪态</a></li>
+        <li><a href="#3-阻塞态">3. 阻塞态</a></li>
+        <li><a href="#4-创建态">4. 创建态</a></li>
+        <li><a href="#5-终止态">5. 终止态</a></li>
+        <li><a href="#6-进程状态转换">6. 进程状态转换</a></li>
+      </ul>
+    </li>
+    <li><a href="#进程控制">进程控制</a>
+      <ul>
+        <li><a href="#1-什么是进程控制">1. 什么是进程控制</a></li>
+        <li><a href="#2-原语">2. 原语</a></li>
+        <li><a href="#3-进程创建原语">3. 进程创建原语</a></li>
+        <li><a href="#4-进程撤销原语">4. 进程撤销原语</a></li>
+        <li><a href="#5-进程阻塞原语">5. 进程阻塞原语</a></li>
+        <li><a href="#6-进程唤醒原语">6. 进程唤醒原语</a></li>
+        <li><a href="#7-进程切换原语">7. 进程切换原语</a></li>
+      </ul>
+    </li>
+    <li><a href="#进程通信">进程通信</a>
+      <ul>
+        <li><a href="#1-管道">1. 管道</a></li>
+        <li><a href="#2-共享内存">2. 共享内存</a></li>
+        <li><a href="#3-消息队列">3. 消息队列</a></li>
+        <li><a href="#4-网络请求">4. 网络请求</a></li>
+        <li><a href="#5-远程调用">5. 远程调用</a></li>
+      </ul>
+    </li>
+    <li><a href="#线程">线程</a>
+      <ul>
+        <li><a href="#1-线程特点">1. 线程特点</a></li>
+        <li><a href="#2-用户级线程">2. 用户级线程</a></li>
+        <li><a href="#3-内核级线程">3. 内核级线程</a></li>
+      </ul>
+    </li>
+    <li><a href="#多线程模型">多线程模型</a>
+      <ul>
+        <li><a href="#1-多对一模型">1. 多对一模型</a></li>
+        <li><a href="#2-一对一模型">2. 一对一模型</a></li>
+        <li><a href="#3-多对多模型">3. 多对多模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#调度">调度</a>
+      <ul>
+        <li><a href="#1-三层调度">1. 三层调度</a></li>
+        <li><a href="#2-进程调度的时机">2. 进程调度的时机</a></li>
+        <li><a href="#3-进程调度的方式">3. 进程调度的方式</a></li>
+        <li><a href="#4-进程切换过程">4. 进程切换过程</a></li>
+      </ul>
+    </li>
+    <li><a href="#调度算法">调度算法</a>
+      <ul>
+        <li><a href="#1-先来先服务算法">1. 先来先服务算法</a></li>
+        <li><a href="#2-短作业优先算法">2. 短作业优先算法</a></li>
+        <li><a href="#3-最短剩余时间优先算法">3. 最短剩余时间优先算法</a></li>
+        <li><a href="#4-高响应比优先">4. 高响应比优先</a></li>
+        <li><a href="#5-时间片轮转算法">5. 时间片轮转算法</a></li>
+        <li><a href="#6-优先级调度算法">6. 优先级调度算法</a></li>
+        <li><a href="#7-多级反馈队列调度算法">7. 多级反馈队列调度算法</a></li>
+      </ul>
+    </li>
+    <li><a href="#同步和互斥">同步和互斥</a>
+      <ul>
+        <li><a href="#1-什么是同步">1. 什么是同步</a></li>
+        <li><a href="#2-什么是互斥">2. 什么是互斥</a></li>
+        <li><a href="#3-进程互斥原则">3. 进程互斥原则</a></li>
+        <li><a href="#4-信号量">4. 信号量</a></li>
+      </ul>
+    </li>
+    <li><a href="#死锁">死锁</a>
+      <ul>
+        <li><a href="#死锁饥饿死循环">死锁、饥饿、死循环</a></li>
+        <li><a href="#死锁产生条件">死锁产生条件</a></li>
+        <li><a href="#死锁处理">死锁处理</a></li>
+        <li><a href="#预防死锁">预防死锁</a></li>
+        <li><a href="#避免死锁">避免死锁</a></li>
+        <li><a href="#死锁检测和解除">死锁检测和解除</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="进程基本概念">进程基本概念</h2>
+<h3 id="1-进程的定义">1. 进程的定义</h3>
+<p>进程的定义方式有多种，常见的几种定义如下：</p>
+<ul>
+<li>
+<p>进程是程序的一次执行过程。</p>
+</li>
+<li>
+<p>进程是一个程序及其数据在处理机上顺序执行时所发生的活动。</p>
+</li>
+<li>
+<p>进程是具有独立功能的程序在数据集合上运行的过程，是系统进行资源分配和调度的一个独立单位。</p>
+</li>
+</ul>
+<h3 id="2-进程的组成">2. 进程的组成</h3>
+<p>进程由三部分组成：</p>
+<ul>
+<li>进程控制块PCB。</li>
+<li>程序段。</li>
+<li>数据段。</li>
+</ul>
+<p>系统根据PCB感知进程的存在，PCB是进程存在的唯一标志。PCB的组成部分通常为：</p>
+<ul>
+<li>进程标识符PID。每个进程都有唯一的标识符。</li>
+<li>进程当前状态。作为进程调度程序分配CPU的依据。</li>
+<li>进程队列指针。指向PCB队列中，下一个PCB的地址。</li>
+<li>程序和数据地址。进程程序段和数据段的地址。</li>
+<li>进程优先级。</li>
+<li>CPU现场保护区。保存CPU的现场信息，如指令寄存器、状态寄存器、通用寄存器等。</li>
+<li>通信信息。进程执行过程中，与别的进程发生的信息交换情况。</li>
+<li>家族联系。进程可以创建子进程，从而形成一个进程家族树。</li>
+<li>占有资源清单。记录了所需资源和已分配资源。</li>
+</ul>
+<h3 id="3-进程的特点">3. 进程的特点</h3>
+<ul>
+<li>
+<p>动态性：</p>
+<p>进程是程序在处理器上的一次执行过程，因而是动态的。</p>
+</li>
+<li>
+<p>并发性：</p>
+<p>多个进程可以同时存在于内存，在一段时间内同时运行。</p>
+</li>
+<li>
+<p>独立性：</p>
+<p>进程是一个能独立运行的基本单位。也是资源分配和调度的独立单位。</p>
+</li>
+<li>
+<p>异步性：</p>
+<p>进程以独立的、不可预知的速度向前推进。</p>
+</li>
+<li>
+<p>结构性：</p>
+<p>每个进程都是由程序段、数据段和一个进程控制块组成。</p>
+</li>
+</ul>
+<h3 id="4-进程和程序的区别">4. 进程和程序的区别</h3>
+<ul>
+<li>进程是动态的，程序是静态的。程序是有序代码的集合，进程是程序的执行。</li>
+<li>进程是暂时的，程序是永久的。进程是一个状态变化的过程，程序可长久保存。</li>
+<li>进程和程序的组成不同。进程包括程序、数据和进程控制块（即进程状态信息）。</li>
+<li>通过多次执行，一个程序可以产生多个进程；通过调用关系，一个进程可以执行多个程序。</li>
+<li>进程可以创建其他进程，程序不能形成新的程序。</li>
+</ul>
+<h3 id="5-什么是进程实体">5. 什么是进程实体</h3>
+<p>程序段、数据段和进程控制块PCB，三部分组成了进程实体，也叫进程映像。</p>
+<p>进程实体是静态的。进程是动态的，进程是进程实体的运行过程。</p>
+<h3 id="6-常见寄存器">6. 常见寄存器</h3>
+<ul>
+<li>程序状态寄存器PSW。</li>
+<li>程序计数器PC。存放下一条指令的地址。</li>
+<li>指令寄存器IR。存放当前正在执行的指令。</li>
+<li>通用寄存器。可存放计算的中间结果。</li>
+</ul>
+<h2 id="进程状态">进程状态</h2>
+<p>进程具备5种基本状态：</p>
+<ul>
+<li>运行态</li>
+<li>就绪态</li>
+<li>阻塞态</li>
+<li>创建态</li>
+<li>终止态</li>
+</ul>
+<h3 id="1-运行态">1. 运行态</h3>
+<p>占有<code>CPU</code>，并在<code>CPU</code>上运行。</p>
+<p>单核环境中，同时只有一个进程处于运行态。</p>
+<p>双核环境中，同时可以有两个进程处于运行态。</p>
+<h3 id="2-就绪态">2. 就绪态</h3>
+<p>已经具备运行条件，但由于没有<code>CPU</code>，暂时不能运行。</p>
+<h3 id="3-阻塞态">3. 阻塞态</h3>
+<p>用系统调用请求系统资源时，或者等待某一事件发生时，暂时不能运行。</p>
+<h3 id="4-创建态">4. 创建态</h3>
+<p>又称新建态。</p>
+<p>进程正在被创建。</p>
+<p>操作系统会为进程分配资源、初始化<code>PCB</code>。</p>
+<h3 id="5-终止态">5. 终止态</h3>
+<p>又称结束态。</p>
+<p>进程正在从系统中撤销。</p>
+<p>操作系统会回收进程拥有的资源，并且撤销<code>PCB</code>。</p>
+<h3 id="6-进程状态转换">6. 进程状态转换</h3>
+<p>进程初始处于创建态。</p>
+<ul>
+<li>就绪态 -&gt; 运行态：进程被调度。</li>
+<li>运行态 -&gt; 就绪态：时间片到，或<code>CPU</code>被其它高优先级进程抢占。</li>
+<li>运行态 -&gt; 阻塞态：通过“系统调用”等待系统资源分配、或等待某事件发生（主动）。</li>
+<li>阻塞态 -&gt; 就绪态：资源分配到位，等待的事件发生（被动）。</li>
+<li>创建态 -&gt; 就绪态：系统完成创建。</li>
+<li>运行态 -&gt; 终止态：运行结束，或发生不可修复错误。</li>
+</ul>
+<h2 id="进程控制">进程控制</h2>
+<h3 id="1-什么是进程控制">1. 什么是进程控制</h3>
+<p>进程控制，是指对系统中的所有进程实施有效的管理。包含进程创建、进程撤销、以及进程状态转换等功能。</p>
+<p>进程控制依靠原语来实现。</p>
+<h3 id="2-原语">2. 原语</h3>
+<p>原语是一种特殊的程序。它的执行具有原子性，即执行期间不允许被中断。</p>
+<p>原子性的实现，需要依靠“关中断指令”和“开中断指令”。</p>
+<h3 id="3-进程创建原语">3. 进程创建原语</h3>
+<ul>
+<li>申请空白PCB</li>
+<li>为进程分配所需资源</li>
+<li>初始化PCB</li>
+<li>将PCB插入就绪队列</li>
+</ul>
+<h3 id="4-进程撤销原语">4. 进程撤销原语</h3>
+<ul>
+<li>找到终止进程的PCB。</li>
+<li>若进程正在运行，则立即剥夺CPU，将CPU分配给其他进程。</li>
+<li>终止其所有子进程。</li>
+<li>将该进程资源归还给父进程或操作系统。</li>
+<li>删除PCB。</li>
+</ul>
+<h3 id="5-进程阻塞原语">5. 进程阻塞原语</h3>
+<ul>
+<li>找到进程对应PCB。</li>
+<li>保护进程运行现场，将PCB状态信息设置为阻塞态，暂时停止进程运行。</li>
+<li>将PCB插入相应事件的等待列表。</li>
+</ul>
+<h3 id="6-进程唤醒原语">6. 进程唤醒原语</h3>
+<ul>
+<li>从事件等待队列中找到PCB。</li>
+<li>将PCB从等待队列移除，设置进程为就绪态。</li>
+<li>将PCB插入就绪队列，等待被调度。</li>
+</ul>
+<h3 id="7-进程切换原语">7. 进程切换原语</h3>
+<p>进程切换是指，从运行态到就绪态，或者从就绪态到运行态。</p>
+<ul>
+<li>将运行环境存入PCB。</li>
+<li>PCB移入相应队列。</li>
+<li>选择另一个进程执行，并更新其PCB。</li>
+<li>根据PCB恢复进程所需的运行环境。</li>
+</ul>
+<h2 id="进程通信">进程通信</h2>
+<p>各进程拥有的内存地址空间相互独立。</p>
+<p>为了安全，一个进程不能直接访问另一个进程的地址空间，从而诞生了各种进程通信的方法。</p>
+<p>常见的进程通信方法有：</p>
+<ul>
+<li>管道</li>
+<li>命名管道</li>
+<li>共享内存</li>
+<li>消息队列</li>
+<li>套接字</li>
+<li>信号</li>
+<li>信号量</li>
+</ul>
+<h3 id="1-管道">1. 管道</h3>
+<p>包括管道和命名管道。</p>
+<h3 id="2-共享内存">2. 共享内存</h3>
+<p><code>Unix</code>操作系统（包括<code>linux</code>）中有<code>Posix</code>内存共享库：<code>shmem</code>。</p>
+<p>实现原理是以虚拟文件系统的形式，从内存中划分出一块区域，供两个进程共同使用。</p>
+<p>速度快，但是程序实现复杂。</p>
+<h3 id="3-消息队列">3. 消息队列</h3>
+<p>有本地消息队列，如<code>mqueue</code>。或者基于网络请求实现的消息队列，如<code>kafka</code>，<code>rabbitmq</code>等。</p>
+<h3 id="4-网络请求">4. 网络请求</h3>
+<p>是套接字方法的一种实现，基于<code>TCP/IP</code>协议或者建立在这之上的通信协议。</p>
+<h3 id="5-远程调用">5. 远程调用</h3>
+<p>是套接字方法的一种实现，<code>RPC</code>的过程为：</p>
+<ol>
+<li>客户端调用函数或者方法。</li>
+<li>客户端<code>stub</code>将函数调用封装为请求。</li>
+<li>客户端<code>socket</code>发送请求，服务端<code>socket</code>接受请求。</li>
+<li>执行服务端方法。</li>
+<li>返回结果给服务端<code>stub</code>。</li>
+<li>服务端<code>stub</code>将结果封装为返回数据。</li>
+<li>服务端<code>socket</code>发送返回数据，客户端<code>socket</code>接受返回数据。</li>
+<li>客户端<code>socket</code>将数据传递给客户端<code>stub</code>。</li>
+<li>客户端<code>stub</code>把返回数据转义成函数返回值。</li>
+</ol>
+<h2 id="线程">线程</h2>
+<p>线程是一个基本的<code>CPU</code>执行单位，也是程序执行流的最小单位。</p>
+<p>进程是除CPU之外的系统资源的分配单位。</p>
+<h3 id="1-线程特点">1. 线程特点</h3>
+<p>线程具有如下特点：</p>
+<ul>
+<li>在多核CPU中，线程可以占据不同的CPU。</li>
+<li>每个线程都有一个线程ID和一个线程控制块TCB。</li>
+<li>线程也有就绪、阻塞和运行状态。</li>
+<li>线程几乎不拥有系统资源。</li>
+<li>同一进程的不同线程共享进程资源。</li>
+<li>同一进程的线程切换，不会引起进程切换。</li>
+<li>不同进程的线程切换，会引起进程切换。</li>
+<li>同一进程内的线程切换，系统开销很小。</li>
+<li>进程切换的系统开销较大。</li>
+</ul>
+<h3 id="2-用户级线程">2. 用户级线程</h3>
+<p>用户级线程介绍：</p>
+<ul>
+<li>由应用程序通过线程库实现。</li>
+<li>所有的线程管理工作都由应用程序负责（包括线程切换）。</li>
+<li>用户线程之间的切换在用户态下完成，无需操作系统的干预。</li>
+<li>用户线程对用户不透明，对操作系统透明。</li>
+<li>用户线程就是用户视角能看到的线程。</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>线程管理的系统开销小，效率高。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>当一个用户级线程被阻塞后，整个进程都会被阻塞，并且多个用户级线程不可在多核处理机上并行运行，并发度不高。</li>
+</ul>
+<h3 id="3-内核级线程">3. 内核级线程</h3>
+<p>内核级线程介绍：</p>
+<ul>
+<li>管理工作由操作系统内核完成，如线程调度、切换等。</li>
+<li>内核级线程的切换，必须在内核态下才能完成。</li>
+<li>内核级线程就是从操作系统内核视角能看到的线程。</li>
+<li>内核级线程才是处理器分配的单位。</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>当一个线程被阻塞后，别的线程还可以继续执行，并且多线程可以在多核处理机上并行执行。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>线程切换由操作系统完成，因此线程管理成本高，开销大。</li>
+</ul>
+<h2 id="多线程模型">多线程模型</h2>
+<p>在用户级线程和内核级线程并存的系统中，几个用户线程映射到几个内核级线程的问题，称为“多线程模型”问题。</p>
+<h3 id="1-多对一模型">1. 多对一模型</h3>
+<p>多个用户级线程映射到一个内核级线程。</p>
+<p>优点：</p>
+<ul>
+<li>用户级线程的切换在用户空间即可完成，不需要切换到和心态，线程管理开销小，效率高。</li>
+</ul>
+<p>缺陷：</p>
+<ul>
+<li>当一个用户线程被阻塞，整个进程都会被阻塞，并发度不高。</li>
+<li>多个线程不可在多核处理机上并行运行。</li>
+</ul>
+<h3 id="2-一对一模型">2. 一对一模型</h3>
+<p>一个用户级线程映射到一个内核级线程。</p>
+<p>优点：</p>
+<ul>
+<li>当一个线程被阻塞后，别的线程还可以继续执行，并发能力强。</li>
+<li>多线程可在多核处理机上并行执行。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>一个用户进程会占用多个内核级线程，线程切换由操作系统内核完成，需切换到和心态，线程管理成本高，开销大。</li>
+</ul>
+<h3 id="3-多对多模型">3. 多对多模型</h3>
+<p><code>n</code>个用户级线程映射到<code>m</code>个内核级线程(<code>n &gt;= m</code>)。</p>
+<h2 id="调度">调度</h2>
+<h3 id="1-三层调度">1. 三层调度</h3>
+<ul>
+<li>
+<p>高级调度</p>
+<p>也称作业调度。按照某种规则，从后备队列中，选择合适的作业，将其调入内存，并为其创建进程。</p>
+<p>进程状态变化：无-&gt;创建态-&gt;就绪态。</p>
+</li>
+<li>
+<p>中级调度</p>
+<p>也称内存调度。按照某种规则，从挂起队列中，选择合适进程，将其数据调回内存。</p>
+<p>为了提高资源利用率，暂时不执行的进程会被调到外存，从而成为“挂起态”。有“就绪挂起”和“阻塞挂起”。</p>
+<p>进程状态变化：阻塞挂起-&gt;阻塞态，或者，就绪挂起-&gt;就绪态。</p>
+</li>
+<li>
+<p>低级调度</p>
+<p>也称进程调度。按照某种规则，从就绪队列中，选择合适进程，为其分配处理机。</p>
+<p>进程状态变化：就绪态-&gt;运行态。</p>
+</li>
+</ul>
+<h3 id="2-进程调度的时机">2. 进程调度的时机</h3>
+<p>主动放弃处理机：</p>
+<ul>
+<li>进程正常终止。</li>
+<li>进程发生异常而终止。</li>
+<li>进程主动请求阻塞。</li>
+</ul>
+<p>被动放弃处理机：</p>
+<ul>
+<li>分给进程的时间片用完。</li>
+<li>有更紧急的事情，如IO中断。</li>
+<li>有更高优先级的进程进入就绪队列。</li>
+</ul>
+<p>不能调度的时机：</p>
+<ul>
+<li>处理中断时。</li>
+<li>进程在操作系统内核程序临界区中。</li>
+<li>在原子操作过程中。</li>
+</ul>
+<p>临界资源：</p>
+<p>一个时间段内，只允许一个进程使用的资源。各进程需要互斥的访问临界资源。</p>
+<p>临界区：</p>
+<p>用来访问临界资源的那段代码。</p>
+<h3 id="3-进程调度的方式">3. 进程调度的方式</h3>
+<ul>
+<li>
+<p>抢占式调度</p>
+<p>只允许进程主动放弃<code>CPU</code>。</p>
+<p>实现简单，但是无法及时处理紧急任务。</p>
+</li>
+<li>
+<p>非抢占式调度</p>
+<p>可以优先处理更紧急的进程。</p>
+<p>也可以让各进程按时间片轮转。</p>
+<p>适合于分时操作系统、实时操作系统。</p>
+</li>
+</ul>
+<h3 id="4-进程切换过程">4. 进程切换过程</h3>
+<p>狭义的进程调度，指的是从就绪队列中选中一个要运行的进程。</p>
+<p>进程切换，指一个进程让出处理器，由另一个进程占用处理器的过程。</p>
+<p>广义的进程调度，包含选择一个进程和进程切换两个步骤。</p>
+<p>进程切换过程如下：</p>
+<ul>
+<li>保存原来运行进程的数据</li>
+<li>恢复新进程的各种数据</li>
+</ul>
+<p>缺陷：</p>
+<ul>
+<li>进程切换有代价。</li>
+<li>调度、切换过于频繁，会使得整个系统效率降低。</li>
+</ul>
+<h2 id="调度算法">调度算法</h2>
+<ul>
+<li>先来先服务</li>
+<li>短作业优先</li>
+<li>最短剩余时间算法</li>
+<li>高响应比优先</li>
+<li>时间片轮转调度算法</li>
+<li>优先级调度算法</li>
+<li>多级反馈队列调度算法</li>
+</ul>
+<h3 id="1-先来先服务算法">1. 先来先服务算法</h3>
+<ul>
+<li>
+<p>思想：按照到达的先后顺序进行服务</p>
+</li>
+<li>
+<p>是否可抢占：非抢占式</p>
+</li>
+<li>
+<p>优点：公平，实现简单</p>
+</li>
+<li>
+<p>缺点：排在长作业/进程后面的短作业/进程要等待很久</p>
+</li>
+<li>
+<p>是否会导致饥饿：不会</p>
+</li>
+</ul>
+<h3 id="2-短作业优先算法">2. 短作业优先算法</h3>
+<p>用于进程时，称为短进程优先。</p>
+<ul>
+<li>
+<p>思想：用时最短的最先得到服务</p>
+</li>
+<li>
+<p>是否可抢占：是非抢占式算法，但是也有抢占式版本（最短剩余时间优先算法）</p>
+</li>
+<li>
+<p>优点：更短的平均等待时间和平均周转时间</p>
+</li>
+<li>
+<p>缺点：对短作业有利，对长作业不利，可能产生饥饿现象；运行时间是用户提供，并不一定能做到真正的短作业优先</p>
+</li>
+<li>
+<p>是否会导致饥饿：会，长作业可能会长时间得不到服务。</p>
+</li>
+</ul>
+<h3 id="3-最短剩余时间优先算法">3. 最短剩余时间优先算法</h3>
+<p>就绪队列改变时、或者一个进程完成时，进行调度。</p>
+<p>如果有新进程剩余时间比当前运行进程剩余时间短，则由新进程抢占处理机，当前进程回到就绪队列。</p>
+<p>最短剩余时间优先算法，有最少的平均等待时间，和平均周转时间。</p>
+<p>有的书中会说，短作业优先有着最少的平均等待时间，和平均周转时间，其实是不严谨的。</p>
+<h3 id="4-高响应比优先">4. 高响应比优先</h3>
+<p>响应比计算公式：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">响应比</span> <span class="o">=</span> （等待时间 + 要求服务时间）/（要求服务时间）
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>思想：每次调度时，计算各个作业/进程的响应比，选择响应比最高的作业/进程为其服务。</p>
+</li>
+<li>
+<p>是否可抢占：非抢占式</p>
+</li>
+<li>
+<p>优点：综合考虑了等待时间和运行时间；对于长作业来说，等待时间越长响应比也会越大，从而避免了饥饿问题</p>
+</li>
+<li>
+<p>是否会导致饥饿：不会</p>
+</li>
+</ul>
+<h3 id="5-时间片轮转算法">5. 时间片轮转算法</h3>
+<ul>
+<li>
+<p>思想：按照进程到达就绪队列的顺序，轮流让各个进程执行一个时间片（如100ms）。如果一个时间片内未执行完，则剥夺处理机，重新放入就绪队列末尾。</p>
+</li>
+<li>
+<p>是否可抢占：抢占式，由时钟中断来通知</p>
+</li>
+<li>
+<p>优点：公平，响应快，适合分时操作系统</p>
+</li>
+<li>
+<p>缺点：进程切换会有一定开销，不区分任务紧急程度</p>
+</li>
+<li>
+<p>是否会导致饥饿：不会</p>
+</li>
+</ul>
+<p>注意：时间片不能太大，也不能太小</p>
+<h3 id="6-优先级调度算法">6. 优先级调度算法</h3>
+<ul>
+<li>
+<p>思想：调度时选择优先级最高的作业/进程。</p>
+</li>
+<li>
+<p>是否可抢占：抢占式和非抢占式都有。非抢占式在进程主动放弃处理器时进行调度；抢占式还在就绪队列发生变化时，发生调度。</p>
+</li>
+<li>
+<p>优点：用优先级区分紧急程度，可灵活调整对各进程的偏好程度；适用于实时操作系统</p>
+</li>
+<li>
+<p>缺点：低优先级进程可能一直得不到执行</p>
+</li>
+<li>
+<p>是否会导致饥饿：会</p>
+</li>
+</ul>
+<p>通常，系统进程优先级高于用户进程，前台进程优先级高于后台进程，操作系统更偏好IO繁忙型进程。</p>
+<h3 id="7-多级反馈队列调度算法">7. 多级反馈队列调度算法</h3>
+<ul>
+<li>
+<p>思想：</p>
+<ul>
+<li>设置多级就绪队列，优先级从高到低，时间片从小到大；</li>
+<li>新进程先进入第一级队列，按照先到先服务原则被分配时间片；</li>
+<li>如果时间片用完还未结束，则进入下一级队列，如果位于最后一级，则重新进入该队列尾部；</li>
+<li>第<code>K</code>级队列为空时，才会为<code>K+1</code>级队列分配时间片。</li>
+<li>被抢占处理机的进程，重新放回该队列队尾。</li>
+</ul>
+</li>
+<li>
+<p>是否可抢占：抢占式算法。当K级队列进程运行时，如果前几级队列加入了新进程，新进程会抢占处理机，原来的进程放回原队列的末尾。</p>
+</li>
+<li>
+<p>是否会导致饥饿：会</p>
+</li>
+</ul>
+<h2 id="同步和互斥">同步和互斥</h2>
+<h3 id="1-什么是同步">1. 什么是同步</h3>
+<p>异步性，并发执行的进程，以各自独立的、不可预知的速度向前推进。</p>
+<p>同步，也称直接制约关系，是协调各进程工作次序而产生的制约关系。</p>
+<h3 id="2-什么是互斥">2. 什么是互斥</h3>
+<p>互斥，也称间接制约关系，指一个进程访问某临界资源时，另一个想要访问该临界资源的进程必须等待。</p>
+<p>临界资源，是一个时间段内只允许一个进程访问的资源，对临界资源的访问必须互斥的进行。</p>
+<p>对临界资源的互斥访问，可在逻辑上分为如下四个部分：</p>
+<ul>
+<li>进入区：检查是否可以进入临界区，如果可以进入，则设置正在访问临界资源的标志（上锁），以阻止其他进程同时进入临界区。</li>
+<li>临界区：用来访问临界资源的代码。</li>
+<li>退出区：解除正在访问临界资源的标志（解锁）。</li>
+<li>剩余区：做其他处理。</li>
+</ul>
+<h3 id="3-进程互斥原则">3. 进程互斥原则</h3>
+<ul>
+<li>空闲让进：临界区空闲时，允许进程进入临界区。</li>
+<li>忙则等待：已有进程进入临界区时，其他试图进入临界区的进程必须等待。</li>
+<li>有限等待：对请求访问的进程，保证能在有限时间内进入临界区。</li>
+<li>让权等待：当进程不能进入临界区，应立即释放处理机。</li>
+</ul>
+<h3 id="4-信号量">4. 信号量</h3>
+<p>信号量机制是实现进程互斥、同步的有效方法。</p>
+<p>信号量是一个变量（可以是整数，也可以是记录型变量），用来表示系统中某资源的数量。用户进程可以使用操作系统提供的一对原语，来对信号量进行操作。</p>
+<p>这对原语为wait原语和signal原语，wait原语和signal原语常简称为P、V操作。</p>
+<p>wait原语用于占用资源，signal用于释放资源，资源不够时，wait原语会进行等待。</p>
+<p>资源不够时，整型信号量存在“忙等”问题，不满足“让权等待”。</p>
+<p>资源不够时，记录型信号量会让进程变为阻塞态，资源足够时，会被唤醒变为就绪态。</p>
+<h2 id="死锁">死锁</h2>
+<h3 id="死锁饥饿死循环">死锁、饥饿、死循环</h3>
+<ul>
+<li>
+<p>死锁：</p>
+<p>并发环境下，各进程互相等待对方手里的资源，导致进程都阻塞，无法向前推进的现象。</p>
+<p>如果有死锁现象，至少是两个或以上进程发生死锁。</p>
+<p>死锁一定处于阻塞态。</p>
+</li>
+<li>
+<p>饥饿：</p>
+<p>进程长期得不到想要的资源，从而无法向前推进的现象。</p>
+<p>可能只有一个进程发生饥饿。</p>
+<p>既可以是阻塞态，也可以是就绪态。</p>
+</li>
+<li>
+<p>死循环</p>
+<p>某进程执行过程中一直跳不出某个循环的现象。</p>
+<p>可以处于运行态。</p>
+</li>
+</ul>
+<h3 id="死锁产生条件">死锁产生条件</h3>
+<p>必须同时满足下列四个条件：</p>
+<ul>
+<li>互斥条件：只有对互斥资源发生争抢才会导致死锁。</li>
+<li>不可剥夺：资源不能被夺走，只能主动释放。</li>
+<li>请求和保持：进程持有至少一个资源，但是又提出新的资源请求，该资源又被其他进程持有，于是请求进程被阻塞，持有资源又不会释放。</li>
+<li>循环等待：存在进程资源的循环等待链，每一个进程获得的资源同时被下一个进程请求。</li>
+</ul>
+<h3 id="死锁处理">死锁处理</h3>
+<ul>
+<li>预防死锁：破坏死锁产生条件。</li>
+<li>避免死锁：防止系统进入不安全状态（银行家算法）。</li>
+<li>死锁检测和解除：操作系统检测死锁的发生，然后解除死锁。</li>
+</ul>
+<h3 id="预防死锁">预防死锁</h3>
+<ul>
+<li>将互斥资源改为允许共享使用。通常难以实现。</li>
+<li>释放持有的资源，以后再重新申请；或者强行剥夺其他进程资源。实现复杂。</li>
+<li>运行前一次性申请完所需的资源，运行后这些资源就归它所有。资源利用率低。</li>
+<li>给资源编号，进程必须按照编号递增的顺序请求资源。资源利用率低且编程麻烦。</li>
+</ul>
+<h3 id="避免死锁">避免死锁</h3>
+<ul>
+<li>
+<p>安全序列：系统如果按照这种序列分配资源，则每个进程都能顺利完成。</p>
+</li>
+<li>
+<p>安全状态：只要能找到一个安全序列，系统就是安全状态。</p>
+</li>
+<li>
+<p>银行家算法：进程提出资源申请时，先预判这次分配是否会导致系统进入不安全状态。如果会进入不安全状态，就暂时不答应这次请求，让进程阻塞等待。</p>
+</li>
+</ul>
+<h3 id="死锁检测和解除">死锁检测和解除</h3>
+<p>死锁检测：</p>
+<ul>
+<li>用某种数据结构保存资源的请求和分配信息</li>
+<li>用某种算法，根据资源信息判断是否进入了死锁状态</li>
+</ul>
+<p>解除死锁：</p>
+<ul>
+<li>资源剥夺法：将进程挂起到外存，并抢占它的资源。</li>
+<li>撤销进程法：撤销死锁进程，并抢占它的资源。</li>
+<li>进程回退法：将死锁进程回退到足以避免死锁的地步。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-12-04</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql_grammer/" class="prev" rel="prev" title="【MySQL】基本语法"><i class="fas fa-angle-left fa-fw"></i>【MySQL】基本语法</a>
+            <a href="/linux_sed/" class="next" rel="next" title="【Linux】sed命令详解">【Linux】sed命令详解<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

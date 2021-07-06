@@ -4,7 +4,7 @@
         <link>http://example.org/tags/sed/</link>
         <description>sed - 标签 - Damion&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 05 Jun 2021 17:52:47 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/sed/" rel="self" type="application/rss+xml" /><item>
-    <title>sed命令详解</title>
+    <title>【Linux】sed命令详解</title>
     <link>http://example.org/linux_sed/</link>
     <pubDate>Sat, 05 Jun 2021 17:52:47 &#43;0800</pubDate>
     <author>作者</author>
