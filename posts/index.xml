@@ -67,6 +67,13 @@
     <guid>http://example.org/mysql_grammer/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>【Linux】df命令详解</title>
+    <link>http://example.org/linux-df/</link>
+    <pubDate>Mon, 09 Mar 2020 15:57:44 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux-df/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>【Golang】buffer包的使用</title>
     <link>http://example.org/golang_buffer_pkg/</link>
     <pubDate>Sun, 08 Mar 2020 15:23:16 &#43;0800</pubDate>
