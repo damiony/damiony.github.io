@@ -46,6 +46,13 @@
     <guid>http://example.org/mysql_innodb_read_ahead/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>【Linux】gawk详解</title>
+    <link>http://example.org/linux-gawk/</link>
+    <pubDate>Thu, 10 Jun 2021 11:28:36 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux-gawk/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>【Linux】sed命令详解</title>
     <link>http://example.org/linux_sed/</link>
     <pubDate>Sat, 05 Jun 2021 17:52:47 &#43;0800</pubDate>
@@ -53,11 +60,25 @@
     <guid>http://example.org/linux_sed/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>【Linux】文件搜索</title>
+    <link>http://example.org/linux-find-files/</link>
+    <pubDate>Wed, 10 Mar 2021 13:19:44 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux-find-files/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>【操作系统】进程和线程</title>
     <link>http://example.org/jin-cheng-he-xian-cheng/</link>
     <pubDate>Fri, 04 Dec 2020 00:32:26 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/jin-cheng-he-xian-cheng/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【Linux】du命令详解</title>
+    <link>http://example.org/linux-du/</link>
+    <pubDate>Thu, 09 Jul 2020 19:34:46 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux-du/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>【MySQL】基本语法</title>
