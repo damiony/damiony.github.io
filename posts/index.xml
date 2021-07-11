@@ -3,40 +3,12 @@
         <title>所有文章 - Damion&#39;s Blog</title>
         <link>http://example.org/posts/</link>
         <description>所有文章 | Damion&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 06 Jul 2021 19:37:33 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>【操作系统】基本概念</title>
-    <link>http://example.org/cao-zuo-xi-tong-ji-ben-gai-nian/</link>
-    <pubDate>Tue, 06 Jul 2021 19:37:33 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/cao-zuo-xi-tong-ji-ben-gai-nian/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>【操作系统】中断</title>
-    <link>http://example.org/zhong-duan/</link>
-    <pubDate>Tue, 06 Jul 2021 19:30:40 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/zhong-duan/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>【操作系统】磁盘</title>
-    <link>http://example.org/ci-pan/</link>
-    <pubDate>Tue, 06 Jul 2021 01:13:21 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/ci-pan/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 05 Jul 2021 17:05:49 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
     <title>【操作系统】内存管理</title>
     <link>http://example.org/nei-cun-guan-li/</link>
     <pubDate>Mon, 05 Jul 2021 17:05:49 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/nei-cun-guan-li/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>【操作系统】用户态和内核态</title>
-    <link>http://example.org/yong-hu-tai-he-nei-he-tai/</link>
-    <pubDate>Fri, 02 Jul 2021 16:01:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/yong-hu-tai-he-nei-he-tai/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>【MySQL】预读机制</title>
@@ -46,11 +18,11 @@
     <guid>http://example.org/mysql_innodb_read_ahead/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>【Linux】gawk详解</title>
-    <link>http://example.org/linux-gawk/</link>
-    <pubDate>Thu, 10 Jun 2021 11:28:36 &#43;0800</pubDate>
+    <title>【操作系统】磁盘</title>
+    <link>http://example.org/ci-pan/</link>
+    <pubDate>Sun, 06 Jun 2021 01:13:21 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/linux-gawk/</guid>
+    <guid>http://example.org/ci-pan/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>【Linux】sed命令详解</title>
@@ -60,11 +32,32 @@
     <guid>http://example.org/linux_sed/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>【操作系统】用户态和内核态</title>
+    <link>http://example.org/yong-hu-tai-he-nei-he-tai/</link>
+    <pubDate>Thu, 06 May 2021 16:01:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/yong-hu-tai-he-nei-he-tai/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>【Linux】文件搜索</title>
     <link>http://example.org/linux-find-files/</link>
     <pubDate>Wed, 10 Mar 2021 13:19:44 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/linux-find-files/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【Linux】gawk详解</title>
+    <link>http://example.org/linux-gawk/</link>
+    <pubDate>Wed, 10 Feb 2021 11:28:36 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux-gawk/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【操作系统】中断</title>
+    <link>http://example.org/zhong-duan/</link>
+    <pubDate>Sat, 06 Feb 2021 19:30:40 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/zhong-duan/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>【操作系统】进程和线程</title>
@@ -73,6 +66,45 @@
     <author>作者</author>
     <guid>http://example.org/jin-cheng-he-xian-cheng/</guid>
     <description><![CDATA[]]></description>
+</item><item>
+    <title>【操作系统】基本概念</title>
+    <link>http://example.org/cao-zuo-xi-tong-ji-ben-gai-nian/</link>
+    <pubDate>Mon, 16 Nov 2020 19:37:33 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/cao-zuo-xi-tong-ji-ben-gai-nian/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【Linux】压缩和归档</title>
+    <link>http://example.org/linux-ya-suo-he-gui-dang/</link>
+    <pubDate>Wed, 11 Nov 2020 18:33:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux-ya-suo-he-gui-dang/</guid>
+    <description><![CDATA[Linux系统中有多个压缩和归档工具，现在介绍常见的几种。
+gzip gzip用于压缩一个或多个文件，具体用法为：
+1  gzip [options] [file...]   options 常见的选项有：
+  -c：将内容输出到标准输出，不会生成新文件，压缩文件也不会被删除。
+  -d：解压缩。
+  -f：即使压缩文件已经存在，也强制压缩。
+  -h：显示帮助信息。
+  -l：显示压缩文件列表。
+  -r：递归压缩或者解压缩包含在目录中的文件。
+  -t：校验压缩文件完整性。
+  -v：压缩时显示详细信息。
+  -k：不删除源文件。
+  -1：--fast，速度最快的压缩等级。
+  -2 .. -8：压缩等级，压缩速度从快到慢，压缩比从小到大。
+  -9：--best，压缩比最高的压缩等级。
+  解压缩 gzip生成的压缩文件后缀为.gz。可以使用gzip -d、-gunzip和zcat解压缩。
+解压缩时，会自动查找.gz后缀的文件，所以在不引起歧义的情况下，可以省略文件后缀。
+zcat命令会将结果输出到标准输出，不会生成新的文件，也不会被删除被解压文件。
+bzip2 bzip2同样可以压缩文件。
+除了-r选项，gzip支持的功能bzip2也同样支持。
+bzip2生成的压缩文件以.bz2为后缀。
+可以使用bzip2 -d、bunzip2和bzcat解压缩，bzcat的作用和zcat也是一样的。
+gzip和bzip2的使用 已经被压缩过的文件，不应该再次被压缩，即使使用的是不同压缩算法。
+因为被压缩文件已经不存在冗余信息，如果进行多次压缩，反而会消耗多余的空间来保存压缩信息。
+zip zip即可以进行压缩，又可以进行归档。
+命令格式 zip的命令格式为：]]></description>
 </item><item>
     <title>【Linux】du命令详解</title>
     <link>http://example.org/linux-du/</link>
