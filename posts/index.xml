@@ -120,6 +120,28 @@ zip zip即可以进行压缩，又可以进行归档。
     <guid>http://example.org/mysql_grammer/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>【Linux】常见命令</title>
+    <link>http://example.org/linux-common-commands/</link>
+    <pubDate>Thu, 30 Apr 2020 21:59:08 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux-common-commands/</guid>
+    <description><![CDATA[常见快捷键 Linux中有如下常见快捷键：
+  ^c：终止前台运行的程序
+  ^z：将前台运行的程序挂起到后台
+  ^d：退出 等价于exit
+  ^l：清屏
+  ^a | ^home：光标移到命令行的最前端
+  ^e | ^end：光标移到命令行的后端
+  ^u：删除光标前的所有字符
+  ^k：删除光标后的所有字符
+  ^r：搜索历史命令
+  grep 语法 1  grep 选项 &#39;关键字&#39; 文件名   常见选项   -i: 不区分大小写
+  -v: 查找不包含指定内容的行
+  -w: 按单词搜索
+  -o: 打印匹配关键字
+  -c: 统计匹配到的次数
+  -n: 显示行号]]></description>
+</item><item>
     <title>【Linux】df命令详解</title>
     <link>http://example.org/linux-df/</link>
     <pubDate>Mon, 09 Mar 2020 15:57:44 &#43;0800</pubDate>

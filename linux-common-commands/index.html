@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【Linux】常见命令 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【Linux】常见命令" />
+<meta property="og:description" content="常见快捷键 Linux中有如下常见快捷键：
+  ^c：终止前台运行的程序
+  ^z：将前台运行的程序挂起到后台
+  ^d：退出 等价于exit
+  ^l：清屏
+  ^a | ^home：光标移到命令行的最前端
+  ^e | ^end：光标移到命令行的后端
+  ^u：删除光标前的所有字符
+  ^k：删除光标后的所有字符
+  ^r：搜索历史命令
+  grep 语法 1  grep 选项 &#39;关键字&#39; 文件名   常见选项   -i: 不区分大小写
+  -v: 查找不包含指定内容的行
+  -w: 按单词搜索
+  -o: 打印匹配关键字
+  -c: 统计匹配到的次数
+  -n: 显示行号" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/linux-common-commands/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-04-30T21:59:08&#43;08:00" />
+<meta property="article:modified_time" content="2020-04-30T21:59:08&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【Linux】常见命令"/>
+<meta name="twitter:description" content="常见快捷键 Linux中有如下常见快捷键：
+  ^c：终止前台运行的程序
+  ^z：将前台运行的程序挂起到后台
+  ^d：退出 等价于exit
+  ^l：清屏
+  ^a | ^home：光标移到命令行的最前端
+  ^e | ^end：光标移到命令行的后端
+  ^u：删除光标前的所有字符
+  ^k：删除光标后的所有字符
+  ^r：搜索历史命令
+  grep 语法 1  grep 选项 &#39;关键字&#39; 文件名   常见选项   -i: 不区分大小写
+  -v: 查找不包含指定内容的行
+  -w: 按单词搜索
+  -o: 打印匹配关键字
+  -c: 统计匹配到的次数
+  -n: 显示行号"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux-common-commands/" /><link rel="prev" href="http://example.org/linux-df/" /><link rel="next" href="http://example.org/mysql_grammer/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【Linux】常见命令",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/linux-common-commands\/"
+        },"genre": "posts","keywords": "Linux","wordcount":  516 ,
+        "url": "http:\/\/example.org\/linux-common-commands\/","datePublished": "2020-04-30T21:59:08+08:00","dateModified": "2020-04-30T21:59:08+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【Linux】常见命令</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>Linux</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2020-04-30">2020-04-30</time>&nbsp;
+                </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#常见快捷键">常见快捷键</a></li>
+    <li><a href="#grep"><code>grep</code></a>
+      <ul>
+        <li><a href="#语法">语法</a></li>
+        <li><a href="#常见选项">常见选项</a></li>
+        <li><a href="#举例">举例</a></li>
+      </ul>
+    </li>
+    <li><a href="#wc"><code>wc</code></a>
+      <ul>
+        <li><a href="#语法-1">语法</a></li>
+        <li><a href="#常用选项">常用选项</a></li>
+        <li><a href="#输出结果">输出结果</a></li>
+        <li><a href="#示例">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#cut"><code>cut</code></a>
+      <ul>
+        <li><a href="#语法-2">语法</a></li>
+        <li><a href="#常用选项-1">常用选项</a></li>
+        <li><a href="#示例-1">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#sort"><code>sort</code></a>
+      <ul>
+        <li><a href="#语法-3">语法</a></li>
+        <li><a href="#选项">选项</a></li>
+        <li><a href="#示例-2">示例：</a></li>
+      </ul>
+    </li>
+    <li><a href="#uniq"><code>uniq</code></a>
+      <ul>
+        <li><a href="#选项-1">选项</a></li>
+        <li><a href="#示例-3">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#tee"><code>tee</code></a>
+      <ul>
+        <li><a href="#选项-2">选项</a></li>
+        <li><a href="#示例-4">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#diff"><code>diff</code></a>
+      <ul>
+        <li><a href="#语法-4">语法</a></li>
+        <li><a href="#选项-3">选项</a></li>
+        <li><a href="#显示格式">显示格式</a></li>
+      </ul>
+    </li>
+    <li><a href="#sshpass"><code>sshpass</code></a>
+      <ul>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#常用参数">常用参数</a></li>
+        <li><a href="#示例-5">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#paste"><code>paste</code></a>
+      <ul>
+        <li><a href="#选项-4">选项</a></li>
+      </ul>
+    </li>
+    <li><a href="#tr"><code>tr</code></a>
+      <ul>
+        <li><a href="#用法">用法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="常见快捷键">常见快捷键</h2>
+<p><code>Linux</code>中有如下常见快捷键：</p>
+<ul>
+<li>
+<p><code>^c</code>：终止前台运行的程序</p>
+</li>
+<li>
+<p><code>^z</code>：将前台运行的程序挂起到后台</p>
+</li>
+<li>
+<p><code>^d</code>：退出 等价于<code>exit</code></p>
+</li>
+<li>
+<p><code>^l</code>：清屏</p>
+</li>
+<li>
+<p><code>^a | ^home</code>：光标移到命令行的最前端</p>
+</li>
+<li>
+<p><code>^e | ^end</code>：光标移到命令行的后端</p>
+</li>
+<li>
+<p><code>^u</code>：删除光标前的所有字符</p>
+</li>
+<li>
+<p><code>^k</code>：删除光标后的所有字符</p>
+</li>
+<li>
+<p><code>^r</code>：搜索历史命令</p>
+</li>
+</ul>
+<h2 id="grep"><code>grep</code></h2>
+<h3 id="语法">语法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">grep 选项 <span class="s1">&#39;关键字&#39;</span> 文件名
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="常见选项">常见选项</h3>
+<ul>
+<li>
+<p><code>-i</code>: 不区分大小写</p>
+</li>
+<li>
+<p><code>-v</code>: 查找不包含指定内容的行</p>
+</li>
+<li>
+<p><code>-w</code>: 按单词搜索</p>
+</li>
+<li>
+<p><code>-o</code>: 打印匹配关键字</p>
+</li>
+<li>
+<p><code>-c</code>: 统计匹配到的次数</p>
+</li>
+<li>
+<p><code>-n</code>: 显示行号</p>
+</li>
+<li>
+<p><code>-r</code>: 逐层遍历目录查找</p>
+</li>
+<li>
+<p><code>-A</code>: 显示匹配行及后面多少行</p>
+</li>
+<li>
+<p><code>-B</code>: 显示匹配行及前方多少行</p>
+</li>
+<li>
+<p><code>-C</code>: 显示匹配行及前后多少行</p>
+</li>
+<li>
+<p><code>-l</code>: 只列出匹配的文件名</p>
+</li>
+<li>
+<p><code>-L</code>: 列出不匹配的文件名</p>
+</li>
+<li>
+<p><code>-e</code>: 使用正则表达式</p>
+</li>
+<li>
+<p><code>-E</code>: 使用扩展正则表达式</p>
+</li>
+<li>
+<p><code>^key</code>: 以关键字开头</p>
+</li>
+<li>
+<p><code>key$</code>: 以关键字结尾</p>
+</li>
+<li>
+<p><code>^$</code>: 匹配空行</p>
+</li>
+<li>
+<p><code>--color=auto</code>: 将找到的内容，加上颜色显示</p>
+</li>
+</ul>
+<h3 id="举例">举例</h3>
+<ol>
+<li>去除空行:</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">grep -v <span class="s1">&#39;^$&#39;</span> <span class="o">[</span>files...<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="wc"><code>wc</code></h2>
+<p>统计文本的行数、单词数、字符数、字节数。</p>
+<h3 id="语法-1">语法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">wc 选项 文件
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="常用选项">常用选项</h3>
+<ul>
+<li>
+<p><code>-c</code>：统计字节数</p>
+</li>
+<li>
+<p><code>-w</code>：统计单词数</p>
+</li>
+<li>
+<p><code>-l</code>：统计行数</p>
+</li>
+<li>
+<p><code>-m</code>：统计字符数</p>
+</li>
+</ul>
+<h3 id="输出结果">输出结果</h3>
+<p>输出结果不受选项顺序的影响。</p>
+<p>如果选项全选，输出顺序为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">行数 单词数 字符数 字节数 文件名
+</code></pre></td></tr></table>
+</div>
+</div><p>如果选项缺省，输出顺序为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">行数 单词数 字节数 文件名
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="示例">示例</h3>
+<ol>
+<li>统计文件内容行数：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">wc -l filename
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="cut"><code>cut</code></h2>
+<p>列截取工具，用于文本列的截取。</p>
+<h3 id="语法-2">语法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cut 选项 文件名
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="常用选项-1">常用选项</h3>
+<ul>
+<li>
+<p><code>-b</code>：以字节为单位，进行分割，然后输出指定范围的内容</p>
+</li>
+<li>
+<p><code>-c</code>：以字符为单位，进行分割、然后输出指定范围的内容</p>
+</li>
+<li>
+<p><code>-d</code>：自定义分割符，默认为制表符<code>\t</code>，需要和<code>-f</code>同时使用</p>
+</li>
+<li>
+<p><code>-f</code>：可与<code>-d</code>同时使用，指定截取的区域(列)</p>
+</li>
+<li>
+<p>指定范围：</p>
+<ul>
+<li>
+<p><code>N</code>：指定第<code>N</code>个字节、字符或者字段</p>
+</li>
+<li>
+<p><code>N-</code>：从<code>N</code>开始到结束</p>
+</li>
+<li>
+<p><code>N-M</code>：从<code>N</code>到<code>M</code>，包含<code>M</code></p>
+</li>
+<li>
+<p><code>-M</code>：从开始到<code>M</code>，包含<code>M</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="示例-1">示例</h3>
+<ol>
+<li>以空格为分隔符，获取第2，第3，第4和第6个字段</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cut -d <span class="s2">&#34; &#34;</span> -f 2-4,6 filename
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>以字节为分割单位，获取第2，第3，第4和第6个字段</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cut -b 2-4,6 filename
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>以字符为分割单位，获取第2，第3，第4和第6个字段</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">cut -c 2-4,6 filename
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="sort"><code>sort</code></h2>
+<p>将文件的每一行作为一个单位，从首字符向后，依次按照unicode码值进行比较，最后将结果升序输出。</p>
+<h3 id="语法-3">语法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sort 选项 源文件 <span class="o">[</span>-o 输出文件<span class="o">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="选项">选项</h3>
+<ul>
+<li>
+<p><code>-u</code>：去除重复行</p>
+</li>
+<li>
+<p><code>-r</code>：降序排列，默认升序</p>
+</li>
+<li>
+<p><code>-o</code>：将排序结果输出到文件中，类似于重定向符号<code>&gt;</code></p>
+</li>
+<li>
+<p><code>-n</code>：以数字排序，默认是按字符排序</p>
+</li>
+<li>
+<p><code>-t</code>：分隔符</p>
+</li>
+<li>
+<p><code>-k</code>：第n列</p>
+</li>
+<li>
+<p><code>-b</code>：忽略前导空格</p>
+</li>
+<li>
+<p><code>-R</code>：随机排序，每次运行结果均不同</p>
+</li>
+</ul>
+<h3 id="示例-2">示例：</h3>
+<ol>
+<li>去除排序结果的重复行：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># apple   =&gt;  apple</span>
+<span class="c1"># orange  =&gt;  banana</span>
+<span class="c1"># apple   =&gt;  orange</span>
+<span class="c1"># banana  =&gt;</span>
+sort -u filename
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>根据第2列的数值，进行排序</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># apple:12   =&gt;  orange:2</span>
+<span class="c1"># orange:2   =&gt;  apple:12</span>
+<span class="c1"># apple:12   =&gt;  apple:12</span>
+<span class="c1"># banana:23  =&gt;  banana:23</span>
+sort -t <span class="s2">&#34;:&#34;</span> -k <span class="m">2</span> -n filename
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="uniq"><code>uniq</code></h2>
+<p>去除并删除文中出现的连续行，一般与<code>sort</code>命令结合使用。即为了使<code>uniq</code>起作用，所有的重复行必须是相邻的。</p>
+<h3 id="选项-1">选项</h3>
+<ul>
+<li>
+<p><code>-u</code>：<code>--unique</code>仅显示出现一次的行。</p>
+</li>
+<li>
+<p><code>-i</code>：忽略大小写。</p>
+</li>
+<li>
+<p><code>-c</code>：统计重复行次数</p>
+</li>
+<li>
+<p><code>-d</code>：只显示重复行</p>
+</li>
+</ul>
+<h3 id="示例-3">示例</h3>
+<ul>
+<li>
+<p>统计各行出现的次数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sort filename <span class="p">|</span> uniq -c
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>在文中找出重复行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sort filename <span class="p">|</span> uniq -d
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="tee"><code>tee</code></h2>
+<p>从标准输入读取，并且写入到标准输出和文件。</p>
+<h3 id="选项-2">选项</h3>
+<ul>
+<li>
+<p><code>-a</code>：追加重定向，默认是覆盖。</p>
+</li>
+<li>
+<p><code>-i</code>：忽略中断信号。</p>
+</li>
+</ul>
+<h3 id="示例-4">示例</h3>
+<ul>
+<li>
+<p>将输入同时保存到<code>file1</code>和<code>file2</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tee file1 file2
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="diff"><code>diff</code></h2>
+<p>用于逐行比较文件的不同。</p>
+<p><code>diff</code>描述两个文件不同的方式，是告诉我们怎么改变第一个文件之后，与第二个文件匹配。</p>
+<h3 id="语法-4">语法</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">diff <span class="o">[</span>选项<span class="o">]</span> 文件1 文件2
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="选项-3">选项</h3>
+<ul>
+<li>
+<p><code>-b</code>：不检查空格</p>
+</li>
+<li>
+<p><code>-B</code>：不检查空白行</p>
+</li>
+<li>
+<p><code>-i</code>：不检查大小写</p>
+</li>
+<li>
+<p><code>-w</code>：忽略所有的空格</p>
+</li>
+<li>
+<p><code>--normal</code>：正常格式显示（默认）</p>
+</li>
+<li>
+<p><code>-c</code>：上下文格式显示</p>
+</li>
+<li>
+<p><code>-u</code>：合并格式显示</p>
+</li>
+<li>
+<p><code>-N</code>：将不存在的文件当作空文件</p>
+</li>
+<li>
+<p><code>-q</code>：比较两个目录不同时，默认情况下，会显示同名文件具体的差异内容。如果使用了<code>-q</code>参数，则只会显示文件的差异。</p>
+</li>
+</ul>
+<h3 id="显示格式">显示格式</h3>
+<ol>
+<li>正常模式显示</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">diff f1.txt f2.txt
+
+5c5	<span class="c1"># 第一个文件的第5行需要改变(c=change)才能和第二个文件的第5行匹配(a, addition; d, deletion)</span>
+...
+
+3d3	<span class="c1"># 第一个文件的第3行删除(d=delete)后才能和第二个文件的第3行匹配</span>
+...
+
+6a6,7	<span class="c1"># 第一个文件的第6行增加(a=add)内容后，才能和第二个文件的第6到7行匹配</span>
+...
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>上下文模式显示</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">diff -c f1.txt f2.txt
+
+*** f1.txt      2020-09-15 11:17:10.636634400 +0800 <span class="c1"># 第一个文件信息</span>
+--- f2.txt      2020-09-15 11:20:17.862629200 +0800 <span class="c1"># 第二个文件信息</span>
+*************** <span class="c1"># 分隔符</span>
+*** 1,6 ***     <span class="c1"># 以***开头表示file1文件，1，6表示1到6行</span>
+! aaa           <span class="c1"># !表示改行需要修改才与第二个文件匹配</span>
+- hello world   <span class="c1"># -表示需要删除改行才与第二个文件匹配</span>
+...
+
+--- 1,7 ---     <span class="c1"># 以---开头表示file2文件，1，7表示1到7行</span>
+! aaa           <span class="c1"># 表示第一个文件需要修改才能与第二个文件匹配 </span>
+! hello         <span class="c1"># 表示第一个文件需要修改才能与第二个文件匹配</span>
+...
+
++ <span class="m">333</span>           <span class="c1"># 表示第一个文件需要加上该行才能与第二个文件匹配</span>
++ world         <span class="c1"># 表示第一个文件需要加上该行才能与第二个文件匹配</span>
+...
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>合并格式显示</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">diff -u f1.txt f2.txt
+
+--- f1.txt      2020-09-15 11:17:10.636634400 +0800 <span class="c1"># 变动前文件</span>
++++ f2.txt      2020-09-15 11:20:17.862629200 +0800 <span class="c1"># 变动后文件</span>
+@@ -2,9 +2,9 @@  <span class="c1"># 第一个文件的2到9行 第二个文件的2到9行</span>
+ two
+ three
+ four
+-five            <span class="c1"># 删除第一个文件的行</span>
++fifteen         <span class="c1"># 第二个文件新增的行</span>
+ six
+ seven
+ eight
+ nine
+-ten
++TEN
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="sshpass"><code>sshpass</code></h2>
+<p>非交互式密码验证工具。</p>
+<h3 id="安装">安装</h3>
+<ul>
+<li>
+<p><code>RedHat/Centos</code>安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">yum install sshpass
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>Debian/Ubuntu</code>安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt-get install sshpass
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>源码安装：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">-&gt; wget http://sourceforge.net/projects/sshpass/files/latest/download -O sshpass.tar.gz
+-&gt; tar -xvf sshpass.tar.gz
+-&gt; <span class="nb">cd</span> sshpass-1.06
+-&gt; ./configure
+-&gt; sudo make install
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="常用参数">常用参数</h3>
+<ul>
+<li>
+<p><code>-f</code>：使用文件内容作为密码</p>
+</li>
+<li>
+<p><code>-p</code>：通过参数提供密码</p>
+</li>
+<li>
+<p><code>-e</code>：通过环境变量<code>SSHPASS</code>提供密码</p>
+</li>
+</ul>
+<h3 id="示例-5">示例</h3>
+<ul>
+<li>
+<p>登录服务器，并且查看文件系统磁盘使用情况：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">sshpass -p <span class="s1">&#39;my_pass_here&#39;</span> ssh username@host <span class="s1">&#39;df -h&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="paste"><code>paste</code></h2>
+<p>用于合并文件行。</p>
+<h3 id="选项-4">选项</h3>
+<ul>
+<li>
+<p><code>-d</code>：自定义分隔符，默认是tab。</p>
+</li>
+<li>
+<p><code>-s</code>：文件内容按行排布，默认按列排布。</p>
+</li>
+</ul>
+<h2 id="tr"><code>tr</code></h2>
+<p>用于字符替换和删除。</p>
+<h3 id="用法">用法</h3>
+<ul>
+<li>
+<p>用法一：命令的执行结果交给<code>tr</code>处理。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">commands <span class="p">|</span> tr <span class="s2">&#34;string1&#34;</span> <span class="s2">&#34;string2&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>string1</code>和<code>string2</code>的字符一一对应替换。</p>
+<p>如果<code>string1</code>比<code>string2</code>长，则<code>string2</code>的最后一个字符会对应多个<code>string1</code>中的字符。</p>
+<p>如果<code>string1</code>比<code>string2</code>短，则<code>string2</code>多余部分被丢弃。</p>
+</li>
+<li>
+<p>用法二：<code>tr</code>处理的内容来自文件，需要使用标准输入符号</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tr <span class="s2">&#34;string1&#34;</span> <span class="s2">&#34;string2&#34;</span> &lt; filename
+</code></pre></td></tr></table>
+</div>
+</div><p><code>string1</code>和<code>string2</code>的具体用法同上。</p>
+</li>
+<li>
+<p>用法三：匹配<code>string</code>进行相应操作，如删除操作</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tr options <span class="s2">&#34;string&#34;</span> &lt; filename
+</code></pre></td></tr></table>
+</div>
+</div><p>常用选项：</p>
+<ul>
+<li>
+<p><code>-d</code>：删除字符串中所有输入的字符。</p>
+</li>
+<li>
+<p><code>-s</code>：删除所有重复出现的字符，只保留第一个，即将重复出现的字符压缩为一个字符。</p>
+</li>
+</ul>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-04-30</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/linux/">Linux</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux-df/" class="prev" rel="prev" title="【Linux】df命令详解"><i class="fas fa-angle-left fa-fw"></i>【Linux】df命令详解</a>
+            <a href="/mysql_grammer/" class="next" rel="next" title="【MySQL】基本语法">【MySQL】基本语法<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
