@@ -3,14 +3,7 @@
         <title>Linux - 分类 - Damion&#39;s Blog</title>
         <link>http://example.org/categories/linux/</link>
         <description>Linux - 分类 - Damion&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 05 Jun 2021 17:52:47 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/linux/" rel="self" type="application/rss+xml" /><item>
-    <title>【Linux】sed命令详解</title>
-    <link>http://example.org/linux_sed/</link>
-    <pubDate>Sat, 05 Jun 2021 17:52:47 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/linux_sed/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 10 Mar 2021 13:19:44 &#43;0800</lastBuildDate><atom:link href="http://example.org/categories/linux/" rel="self" type="application/rss+xml" /><item>
     <title>【Linux】文件搜索</title>
     <link>http://example.org/linux-find-files/</link>
     <pubDate>Wed, 10 Mar 2021 13:19:44 &#43;0800</pubDate>
@@ -56,6 +49,13 @@ gzip和bzip2的使用 已经被压缩过的文件，不应该再次被压缩，�
 因为被压缩文件已经不存在冗余信息，如果进行多次压缩，反而会消耗多余的空间来保存压缩信息。
 zip zip即可以进行压缩，又可以进行归档。
 命令格式 zip的命令格式为：]]></description>
+</item><item>
+    <title>【Linux】sed命令详解</title>
+    <link>http://example.org/linux_sed/</link>
+    <pubDate>Mon, 05 Oct 2020 17:52:47 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux_sed/</guid>
+    <description><![CDATA[]]></description>
 </item><item>
     <title>【Linux】du命令详解</title>
     <link>http://example.org/linux-du/</link>

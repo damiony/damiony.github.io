@@ -13,12 +13,10 @@
             <loc>http://example.org/categories/mysql/</loc><lastmod>2021-06-13T17:42:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
             <loc>http://example.org/mysql_innodb_read_ahead/</loc><lastmod>2021-06-13T17:42:22&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.6</priority></url><url>
             <loc>http://example.org/ci-pan/</loc><lastmod>2021-06-06T01:13:21&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://example.org/tags/linux/</loc><lastmod>2021-06-05T17:52:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://example.org/categories/linux/</loc><lastmod>2021-06-05T17:52:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://example.org/tags/sed/</loc><lastmod>2021-06-05T17:52:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
-            <loc>http://example.org/linux_sed/</loc><lastmod>2021-06-05T17:52:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/portfolio/</loc><lastmod>2021-06-02T14:40:05&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/yong-hu-tai-he-nei-he-tai/</loc><lastmod>2021-05-06T16:01:00&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/tags/linux/</loc><lastmod>2021-03-10T13:19:44&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/categories/linux/</loc><lastmod>2021-03-10T13:19:44&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/linux-find-files/</loc><lastmod>2021-03-10T13:19:44&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/tags/awk/</loc><lastmod>2021-02-10T11:28:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/tags/gawk/</loc><lastmod>2021-02-10T11:28:36&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
@@ -27,6 +25,8 @@
             <loc>http://example.org/jin-cheng-he-xian-cheng/</loc><lastmod>2020-12-04T00:32:26&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/cao-zuo-xi-tong-ji-ben-gai-nian/</loc><lastmod>2020-11-16T19:37:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/linux-ya-suo-he-gui-dang/</loc><lastmod>2020-11-11T18:33:17&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/tags/sed/</loc><lastmod>2020-10-05T17:52:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>http://example.org/linux_sed/</loc><lastmod>2020-10-05T17:52:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/linux-du/</loc><lastmod>2020-07-09T19:34:46&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/mysql_grammer/</loc><lastmod>2020-06-17T14:21:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>http://example.org/linux-common-commands/</loc><lastmod>2020-04-30T21:59:08&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

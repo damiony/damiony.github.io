@@ -20,15 +20,15 @@ sed [options] script file
 
 options可以是：
 
-- -e script: 将script中的命令，添加到已有的命令列表。
-- -f file: 将file中指定的命令，添加到已有的命令列表。
-- -n：不输出每一行的处理结果。
+- `-e script`: 将script中的命令，添加到已有的命令列表。
+- `-f file`: 将file中指定的命令，添加到已有的命令列表。
+- `-n`：不输出每一行的处理结果。
 
 **注意：**
 
-linux和mac中的sed，语法存在一定差异，本文的测试环境为linux下的bash4.2。
+`linux`的sed和`mac`的sed，在语法上存在一定差异，本文的测试环境为`linux bash4.2`。
 
-## sed options的基本使用
+## options的使用示例
 
 假设有一个`data.txt`文件：
 
@@ -61,12 +61,19 @@ This is number 2.
 $ cat script.sed
 s/line/number/
 s/this/This/
-$ ed -f script.sed data.txt
+
+$ sed -f script.sed data.txt
 This is number 1.
 This is number 2.
 ```
 
-## sed script的基本语法
+### 4. 使用`-n`
+
+```shell
+$ sed -n 's/This/That/' data.txt # 不会有任何输出 
+```
+
+## script的基本语法
 
 ### 1. 替换`s`
 
@@ -78,7 +85,7 @@ s/pattern/replacement/[flags]
 
 替换标记是可选的，具体有以下几种：
 
-- 数字：表明替换第几处匹配的地方。
+- 数字：表明替换第几处匹配的地方，从1开始。
 
   ```shell
   $ cat data.txt
@@ -100,16 +107,18 @@ s/pattern/replacement/[flags]
   th* * line 2.
   ```
 
-- p：输出被修改过的行。
+- p：输出被修改后的行，本质上是输出模式空间的内容。
 
   ```shell
   $ cat data.txt
   this is line 1.
   this is line 2.
+
   $ sed 's/line 1/*/p' data.txt
   this is *.
   this is *.
   this is line 2.
+
   $ sed -n 's/line 1/*/p' data.txt
   this is *.
   ```
@@ -120,9 +129,11 @@ s/pattern/replacement/[flags]
   $ cat data.txt
   this is line 1.
   this is line 2.
+
   $ sed 's/line 1/*/w result.txt' data.txt
   this is *.
   this is line 2.
+
   $ cat result.txt
   this is *.
   ```
@@ -133,6 +144,7 @@ s/pattern/replacement/[flags]
 $ cat data.txt
 this is line 1.
 this is line 2.
+
 $ sed 's,line,number,' data.txt
 this is number 1.
 this is number 2.
@@ -146,7 +158,7 @@ sed默认作用于所有行，如果想指定行号，命令格式为：
 [address]command
 ```
 
-寻址方式有两种：
+寻址方式有两种。
 
 - 数字方式。
 
@@ -182,7 +194,9 @@ sed默认作用于所有行，如果想指定行号，命令格式为：
   this is * 2.
   ```
 
-  文本模式可以使用正则表达式，具体正则表达式的用法不做说明。
+  文本模式是对模式空间内的文本进行匹配。
+  
+  并且，文本模式可以使用正则表达式，正则表达式的具体语法此处不做说明。
 
 ### 3. 命令组合
 
@@ -222,7 +236,7 @@ $ sed '1d' data.txt
 this is line 2.
 ```
 
-使用区间寻址时，第一个匹配模式是打开删除功能，第二个模式是关闭删除功能。
+使用区间寻址时，第一个匹配处打开删除功能，第二个匹配处关闭删除功能。
 
 ### 5. 插入`i`
 
@@ -269,7 +283,7 @@ this is new line 2
 [address]y/chars1/chars2/
 ```
 
-chars1和chars2的长度必须一致，chars1中的字符，会被转换为char2中的字符。
+`chars1`和`chars2`的长度必须一致，`chars1`中的字符，会被转换为`char2`中对应的字符。
 
 ```shell
 $ sed 'y/hijk/HIJK/' data.txt
@@ -277,7 +291,7 @@ tHIs Is lIne 1.
 tHIs Is lIne 2.
 ```
 
-`y`是一个全局命令。
+`y`是一个全局命令，即替换所有匹配结果。
 
 ### 9. 打印命令p
 
@@ -303,6 +317,11 @@ this is line 2.
 
 列出命令`l`可以打印匹配数据，包括文本字符和不可打印的转义字符。
 
+```shell
+$ sed -n '1l' data.txt
+this is line 1.$ # $是被打印的换行符
+```
+
 ### 12. 写入命令
 
 `w`命令可以将匹配数据写入文件。
@@ -313,7 +332,7 @@ this is line 2.
 
 ### 13. 读取数据
 
-读取命令`r`从文件中读取数据，并插入到匹配行后面。
+读取命令`r`从文件中读取数据，并将文件的所有数据插入到匹配行后面。
 
 ```shell
 [address]r filename
@@ -333,21 +352,23 @@ this is line 5.
 
 ### 1. 模式空间和保持空间
 
- sed在执行命令时，会保存待检查的文本。保存文本，需要用到两个缓冲区，模式空间和保持空间。
-
-执行命令时，读到的数据会保存在模式空间，保持空间主要是起辅助作用。
+sed在执行命令时，会保存待检查的文本。
+ 
+保存文本时，需要用到两个缓冲区，模式空间和保持空间。读到的数据保存在模式空间，而保持空间主要起辅助作用。
 
 与缓冲区有关的命令：
 
-- h: 将模式空间复制到保持空间
-- H: 将模式空间附加到保持空间
-- g: 将保持空间复制到模式空间
-- G: 将保持空间附加到模式空间
-- x: 交换模式空间和保持空间的内容
+- h: 将模式空间复制到保持空间。
+- H: 将模式空间追加到保持空间。
+- g: 将保持空间复制到模式空间。
+- G: 将保持空间追加到模式空间。
+- x: 交换模式空间和保持空间的内容。
 
 ### 2. 单行数据的next命令
 
-单行next命令会将匹配数据的下一行，移到sed的模式空间，移动前会清空模式空间。
+单行`next`命令会将匹配数据的下一行，移到sed的模式空间，移动前会清空模式空间。
+
+单行命令是`n`。
 
 ```shell
 $ sed -n '/line 4/{n; p}' data.txt
@@ -356,7 +377,9 @@ this is line 5.
 
 ### 3. 多行数据的next命令
 
-多行next命令，会以追加的方式，将匹配行的下一行添加到模式空间。并且，sed会将模式空间中的数据当成一行处理。
+多行`next`命令，会以追加的方式，将匹配行的下一行添加到模式空间。并且，sed会将模式空间中的数据当成一行处理。
+
+多行命令是`N`。
 
 ```shell
 $ sed -n '/line 3/{N; p}' data.txt
@@ -368,15 +391,15 @@ this is line 4.
 
 ### 4. 多行删除命令D
 
-多行删除命令D，会删除模式空间中的第一行。
+多行删除命令`D`，会删除模式空间中的第一行。
 
-注意，d会删除模式空间中的所有数据。
+注意，`d`会删除模式空间中的所有数据。
 
 ### 5. 多行打印命令P
 
-多行打印命令P，会打印模式空间中的第一行。
+多行打印命令`P`，会打印模式空间中的第一行。
 
-注意，p会打印模式空间中的所有数据。
+注意，`p`会打印模式空间中的所有数据。
 
 ### 6. 排除命令
 
@@ -424,7 +447,7 @@ jump 3.
 
 ### 8. 测试命令
 
-测试命令t会根据替换命令的结果，来决定是否跳转到某个标签。
+测试命令`t`会根据替换命令的结果，来决定是否跳转到某个标签。
 
 如果没有指定标签，则跳转到命令结尾。
 
@@ -450,7 +473,7 @@ $ echo "The cat sleeps in his hat." | sed 's/.at/"&"/g'
 The "cat" sleeps in his "hat".
 ```
 
-也可以提取替换模式的字模式。
+也可以提取某个被匹配项。
 
 ```shell
 $ echo "That furry cat is pretty" | sed 's/furry \(.at\)/\1/'
@@ -468,6 +491,7 @@ this is line 2.
 this is line 3.
 this is line 4.
 this is line 5.
+
 # tac命令可以反序输出
 $ tac data.txt
 this is line 5.
@@ -475,6 +499,7 @@ this is line 4.
 this is line 3.
 this is line 2.
 this is line 1.
+
 # sed也可以反序输出
 $ sed -n '1!G; h; $p' data.txt
 this is line 5.
@@ -516,6 +541,7 @@ $ nl data.txt
 
      4	this is line 4.
      5	this is line 5.
+
 $ cat -n data.txt
      1	this is line 1.
      2	this is line 2.
@@ -523,6 +549,7 @@ $ cat -n data.txt
      4
      5	this is line 4.
      6	this is line 5.
+
 $ sed '=' data.txt | sed 'N; s/\n/ /'
 1 this is line 1.
 2 this is line 2.
@@ -591,8 +618,6 @@ this is line 3.
 this is line 4.
 this is line 5.
 ```
-
-
 
 ### 7. 删除结尾空白行
 

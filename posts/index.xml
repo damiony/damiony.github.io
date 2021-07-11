@@ -25,13 +25,6 @@
     <guid>http://example.org/ci-pan/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>【Linux】sed命令详解</title>
-    <link>http://example.org/linux_sed/</link>
-    <pubDate>Sat, 05 Jun 2021 17:52:47 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/linux_sed/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
     <title>【操作系统】用户态和内核态</title>
     <link>http://example.org/yong-hu-tai-he-nei-he-tai/</link>
     <pubDate>Thu, 06 May 2021 16:01:00 &#43;0800</pubDate>
@@ -105,6 +98,13 @@ gzip和bzip2的使用 已经被压缩过的文件，不应该再次被压缩，�
 因为被压缩文件已经不存在冗余信息，如果进行多次压缩，反而会消耗多余的空间来保存压缩信息。
 zip zip即可以进行压缩，又可以进行归档。
 命令格式 zip的命令格式为：]]></description>
+</item><item>
+    <title>【Linux】sed命令详解</title>
+    <link>http://example.org/linux_sed/</link>
+    <pubDate>Mon, 05 Oct 2020 17:52:47 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux_sed/</guid>
+    <description><![CDATA[]]></description>
 </item><item>
     <title>【Linux】du命令详解</title>
     <link>http://example.org/linux-du/</link>
