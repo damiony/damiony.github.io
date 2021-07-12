@@ -26,7 +26,7 @@ options可以是：
 
 **注意：**
 
-`linux`的sed和`mac`的sed，在语法上存在一定差异，本文的测试环境为`linux bash4.2`。
+`linux`中的sed和`mac`中的sed，在语法上存在一定差异，本文的测试环境为`linux bash4.2`。
 
 ## options的使用示例
 
@@ -69,6 +69,8 @@ This is number 2.
 
 ### 4. 使用`-n`
 
+默认情况下，不论数据行是否满足匹配要求，都会将结果输出。
+
 ```shell
 $ sed -n 's/This/That/' data.txt # 不会有任何输出 
 ```
@@ -91,6 +93,7 @@ s/pattern/replacement/[flags]
   $ cat data.txt
   this is line 1.
   this is line 2.
+
   $ sed 's/is/was/2' data.txt
   this was line 1.
   this was line 2.
@@ -102,6 +105,7 @@ s/pattern/replacement/[flags]
   $ cat data.txt
   this is line 1.
   this is line 2.
+
   $ sed 's/is/*/g' data.txt
   th* * line 1.
   th* * line 2.
@@ -243,9 +247,11 @@ this is line 2.
 插入命令`i`会在指定行前增加一个新行。
 
 ```shell
-sed '[address]i\
-new line'
+$ sed '[address]i\
+new line' data.txt
 ```
+
+使用插入命令`i`时，需要保证新行文本和`i`位于同一行。如果想分成多行书写，需要使用`\`作为结尾。
 
 如果省略`address`，则是在每行前增加新行。
 
@@ -254,9 +260,11 @@ new line'
 追加命令`a`会在指定行后增加一个新行。
 
 ```shell
-sed '[address]a\
+$ sed '[address]a\
 new line'
 ```
+
+新行文本的书写规则，同`i`。
 
 如果省略address，则是在每行后增加新行。
 
@@ -291,18 +299,20 @@ tHIs Is lIne 1.
 tHIs Is lIne 2.
 ```
 
-`y`是一个全局命令，即替换所有匹配结果。
+`y`是一个全局命令，即替换所有匹配的字符结果。
 
-### 9. 打印命令p
+### 9. 打印命令`p`
 
-打印命令p和替换标记p类似，可以打印匹配到的数据行。
+这是小写`p`。
+
+打印命令p和替换标记p类似，可以打印匹配到的数据行，即打印当前模式空间的所有数据。
 
 ```shell
 $ sed -n '1p' data.txt
 this is line 1.
 ```
 
-### 10. 打印行号
+### 10. 打印行号`=`
 
 命令`=`可以打印被匹配数据在文本中的行号。
 
@@ -322,7 +332,7 @@ $ sed -n '1l' data.txt
 this is line 1.$ # $是被打印的换行符
 ```
 
-### 12. 写入命令
+### 12. 写入命令`w`
 
 `w`命令可以将匹配数据写入文件。
 
@@ -330,7 +340,7 @@ this is line 1.$ # $是被打印的换行符
 [address]w filename
 ```
 
-### 13. 读取数据
+### 13. 读取数据`r`
 
 读取命令`r`从文件中读取数据，并将文件的所有数据插入到匹配行后面。
 
@@ -354,9 +364,11 @@ this is line 5.
 
 sed在执行命令时，会保存待检查的文本。
  
-保存文本时，需要用到两个缓冲区，模式空间和保持空间。读到的数据保存在模式空间，而保持空间主要起辅助作用。
+保存文本时，需要用到两个缓冲区：模式空间和保持空间。
 
-与缓冲区有关的命令：
+读到的数据保存在模式空间，而保持空间主要起辅助作用。
+
+与缓冲区有关的命令如下：
 
 - h: 将模式空间复制到保持空间。
 - H: 将模式空间追加到保持空间。
@@ -370,6 +382,8 @@ sed在执行命令时，会保存待检查的文本。
 
 单行命令是`n`。
 
+注意，如果不存在下一行数据，则模式空间会为空。
+
 ```shell
 $ sed -n '/line 4/{n; p}' data.txt
 this is line 5.
@@ -380,6 +394,8 @@ this is line 5.
 多行`next`命令，会以追加的方式，将匹配行的下一行添加到模式空间。并且，sed会将模式空间中的数据当成一行处理。
 
 多行命令是`N`。
+
+注意，如果不存在下一行数据，则模式空间会为空。
 
 ```shell
 $ sed -n '/line 3/{N; p}' data.txt
@@ -397,9 +413,9 @@ this is line 4.
 
 ### 5. 多行打印命令P
 
-多行打印命令`P`，会打印模式空间中的第一行。
+多行打印命令（大写`P`）会打印模式空间中的第一行。
 
-注意，`p`会打印模式空间中的所有数据。
+注意，小写的`p`会打印模式空间中的所有数据。
 
 ### 6. 排除命令
 

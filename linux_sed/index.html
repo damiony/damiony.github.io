@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/linux_sed\/"
-        },"genre": "posts","keywords": "Linux, sed","wordcount":  1400 ,
+        },"genre": "posts","keywords": "Linux, sed","wordcount":  1412 ,
         "url": "http:\/\/example.org\/linux_sed\/","datePublished": "2020-10-05T17:52:47+08:00","dateModified": "2020-10-05T17:52:47+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -134,11 +134,11 @@
         <li><a href="#6-追加a">6. 追加<code>a</code></a></li>
         <li><a href="#7-修改c">7. 修改<code>c</code></a></li>
         <li><a href="#8-转换y">8. 转换<code>y</code></a></li>
-        <li><a href="#9-打印命令p">9. 打印命令p</a></li>
-        <li><a href="#10-打印行号">10. 打印行号</a></li>
+        <li><a href="#9-打印命令p">9. 打印命令<code>p</code></a></li>
+        <li><a href="#10-打印行号">10. 打印行号<code>=</code></a></li>
         <li><a href="#11-列出l">11. 列出<code>l</code></a></li>
-        <li><a href="#12-写入命令">12. 写入命令</a></li>
-        <li><a href="#13-读取数据">13. 读取数据</a></li>
+        <li><a href="#12-写入命令w">12. 写入命令<code>w</code></a></li>
+        <li><a href="#13-读取数据r">13. 读取数据<code>r</code></a></li>
       </ul>
     </li>
     <li><a href="#sed-script进阶语法">sed script进阶语法</a>
@@ -193,7 +193,7 @@
 <li><code>-n</code>：不输出每一行的处理结果。</li>
 </ul>
 <p><strong>注意：</strong></p>
-<p><code>linux</code>的sed和<code>mac</code>的sed，在语法上存在一定差异，本文的测试环境为<code>linux bash4.2</code>。</p>
+<p><code>linux</code>中的sed和<code>mac</code>中的sed，在语法上存在一定差异，本文的测试环境为<code>linux bash4.2</code>。</p>
 <h2 id="options的使用示例">options的使用示例</h2>
 <p>假设有一个<code>data.txt</code>文件：</p>
 <div class="highlight"><div class="chroma">
@@ -255,6 +255,7 @@ This is number 2.
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="4-使用-n">4. 使用<code>-n</code></h3>
+<p>默认情况下，不论数据行是否满足匹配要求，都会将结果输出。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -286,11 +287,13 @@ This is number 2.
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
+
 $ sed <span class="s1">&#39;s/is/was/2&#39;</span> data.txt
 this was line 1.
 this was line 2.
@@ -307,11 +310,13 @@ this was line 2.
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
+
 $ sed <span class="s1">&#39;s/is/*/g&#39;</span> data.txt
 th* * line 1.
 th* * line 2.
@@ -539,11 +544,12 @@ this is line 2.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sed <span class="s1">&#39;[address]i\
-</span><span class="s1">new line&#39;</span>
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;[address]i\
+</span><span class="s1">new line&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
-</div><p>如果省略<code>address</code>，则是在每行前增加新行。</p>
+</div><p>使用插入命令<code>i</code>时，需要保证新行文本和<code>i</code>位于同一行。如果想分成多行书写，需要使用<code>\</code>作为结尾。</p>
+<p>如果省略<code>address</code>，则是在每行前增加新行。</p>
 <h3 id="6-追加a">6. 追加<code>a</code></h3>
 <p>追加命令<code>a</code>会在指定行后增加一个新行。</p>
 <div class="highlight"><div class="chroma">
@@ -552,11 +558,12 @@ this is line 2.
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sed <span class="s1">&#39;[address]a\
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;[address]a\
 </span><span class="s1">new line&#39;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>如果省略address，则是在每行后增加新行。</p>
+</div><p>新行文本的书写规则，同<code>i</code>。</p>
+<p>如果省略address，则是在每行后增加新行。</p>
 <h3 id="7-修改c">7. 修改<code>c</code></h3>
 <p>修改命令<code>c</code>可以修改整行的数据内容。</p>
 <div class="highlight"><div class="chroma">
@@ -598,9 +605,10 @@ tHIs Is lIne 1.
 tHIs Is lIne 2.
 </code></pre></td></tr></table>
 </div>
-</div><p><code>y</code>是一个全局命令，即替换所有匹配结果。</p>
-<h3 id="9-打印命令p">9. 打印命令p</h3>
-<p>打印命令p和替换标记p类似，可以打印匹配到的数据行。</p>
+</div><p><code>y</code>是一个全局命令，即替换所有匹配的字符结果。</p>
+<h3 id="9-打印命令p">9. 打印命令<code>p</code></h3>
+<p>这是小写<code>p</code>。</p>
+<p>打印命令p和替换标记p类似，可以打印匹配到的数据行，即打印当前模式空间的所有数据。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -611,7 +619,7 @@ tHIs Is lIne 2.
 this is line 1.
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="10-打印行号">10. 打印行号</h3>
+</div><h3 id="10-打印行号">10. 打印行号<code>=</code></h3>
 <p>命令<code>=</code>可以打印被匹配数据在文本中的行号。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -639,7 +647,7 @@ this is line 2.
 this is line 1.$ <span class="c1"># $是被打印的换行符</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="12-写入命令">12. 写入命令</h3>
+</div><h3 id="12-写入命令w">12. 写入命令<code>w</code></h3>
 <p><code>w</code>命令可以将匹配数据写入文件。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -649,7 +657,7 @@ this is line 1.$ <span class="c1"># $是被打印的换行符</span>
 <pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>w filename
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="13-读取数据">13. 读取数据</h3>
+</div><h3 id="13-读取数据r">13. 读取数据<code>r</code></h3>
 <p>读取命令<code>r</code>从文件中读取数据，并将文件的所有数据插入到匹配行后面。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -679,8 +687,9 @@ this is line 5.
 </div>
 </div><h3 id="1-模式空间和保持空间">1. 模式空间和保持空间</h3>
 <p>sed在执行命令时，会保存待检查的文本。</p>
-<p>保存文本时，需要用到两个缓冲区，模式空间和保持空间。读到的数据保存在模式空间，而保持空间主要起辅助作用。</p>
-<p>与缓冲区有关的命令：</p>
+<p>保存文本时，需要用到两个缓冲区：模式空间和保持空间。</p>
+<p>读到的数据保存在模式空间，而保持空间主要起辅助作用。</p>
+<p>与缓冲区有关的命令如下：</p>
 <ul>
 <li>h: 将模式空间复制到保持空间。</li>
 <li>H: 将模式空间追加到保持空间。</li>
@@ -691,6 +700,7 @@ this is line 5.
 <h3 id="2-单行数据的next命令">2. 单行数据的next命令</h3>
 <p>单行<code>next</code>命令会将匹配数据的下一行，移到sed的模式空间，移动前会清空模式空间。</p>
 <p>单行命令是<code>n</code>。</p>
+<p>注意，如果不存在下一行数据，则模式空间会为空。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -704,6 +714,7 @@ this is line 5.
 </div><h3 id="3-多行数据的next命令">3. 多行数据的next命令</h3>
 <p>多行<code>next</code>命令，会以追加的方式，将匹配行的下一行添加到模式空间。并且，sed会将模式空间中的数据当成一行处理。</p>
 <p>多行命令是<code>N</code>。</p>
+<p>注意，如果不存在下一行数据，则模式空间会为空。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -721,8 +732,8 @@ this is line 4.
 <p>多行删除命令<code>D</code>，会删除模式空间中的第一行。</p>
 <p>注意，<code>d</code>会删除模式空间中的所有数据。</p>
 <h3 id="5-多行打印命令p">5. 多行打印命令P</h3>
-<p>多行打印命令<code>P</code>，会打印模式空间中的第一行。</p>
-<p>注意，<code>p</code>会打印模式空间中的所有数据。</p>
+<p>多行打印命令（大写<code>P</code>）会打印模式空间中的第一行。</p>
+<p>注意，小写的<code>p</code>会打印模式空间中的所有数据。</p>
 <h3 id="6-排除命令">6. 排除命令</h3>
 <p>排除命令<code>!</code>用于将后续命令作用于非匹配行。</p>
 <div class="highlight"><div class="chroma">
