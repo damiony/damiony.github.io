@@ -14,15 +14,15 @@
 `Innodb`一共提供了两种预读模式：
 
 - 线性预读：判断当前extend中的数据是否被连续访问，从而决定是否把下一个extend从磁盘中读出来，加载到buffer pool。
-- 随机预读：判断当前extend中读取page的个数，从而决定是否把当前extend的数据加载到buffer pool中。
+- 随机预读：判断当前extend中被读取的page个数，从而决定是否把当前extend的数据全部加载到buffer pool中。
 
 ## 线性预读
 
-`MySQL5.5`之后，默认使用的是线性预读模式，与之有关的配置为`innodb_read_ahead_threshold`，这个参数表示，当前extend中，如果有超过`innodb_read_ahead_threshold`个page被连续访问，就预先加载下一个extend的数据。
+`MySQL5.5`之后，默认使用的是线性预读模式，与之有关的配置为`innodb_read_ahead_threshold`，这个参数表示，当前extend中，如果有超过`innodb_read_ahead_threshold`个page被连续访问，就预加载相邻的extend的数据。
 
-`innodb_read_ahead_threshold`的默认参数是56，最大为64，最小为0。如果为0，表示关闭线性预读。即使关闭了线性预读，只要随机预读没有显式打开，就不会使用它。
+`innodb_read_ahead_threshold`的默认参数是56，最大为64，最小为0。如果为0，表示关闭线性预读。在关闭了线性预读的情况下，如果随机预读没有显式打开，就不会使用随机预读。
 
-`innodb`组织数据的顺序为`tablespace, segment, extend, page, row`，因为`extend`固定为`1Mb`，`page`默认为`16Kb`，所以一个`extend`能容纳64个`page`，所以`innodb_read_ahead_threshold`最大为64。
+`innodb`组织数据的顺序为`tablespace, segment, extend, page, row`，因为`extend`固定为`1MB`，`page`默认为`16KB`，一个`extend`能容纳64个`page`，所以`innodb_read_ahead_threshold`最大为64。
 
 ### 预读原理
 

@@ -106,6 +106,13 @@ zip zip即可以进行压缩，又可以进行归档。
     <guid>http://example.org/linux_sed/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>【Linux】date命令详解</title>
+    <link>http://example.org/linux-date/</link>
+    <pubDate>Mon, 13 Jul 2020 18:33:54 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/linux-date/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>【Linux】du命令详解</title>
     <link>http://example.org/linux-du/</link>
     <pubDate>Thu, 09 Jul 2020 19:34:46 &#43;0800</pubDate>

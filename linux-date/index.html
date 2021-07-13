@@ -5,32 +5,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>【Linux】df命令详解 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【Linux】df命令详解" />
+        <title>【Linux】date命令详解 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【Linux】date命令详解" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/linux-df/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-03-09T15:57:44&#43;08:00" />
-<meta property="article:modified_time" content="2020-03-09T15:57:44&#43;08:00" />
+<meta property="og:url" content="http://example.org/linux-date/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-07-13T18:33:54&#43;08:00" />
+<meta property="article:modified_time" content="2020-07-13T18:33:54&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
-<meta name="twitter:title" content="【Linux】df命令详解"/>
+<meta name="twitter:title" content="【Linux】date命令详解"/>
 <meta name="twitter:description" content=""/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux-df/" /><link rel="prev" href="http://example.org/golang_buffer_pkg/" /><link rel="next" href="http://example.org/linux-common-commands/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux-date/" /><link rel="prev" href="http://example.org/linux-du/" /><link rel="next" href="http://example.org/linux_sed/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "【Linux】df命令详解",
+        "headline": "【Linux】date命令详解",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/example.org\/linux-df\/"
-        },"genre": "posts","keywords": "Linux","wordcount":  26 ,
-        "url": "http:\/\/example.org\/linux-df\/","datePublished": "2020-03-09T15:57:44+08:00","dateModified": "2020-03-09T15:57:44+08:00","publisher": {
+            "@id": "http:\/\/example.org\/linux-date\/"
+        },"genre": "posts","keywords": "Linux","wordcount":  87 ,
+        "url": "http:\/\/example.org\/linux-date\/","datePublished": "2020-07-13T18:33:54+08:00","dateModified": "2020-07-13T18:33:54+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -104,9 +104,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">【Linux】df命令详解</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">【Linux】date命令详解</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/linux/"><i class="far fa-folder fa-fw"></i>Linux</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2020-03-09">2020-03-09</time>&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2020-07-13">2020-07-13</time>&nbsp;
                 </div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -115,78 +115,179 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#df说明"><code>df</code>说明</a></li>
     <li><a href="#命令格式">命令格式</a></li>
     <li><a href="#options">options</a></li>
-    <li><a href="#使用示例">使用示例</a></li>
+    <li><a href="#format">format</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="df说明"><code>df</code>说明</h2>
-<p><code>df</code>命令可以查看整个磁盘空间的占用情况，但是不能查看某个目录的大小。</p>
+            </div><div class="content" id="content"><p>在<code>Linux</code>系统中，可以使用<code>date</code>命令来显示和设定时间。</p>
 <h2 id="命令格式">命令格式</h2>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">df  <span class="o">[</span>options<span class="o">]</span>
+<pre class="chroma"><code class="language-shell" data-lang="shell">date <span class="o">[</span>options<span class="o">]</span> <span class="o">[</span>+format<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="options">options</h2>
-<p><code>options</code>是可选的，常见的参数如下：</p>
+<p>常见的<code>options</code>如下：</p>
 <ul>
 <li>
-<p><code>-h</code>：以容易理解的格式输出文件系统的分区情况，如1kB、1MB、1GB。</p>
+<p><code>-d</code></p>
+<p>打印给定的时间字符串（非系统时间），如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">date -d <span class="s2">&#34;00010101 00:00:01&#34;</span>
+<span class="c1"># 0001年 01月 01日 星期一 00:00:01 LMT</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>-s</code></p>
+<p>设置系统时间，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">date -s <span class="s2">&#34;2001-01-01&#34;</span>
+
+<span class="c1"># 或者</span>
+
+date -s <span class="s2">&#34;01:01:01&#34;</span>
+
+<span class="c1"># 或者</span>
+
+date -s <span class="s2">&#34;2001-01-01 01:01:01&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>-u</code></p>
+<p>以<code>UTC</code>的格式打印当前时间。</p>
 </li>
 <li>
-<p><code>-H</code>：和<code>-h</code>很像，但是以1000为单位，而不是1024。</p>
+<p><code>--help</code></p>
+<p>显示帮助信息。</p>
 </li>
 <li>
-<p><code>-k</code>：以kB为单位输出。</p>
-</li>
-<li>
-<p><code>-m</code>：以MB为单位输出。</p>
-</li>
-<li>
-<p><code>-a</code>：列出所有文件系统分区，包括大小为0的分区。</p>
-</li>
-<li>
-<p><code>-T</code>：显示文件系统类型。</p>
+<p><code>--version</code></p>
+<p>显示版本信息。</p>
 </li>
 </ul>
-<p>对于<code>-hm</code>或者<code>-hk</code>，<code>h</code>后面的<code>m</code>和<code>k</code>不会生效。</p>
-<p>对于<code>-mh</code>或者<code>-kh</code>，<code>h</code>不会生效。</p>
-<p><code>-H</code>同理。</p>
-<h2 id="使用示例">使用示例</h2>
+<h2 id="format">format</h2>
+<p>使用<code>format</code>时，需要在前面加一个<code>+</code>号。</p>
+<p>常见的<code>format</code>如下所示：</p>
 <ul>
 <li>
-<p>查看系统分区</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">df -h
-</code></pre></td></tr></table>
-</div>
-</div></li>
+<p><code>%%</code>：显示百分号<code>%</code></p>
+</li>
 <li>
-<p>查看文件系统类型</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">df -T
-</code></pre></td></tr></table>
-</div>
-</div></li>
+<p><code>%n</code>：换行</p>
+</li>
+<li>
+<p><code>%t</code>：打印制表符</p>
+</li>
+<li>
+<p><code>%H</code>：小时，00～23</p>
+</li>
+<li>
+<p><code>%I</code>：小时，01～12</p>
+</li>
+<li>
+<p><code>%k</code>：小时，0～23</p>
+</li>
+<li>
+<p><code>%M</code>：分钟，00～59</p>
+</li>
+<li>
+<p><code>%p</code>：显示AM或者PM</p>
+</li>
+<li>
+<p><code>%r</code>：显示12小时制的时间</p>
+</li>
+<li>
+<p><code>%s</code>：显示秒级时间戳</p>
+</li>
+<li>
+<p><code>%S</code>：秒，00～61</p>
+</li>
+<li>
+<p><code>%T</code>：显示24小时制的时间</p>
+</li>
+<li>
+<p><code>%X</code>：相当于<code>%H:%M:%S</code></p>
+</li>
+<li>
+<p><code>%Z</code>：显示时区</p>
+</li>
+<li>
+<p><code>%a</code>：星期几，简写</p>
+</li>
+<li>
+<p><code>%A</code>：星期几，全称</p>
+</li>
+<li>
+<p><code>%b</code>：月份，简写</p>
+</li>
+<li>
+<p><code>%B</code>：月份，全称</p>
+</li>
+<li>
+<p><code>%c</code>：完整显示日期和时间</p>
+</li>
+<li>
+<p><code>%C</code>：显示世纪</p>
+</li>
+<li>
+<p><code>%d</code>：日，01～31</p>
+</li>
+<li>
+<p><code>%D</code>：完整显示日期</p>
+</li>
+<li>
+<p><code>%j</code>：一年中的第几天</p>
+</li>
+<li>
+<p><code>%m</code>：月份</p>
+</li>
+<li>
+<p><code>%U</code>：一年中的第几周，周日为第一天</p>
+</li>
+<li>
+<p><code>%w</code>：一周中的第几天，0～6</p>
+</li>
+<li>
+<p><code>%W</code>：一年中的第几周，周一为第一天</p>
+</li>
+<li>
+<p><code>%x</code>：完整显示日期</p>
+</li>
+<li>
+<p><code>%y</code>：年份的最后两位数字</p>
+</li>
+<li>
+<p><code>%Y</code>：完整年份</p>
+</li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2020-03-09</span>
+                <span>更新于 2020-07-13</span>
             </div>
             <div class="post-info-license"></div>
         </div>
@@ -205,8 +306,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/golang_buffer_pkg/" class="prev" rel="prev" title="【Golang】buffer包的使用"><i class="fas fa-angle-left fa-fw"></i>【Golang】buffer包的使用</a>
-            <a href="/linux-common-commands/" class="next" rel="next" title="【Linux】常见命令">【Linux】常见命令<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/linux-du/" class="prev" rel="prev" title="【Linux】du命令详解"><i class="fas fa-angle-left fa-fw"></i>【Linux】du命令详解</a>
+            <a href="/linux_sed/" class="next" rel="next" title="【Linux】sed命令详解">【Linux】sed命令详解<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="gitalk" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
@@ -221,5 +322,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-03-09T15:57:44+08:00","owner":"","repo":"","title":"【Linux】df命令详解"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-07-13T18:33:54+08:00","owner":"","repo":"","title":"【Linux】date命令详解"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>
