@@ -11,11 +11,18 @@
     <guid>http://example.org/mysql_innodb_read_ahead/</guid>
     <description><![CDATA[]]></description>
 </item><item>
+    <title>【MySQL】优化</title>
+    <link>http://example.org/mysql-optimizer/</link>
+    <pubDate>Wed, 15 Jul 2020 19:15:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-optimizer/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>【MySQL】基本语法</title>
-    <link>http://example.org/mysql_grammer/</link>
+    <link>http://example.org/mysql-grammer/</link>
     <pubDate>Wed, 17 Jun 2020 14:21:40 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/mysql_grammer/</guid>
+    <guid>http://example.org/mysql-grammer/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

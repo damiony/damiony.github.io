@@ -72,38 +72,20 @@
     <pubDate>Wed, 11 Nov 2020 18:33:17 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/linux-ya-suo-he-gui-dang/</guid>
-    <description><![CDATA[Linux系统中有多个压缩和归档工具，现在介绍常见的几种。
-gzip gzip用于压缩一个或多个文件，具体用法为：
-1  gzip [options] [file...]   options 常见的选项有：
-  -c：将内容输出到标准输出，不会生成新文件，压缩文件也不会被删除。
-  -d：解压缩。
-  -f：即使压缩文件已经存在，也强制压缩。
-  -h：显示帮助信息。
-  -l：显示压缩文件列表。
-  -r：递归压缩或者解压缩包含在目录中的文件。
-  -t：校验压缩文件完整性。
-  -v：压缩时显示详细信息。
-  -k：不删除源文件。
-  -1：--fast，速度最快的压缩等级。
-  -2 .. -8：压缩等级，压缩速度从快到慢，压缩比从小到大。
-  -9：--best，压缩比最高的压缩等级。
-  解压缩 gzip生成的压缩文件后缀为.gz。可以使用gzip -d、-gunzip和zcat解压缩。
-解压缩时，会自动查找.gz后缀的文件，所以在不引起歧义的情况下，可以省略文件后缀。
-zcat命令会将结果输出到标准输出，不会生成新的文件，也不会被删除被解压文件。
-bzip2 bzip2同样可以压缩文件。
-除了-r选项，gzip支持的功能bzip2也同样支持。
-bzip2生成的压缩文件以.bz2为后缀。
-可以使用bzip2 -d、bunzip2和bzcat解压缩，bzcat的作用和zcat也是一样的。
-gzip和bzip2的使用 已经被压缩过的文件，不应该再次被压缩，即使使用的是不同压缩算法。
-因为被压缩文件已经不存在冗余信息，如果进行多次压缩，反而会消耗多余的空间来保存压缩信息。
-zip zip即可以进行压缩，又可以进行归档。
-命令格式 zip的命令格式为：]]></description>
+    <description><![CDATA[]]></description>
 </item><item>
     <title>【Linux】sed命令详解</title>
     <link>http://example.org/linux_sed/</link>
     <pubDate>Mon, 05 Oct 2020 17:52:47 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/linux_sed/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】优化</title>
+    <link>http://example.org/mysql-optimizer/</link>
+    <pubDate>Wed, 15 Jul 2020 19:15:22 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-optimizer/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>【Linux】date命令详解</title>
@@ -121,10 +103,10 @@ zip zip即可以进行压缩，又可以进行归档。
     <description><![CDATA[]]></description>
 </item><item>
     <title>【MySQL】基本语法</title>
-    <link>http://example.org/mysql_grammer/</link>
+    <link>http://example.org/mysql-grammer/</link>
     <pubDate>Wed, 17 Jun 2020 14:21:40 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/mysql_grammer/</guid>
+    <guid>http://example.org/mysql-grammer/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>【Linux】常见命令</title>
@@ -132,22 +114,7 @@ zip zip即可以进行压缩，又可以进行归档。
     <pubDate>Thu, 30 Apr 2020 21:59:08 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/linux-common-commands/</guid>
-    <description><![CDATA[常见快捷键 Linux中有如下常见快捷键：
-  ^c：终止前台运行的程序
-  ^z：将前台运行的程序挂起到后台
-  ^d：退出 等价于exit
-  ^l：清屏
-  ^a | ^home：光标移到命令行的最前端
-  ^e | ^end：光标移到命令行的后端
-  ^u：删除光标前的所有字符
-  ^k：删除光标后的所有字符
-  ^r：搜索历史命令
-  grep 语法 1  grep 选项 &#39;关键字&#39; 文件名   常见选项   -i: 不区分大小写
-  -v: 查找不包含指定内容的行
-  -w: 按单词搜索
-  -o: 打印匹配关键字
-  -c: 统计匹配到的次数
-  -n: 显示行号]]></description>
+    <description><![CDATA[]]></description>
 </item><item>
     <title>【Linux】df命令详解</title>
     <link>http://example.org/linux-df/</link>

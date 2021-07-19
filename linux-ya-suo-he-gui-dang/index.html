@@ -6,32 +6,7 @@
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
         <title>【Linux】压缩和归档 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【Linux】压缩和归档" />
-<meta property="og:description" content="Linux系统中有多个压缩和归档工具，现在介绍常见的几种。
-gzip gzip用于压缩一个或多个文件，具体用法为：
-1  gzip [options] [file...]   options 常见的选项有：
-  -c：将内容输出到标准输出，不会生成新文件，压缩文件也不会被删除。
-  -d：解压缩。
-  -f：即使压缩文件已经存在，也强制压缩。
-  -h：显示帮助信息。
-  -l：显示压缩文件列表。
-  -r：递归压缩或者解压缩包含在目录中的文件。
-  -t：校验压缩文件完整性。
-  -v：压缩时显示详细信息。
-  -k：不删除源文件。
-  -1：--fast，速度最快的压缩等级。
-  -2 .. -8：压缩等级，压缩速度从快到慢，压缩比从小到大。
-  -9：--best，压缩比最高的压缩等级。
-  解压缩 gzip生成的压缩文件后缀为.gz。可以使用gzip -d、-gunzip和zcat解压缩。
-解压缩时，会自动查找.gz后缀的文件，所以在不引起歧义的情况下，可以省略文件后缀。
-zcat命令会将结果输出到标准输出，不会生成新的文件，也不会被删除被解压文件。
-bzip2 bzip2同样可以压缩文件。
-除了-r选项，gzip支持的功能bzip2也同样支持。
-bzip2生成的压缩文件以.bz2为后缀。
-可以使用bzip2 -d、bunzip2和bzcat解压缩，bzcat的作用和zcat也是一样的。
-gzip和bzip2的使用 已经被压缩过的文件，不应该再次被压缩，即使使用的是不同压缩算法。
-因为被压缩文件已经不存在冗余信息，如果进行多次压缩，反而会消耗多余的空间来保存压缩信息。
-zip zip即可以进行压缩，又可以进行归档。
-命令格式 zip的命令格式为：" />
+<meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/linux-ya-suo-he-gui-dang/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-11-11T18:33:17&#43;08:00" />
@@ -41,32 +16,7 @@ zip zip即可以进行压缩，又可以进行归档。
 <meta name="twitter:image" content="http://example.org/logo.png"/>
 
 <meta name="twitter:title" content="【Linux】压缩和归档"/>
-<meta name="twitter:description" content="Linux系统中有多个压缩和归档工具，现在介绍常见的几种。
-gzip gzip用于压缩一个或多个文件，具体用法为：
-1  gzip [options] [file...]   options 常见的选项有：
-  -c：将内容输出到标准输出，不会生成新文件，压缩文件也不会被删除。
-  -d：解压缩。
-  -f：即使压缩文件已经存在，也强制压缩。
-  -h：显示帮助信息。
-  -l：显示压缩文件列表。
-  -r：递归压缩或者解压缩包含在目录中的文件。
-  -t：校验压缩文件完整性。
-  -v：压缩时显示详细信息。
-  -k：不删除源文件。
-  -1：--fast，速度最快的压缩等级。
-  -2 .. -8：压缩等级，压缩速度从快到慢，压缩比从小到大。
-  -9：--best，压缩比最高的压缩等级。
-  解压缩 gzip生成的压缩文件后缀为.gz。可以使用gzip -d、-gunzip和zcat解压缩。
-解压缩时，会自动查找.gz后缀的文件，所以在不引起歧义的情况下，可以省略文件后缀。
-zcat命令会将结果输出到标准输出，不会生成新的文件，也不会被删除被解压文件。
-bzip2 bzip2同样可以压缩文件。
-除了-r选项，gzip支持的功能bzip2也同样支持。
-bzip2生成的压缩文件以.bz2为后缀。
-可以使用bzip2 -d、bunzip2和bzcat解压缩，bzcat的作用和zcat也是一样的。
-gzip和bzip2的使用 已经被压缩过的文件，不应该再次被压缩，即使使用的是不同压缩算法。
-因为被压缩文件已经不存在冗余信息，如果进行多次压缩，反而会消耗多余的空间来保存压缩信息。
-zip zip即可以进行压缩，又可以进行归档。
-命令格式 zip的命令格式为："/>
+<meta name="twitter:description" content=""/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
