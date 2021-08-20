@@ -11,18 +11,67 @@
     <guid>http://example.org/mysql_innodb_read_ahead/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>【MySQL】优化</title>
-    <link>http://example.org/mysql-optimizer/</link>
-    <pubDate>Wed, 15 Jul 2020 19:15:22 &#43;0800</pubDate>
+    <title>【MySQL】存储引擎</title>
+    <link>http://example.org/mysql-engines/</link>
+    <pubDate>Mon, 03 Aug 2020 18:54:29 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/mysql-optimizer/</guid>
+    <guid>http://example.org/mysql-engines/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>【MySQL】基本语法</title>
-    <link>http://example.org/mysql-grammer/</link>
-    <pubDate>Wed, 17 Jun 2020 14:21:40 &#43;0800</pubDate>
+    <title>【MySQL】日志</title>
+    <link>http://example.org/mysql-log/</link>
+    <pubDate>Sun, 02 Aug 2020 17:29:48 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/mysql-grammer/</guid>
+    <guid>http://example.org/mysql-log/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】锁机制</title>
+    <link>http://example.org/mysql-locks/</link>
+    <pubDate>Sun, 02 Aug 2020 00:38:11 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-locks/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】事务</title>
+    <link>http://example.org/mysql-shi-wu/</link>
+    <pubDate>Sat, 01 Aug 2020 18:54:50 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-shi-wu/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】触发器</title>
+    <link>http://example.org/mysql-chu-fa-qi/</link>
+    <pubDate>Wed, 29 Jul 2020 16:46:10 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-chu-fa-qi/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】存储过程和函数</title>
+    <link>http://example.org/mysql-cun-chu-guo-cheng-han-shu/</link>
+    <pubDate>Tue, 28 Jul 2020 17:58:35 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-cun-chu-guo-cheng-han-shu/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】索引</title>
+    <link>http://example.org/mysql-index/</link>
+    <pubDate>Mon, 27 Jul 2020 19:07:30 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-index/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】information_schema</title>
+    <link>http://example.org/mysql-information-schema/</link>
+    <pubDate>Mon, 27 Jul 2020 18:25:37 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-information-schema/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】变量</title>
+    <link>http://example.org/mysql-var/</link>
+    <pubDate>Sat, 18 Jul 2020 18:59:47 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-var/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

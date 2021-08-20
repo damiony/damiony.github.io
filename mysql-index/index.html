@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【MySQL】索引 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【MySQL】索引" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/mysql-index/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-07-27T19:07:30&#43;08:00" />
+<meta property="article:modified_time" content="2020-07-27T19:07:30&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【MySQL】索引"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-index/" /><link rel="prev" href="http://example.org/mysql-information-schema/" /><link rel="next" href="http://example.org/mysql-cun-chu-guo-cheng-han-shu/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【MySQL】索引",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/mysql-index\/"
+        },"genre": "posts","keywords": "MySQL","wordcount":  102 ,
+        "url": "http:\/\/example.org\/mysql-index\/","datePublished": "2020-07-27T19:07:30+08:00","dateModified": "2020-07-27T19:07:30+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【MySQL】索引</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>MySQL</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2020-07-27">2020-07-27</time>&nbsp;
+                </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是索引">什么是索引</a></li>
+    <li><a href="#索引的优势和劣势">索引的优势和劣势</a>
+      <ul>
+        <li><a href="#1-优势">1. 优势</a></li>
+        <li><a href="#2-劣势">2. 劣势</a></li>
+      </ul>
+    </li>
+    <li><a href="#索引结构">索引结构</a></li>
+    <li><a href="#b-树"><code>B-</code>树</a></li>
+    <li><a href="#b树"><code>B+</code>树</a></li>
+    <li><a href="#mysql中的b树"><code>MySQL</code>中的<code>B+</code>树</a></li>
+    <li><a href="#索引分类">索引分类</a></li>
+    <li><a href="#索引管理">索引管理</a>
+      <ul>
+        <li><a href="#1-索引创建">1. 索引创建</a></li>
+        <li><a href="#2-查看索引">2. 查看索引</a></li>
+        <li><a href="#3-删除索引">3. 删除索引</a></li>
+        <li><a href="#4-alter更新索引">4. <code>ALTER</code>更新索引</a></li>
+        <li><a href="#5-create-table创建索引">5. <code>CREATE TABLE</code>创建索引</a></li>
+      </ul>
+    </li>
+    <li><a href="#索引设计原则">索引设计原则</a></li>
+    <li><a href="#索引的使用">索引的使用</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="什么是索引">什么是索引</h2>
+<p>索引，就是帮助<code>MySQL</code>高效获取数据的数据结构。</p>
+<h2 id="索引的优势和劣势">索引的优势和劣势</h2>
+<h3 id="1-优势">1. 优势</h3>
+<ul>
+<li>
+<p>可以提高数据的检索效率，降低数据库的<code>IO</code>成本。</p>
+</li>
+<li>
+<p>可以降低数据排序的成本，降低<code>CPU</code>消耗</p>
+</li>
+</ul>
+<h3 id="2-劣势">2. 劣势</h3>
+<ul>
+<li>
+<p>索引也是一张表，存储了主键和索引字段，因此，索引也占用空间。</p>
+</li>
+<li>
+<p>索引虽然提高了查询效率，但是降低了更新的速度。因为进行增、删、改时，不但需要更新数据，还需要更新索引。</p>
+</li>
+<li>
+<p>索引不是所有情况均适用。如表中数据较少，字段频繁更新，字段很少使用，或者字段大量重复等，都不适合建立索引。</p>
+</li>
+</ul>
+<h2 id="索引结构">索引结构</h2>
+<p>索引是在<code>MySQL</code>的存储引擎层实现的，目前支持的索引结构如下：</p>
+<ul>
+<li>
+<p><code>BTree</code>索引：是一类统称，包含<code>B+</code>树等。<code>InnoDB</code>、<code>MyISAM</code>、<code>Memory</code>都支持。</p>
+</li>
+<li>
+<p><code>HASH</code>索引：<code>Memory</code>支持。</p>
+</li>
+<li>
+<p><code>R-tree</code>索引：空间索引，<code>MyISAM</code>支持，主要用于地理空间数据类型。</p>
+</li>
+<li>
+<p><code>Full-text</code>索引：全文索引，<code>MyISAM</code>支持，<code>InnoDB</code>从<code>MySQL5.6</code>版本开始支持。</p>
+</li>
+</ul>
+<p>聚集索引、符合索引、前缀索引、唯一索引默认使用<code>B+tree</code>树结构组织的索引。</p>
+<h2 id="b-树"><code>B-</code>树</h2>
+<p><code>B-</code>树又叫多路平衡搜索树，一颗<code>m</code>叉<code>B-</code>树的性质如下：</p>
+<ol>
+<li>
+<p>每个结点最多有m个分支。</p>
+</li>
+<li>
+<p>非叶子结点的根结点，至少有2个分支。非根非叶子结点，至少有<code>ceil(m/2)</code>个分支。</p>
+</li>
+<li>
+<p>有n个分支的结点，具有n-1个关键字，这些关键字按递增或者递减顺序排列。</p>
+</li>
+<li>
+<p>结点内的关键字互不相等。</p>
+</li>
+<li>
+<p>叶子结点都处于同一层，可以用空指针表示。</p>
+</li>
+<li>
+<p><code>B-</code>树的阶数<code>m</code>，是认为规定的，不会因为结点关键字的最大个数而变化。</p>
+</li>
+<li>
+<p>结点中的每个关键字，都对应着一个记录的存储地址。</p>
+</li>
+</ol>
+<h2 id="b树"><code>B+</code>树</h2>
+<p>一颗<code>m</code>叉<code>B+</code>树，具备如下性质：</p>
+<ol>
+<li>
+<p>具有n个关键字的结点，含有n个分支。</p>
+</li>
+<li>
+<p>每个结点最多有m个分支。</p>
+</li>
+<li>
+<p>非根非叶子结点，至少有<code>ceil(m/2)</code>个关键字。非叶子结点的根结点，至少有2个关键字。</p>
+</li>
+<li>
+<p>叶子结点包含了全部关键字，关键字顺序排列。并且叶子结点引出的指针，指向了具体的记录。</p>
+</li>
+<li>
+<p>所有非叶子结点中，存储着子树的最大关键字和指向该子树的指针，不存储关键字对应记录的存储地址。即非叶子结点仅仅发挥着索引作用。</p>
+</li>
+<li>
+<p>有一个指针指向关键字最小的叶子结点，所有叶子结点组成一个线性链表。</p>
+</li>
+</ol>
+<h2 id="mysql中的b树"><code>MySQL</code>中的<code>B+</code>树</h2>
+<p><code>MySQL</code>的<code>B+</code>树中，叶子结点是双向循环链表。</p>
+<h2 id="索引分类">索引分类</h2>
+<ol>
+<li>
+<p>单值索引</p>
+<p>一个索引只包含单个列，一个表可以有多个单列索引。</p>
+</li>
+<li>
+<p>唯一索引</p>
+<p>索引列的值必须唯一，但允许有空格。</p>
+</li>
+<li>
+<p>复合索引</p>
+<p>一个索引包含多个列。</p>
+</li>
+</ol>
+<h2 id="索引管理">索引管理</h2>
+<h3 id="1-索引创建">1. 索引创建</h3>
+<p>可以在创建表结构时创建索引，也可以建完表后再增加。</p>
+<p>创建语法为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="p">[</span><span class="k">UNIQUE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FULLTEXT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SPATIAL</span><span class="p">]</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">table_name</span><span class="p">(</span><span class="n">index_col_name</span><span class="p">...);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>index_col_name</code>可以指定字段的长度，并指明字段的排序规则，格式如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column_name</span><span class="p">[</span><span class="w"> </span><span class="p">(</span><span class="k">length</span><span class="p">)</span><span class="w"> </span><span class="p">][</span><span class="k">ASC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DESC</span><span class="p">]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-查看索引">2. 查看索引</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-删除索引">3. 删除索引</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-alter更新索引">4. <code>ALTER</code>更新索引</h3>
+<ul>
+<li>
+<p>创建主键索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建唯一索引</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建普通索引</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建全文索引</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">FULLTEXT</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="5-create-table创建索引">5. <code>CREATE TABLE</code>创建索引</h3>
+<p>使用<code>CREATE TABLE</code>语句创建表时，添加以下语句即可建立索引。</p>
+<ul>
+<li>
+<p>创建主键索引</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建普通索引</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">KEY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="p">[</span><span class="n">index_name</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>创建唯一索引</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">UNIQUE</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">index_name</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="索引设计原则">索引设计原则</h2>
+<ol>
+<li>
+<p>对于查询频率高、且数据量大的表，可以建立索引。</p>
+</li>
+<li>
+<p>索引字段，应该选择最常用、过滤效果最好的组合。</p>
+</li>
+<li>
+<p>尽量使用唯一索引，区分度越高，索引的效果越好。</p>
+</li>
+<li>
+<p>不应该创建太多索引。索引越多，更新、插入、删除操作的效率越低。索引太多，<code>MySQL</code>生成执行计划时选择会过多，代价太高。</p>
+</li>
+<li>
+<p>尽量使用短索引。索引也是存储在磁盘中，如果索引长度较短，既能节约存储空间，也能提升访问索引的<code>IO</code>效率。</p>
+</li>
+<li>
+<p>充分利用最左前缀原则。</p>
+</li>
+<li>
+<p>如果某个数据列包含许多重复内容，建立索引则没有什么实际效果。索引的选择性是指索引列中不同值的数据与表中记录数的比。一个索引的选择性越接近1，这个索引的效率就越高。</p>
+</li>
+</ol>
+<h2 id="索引的使用">索引的使用</h2>
+<ol>
+<li>
+<p>尽量使用符合索引，少使用单列索引。</p>
+</li>
+<li>
+<p>如果建立了多个索引，数据库会选择一个最优的索引，不会使用全部索引。</p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-07-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">MySQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql-information-schema/" class="prev" rel="prev" title="【MySQL】information_schema"><i class="fas fa-angle-left fa-fw"></i>【MySQL】information_schema</a>
+            <a href="/mysql-cun-chu-guo-cheng-han-shu/" class="next" rel="next" title="【MySQL】存储过程和函数">【MySQL】存储过程和函数<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-07-27T19:07:30+08:00","owner":"","repo":"","title":"【MySQL】索引"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【MySQL】事务 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【MySQL】事务" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/mysql-shi-wu/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-08-01T18:54:50&#43;08:00" />
+<meta property="article:modified_time" content="2020-08-01T18:54:50&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【MySQL】事务"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-shi-wu/" /><link rel="prev" href="http://example.org/mysql-chu-fa-qi/" /><link rel="next" href="http://example.org/mysql-locks/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【MySQL】事务",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/mysql-shi-wu\/"
+        },"genre": "posts","keywords": "MySQL","wordcount":  115 ,
+        "url": "http:\/\/example.org\/mysql-shi-wu\/","datePublished": "2020-08-01T18:54:50+08:00","dateModified": "2020-08-01T18:54:50+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【MySQL】事务</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>MySQL</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2020-08-01">2020-08-01</time>&nbsp;
+                </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#事务">事务</a>
+      <ul>
+        <li><a href="#1-概念">1. 概念</a></li>
+        <li><a href="#2-事务特性">2. 事务特性</a></li>
+        <li><a href="#3-分类">3. 分类</a></li>
+        <li><a href="#4-示例">4. 示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据库的隔离级别">数据库的隔离级别</a>
+      <ul>
+        <li><a href="#1-说明">1. 说明</a></li>
+      </ul>
+    </li>
+    <li><a href="#数据库的隔离级别-1">数据库的隔离级别</a>
+      <ul>
+        <li><a href="#1-隔离级别说明">1. 隔离级别说明</a></li>
+        <li><a href="#2-oracle支持的事务隔离级别">2. Oracle支持的事务隔离级别：</a></li>
+        <li><a href="#3-mysql支持的事务隔离级别">3. Mysql支持的事务隔离级别</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql设置隔离级别">MySql设置隔离级别</a>
+      <ul>
+        <li><a href="#1-说明-1">1. 说明</a></li>
+        <li><a href="#2-mysql查看当前连接的隔离级别">2. mysql查看当前连接的隔离级别</a></li>
+        <li><a href="#3-mysql修改当前连接的隔离级别">3. mysql修改当前连接的隔离级别</a></li>
+        <li><a href="#4-mysql设置数据库系统全局的隔离级别">4. mysql设置数据库系统全局的隔离级别</a></li>
+      </ul>
+    </li>
+    <li><a href="#savepoint">SAVEPOINT</a>
+      <ul>
+        <li><a href="#1-说明-2">1. 说明</a></li>
+        <li><a href="#2-示例">2. 示例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="事务">事务</h2>
+<h3 id="1-概念">1. 概念</h3>
+<p>事务由一条或者多条sql语句构成，这些sql语句要么全部执行成功，要么全部执行失败。</p>
+<h3 id="2-事务特性">2. 事务特性</h3>
+<p>事务具备<code>ACID</code>特性。</p>
+<ul>
+<li>
+<p>原子性 (atomicity)：事务中所有操作是不可再分割的原子单位。事务中所有操作要么全部执行成功，要么全部执行失败。</p>
+</li>
+<li>
+<p>一致性 (consistency)：事务执行后，数据库的状态仍与业务规则保持一致。如转账业务，无论事务执行成功与否，参与转账的两个账号余额之和应该是不变的。</p>
+</li>
+<li>
+<p>隔离性 (isolation)：在并发操作中，不同事务之间应该隔离开来，使每个并发中的事务不会相互干扰。</p>
+</li>
+<li>
+<p>持久性 (durability)：一旦事务提交成功，事务中所有的数据操作都必须被持久化到数据库。即使提交事务后，数据库马上崩溃，在数据库重启时，也能通过某种机制恢复数据。</p>
+</li>
+</ul>
+<h3 id="3-分类">3. 分类</h3>
+<ul>
+<li>
+<p>隐式事务：</p>
+<p>没有明显的开启和结束标记。</p>
+</li>
+<li>
+<p>显式事务：</p>
+<p>具有明显的开启和结束标记。</p>
+<p>执行步骤为，取消隐式事务自动开启的功能 =&gt; 开启事务 =&gt; 编写事务语句 =&gt; 结束事务</p>
+</li>
+</ul>
+<h3 id="4-示例">4. 示例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span><span class="w"> </span><span class="err">取消事务自动开启</span><span class="w">
+</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">autocommit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">开启事务</span><span class="w"> </span><span class="err">有的客户端不用加这句</span><span class="w">
+</span><span class="w"></span><span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">更新数据</span><span class="w">
+</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">stuinfo</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">balance</span><span class="o">=</span><span class="n">balance</span><span class="o">-</span><span class="mi">5000</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">stuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">stuinfo</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">balance</span><span class="o">=</span><span class="n">balabce</span><span class="o">+</span><span class="mi">5000</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">stuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">提交</span><span class="w">
+</span><span class="w"></span><span class="k">COMMIT</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">或者回滚</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="数据库的隔离级别">数据库的隔离级别</h2>
+<h3 id="1-说明">1. 说明</h3>
+<p>一个事务与其他事务隔离的程度称为隔离级别。不同隔离级别对应不同的干扰程度，隔离级别越高，数据一致性就越好，但并发性越弱。</p>
+<p>当多个事务同时运行、并访问数据库中的相同数据时，如果没有采取必要的隔离机制，就会导致各种并发问题：</p>
+<ul>
+<li>
+<p>脏读。</p>
+<p>对于两个事务T1和T2，T1读取了已经被T2更新但还没有被提交的字段，若之后T2回滚，T1读取的内容就是临时且无效的。</p>
+</li>
+<li>
+<p>不可重复读。</p>
+<p>对于两个事务T1和T2，T1读取了一个字段，然后T2更新了该字段，之后T1再次读取同一个字段，获得的值就不同了。</p>
+</li>
+<li>
+<p>幻读。</p>
+<p>对于两个事务T1和T2，T1从一个表中根据某些条件读取出一些记录，然后T2向该表插入了符合条件的新记录。T1再次读取时，就会把新记录也读出来。</p>
+</li>
+</ul>
+<h2 id="数据库的隔离级别-1">数据库的隔离级别</h2>
+<h3 id="1-隔离级别说明">1. 隔离级别说明</h3>
+<ul>
+<li>
+<p>读未提交数据(READ UNCOMMITTED)</p>
+<p>允许事务读取未被其他事务提交的变更。脏读，不可重复读和幻读的问题都会出现。</p>
+</li>
+<li>
+<p>读已提交数据(READ COMMITTED)</p>
+<p>只允许事务读取已经被其他事务提交的变更。可以避免脏读，但不可重复读和幻读问题仍然会出现。简称<code>RC</code>。</p>
+</li>
+<li>
+<p>可重复读(REPEATABLE READ)</p>
+<p>确保事务可以多次从一个字段中读取相同的值，但这个事务持续期间，禁止其他事务对这个字段进行更新。可以避免脏读和不可重复读，但幻读的问题仍然存在。简称<code>RR</code>。</p>
+</li>
+<li>
+<p>串行化(SERIALIZABLE)</p>
+<p>确保事务可以从一个表中读取相同的行，在这个事务持续期间，禁止其他事务对该表执行插入、更新和删除操作。所有并发问题都可以避免，但性能十分低下。</p>
+</li>
+</ul>
+<h3 id="2-oracle支持的事务隔离级别">2. Oracle支持的事务隔离级别：</h3>
+<ul>
+<li>
+<p><code>READ COMMITED</code>（默认）</p>
+</li>
+<li>
+<p><code>SERIALIZABLE</code></p>
+</li>
+</ul>
+<h3 id="3-mysql支持的事务隔离级别">3. Mysql支持的事务隔离级别</h3>
+<ul>
+<li>
+<p><code>READ UNCOMMITTED</code></p>
+</li>
+<li>
+<p><code>READ COMMITTED</code></p>
+</li>
+<li>
+<p><code>REPEATABLE READ</code>（默认）</p>
+</li>
+<li>
+<p><code>SERIALIZABLE</code></p>
+</li>
+</ul>
+<h2 id="mysql设置隔离级别">MySql设置隔离级别</h2>
+<h3 id="1-说明-1">1. 说明</h3>
+<p>每启动一个mysql客户端程序，就会建立一个连接会话，每个连接都有一个变量<code>tx_isolation</code>表示当前的事务隔离级别。注意，新版<code>mysql</code>使用的是<code>transaction_isolation</code>变量。</p>
+<h3 id="2-mysql查看当前连接的隔离级别">2. mysql查看当前连接的隔离级别</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span><span class="w"> </span><span class="o">@@</span><span class="n">tx_isolation</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-mysql修改当前连接的隔离级别">3. mysql修改当前连接的隔离级别</h3>
+<p>当前连接的隔离级别不会影响到其他连接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">set</span><span class="w"> </span><span class="n">session</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="n">uncommitted</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-mysql设置数据库系统全局的隔离级别">4. mysql设置数据库系统全局的隔离级别</h3>
+<p>需要重新打开<code>mysql</code>会话，设置才会生效。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="n">committed</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="savepoint">SAVEPOINT</h2>
+<h3 id="1-说明-2">1. 说明</h3>
+<p>只能搭配<code>rollback</code>使用</p>
+<h3 id="2-示例">2. 示例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="o">&gt;</span><span class="w"> </span><span class="kt">SET</span><span class="w"> </span><span class="n">autocommit</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">25</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">28</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">ROLLBACK</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-08-01</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">MySQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql-chu-fa-qi/" class="prev" rel="prev" title="【MySQL】触发器"><i class="fas fa-angle-left fa-fw"></i>【MySQL】触发器</a>
+            <a href="/mysql-locks/" class="next" rel="next" title="【MySQL】锁机制">【MySQL】锁机制<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-08-01T18:54:50+08:00","owner":"","repo":"","title":"【MySQL】事务"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

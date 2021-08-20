@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【MySQL】DDL数据定义 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【MySQL】DDL数据定义" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/mysql-ddl/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-06-19T00:46:11&#43;08:00" />
+<meta property="article:modified_time" content="2020-06-19T00:46:11&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【MySQL】DDL数据定义"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-ddl/" /><link rel="prev" href="http://example.org/mysql-dcl/" /><link rel="next" href="http://example.org/mysql-dml/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【MySQL】DDL数据定义",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/mysql-ddl\/"
+        },"genre": "posts","keywords": "MySQL","wordcount":  239 ,
+        "url": "http:\/\/example.org\/mysql-ddl\/","datePublished": "2020-06-19T00:46:11+08:00","dateModified": "2020-06-19T00:46:11+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【MySQL】DDL数据定义</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>MySQL</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2020-06-19">2020-06-19</time>&nbsp;
+                </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ddl语言">DDL语言</a></li>
+    <li><a href="#库管理">库管理</a>
+      <ul>
+        <li><a href="#1-查看所有的数据库列表">1. 查看所有的数据库列表</a></li>
+        <li><a href="#2-创建数据库">2. 创建数据库</a></li>
+        <li><a href="#3-查看建库语句">3. 查看建库语句</a></li>
+        <li><a href="#4-修改数据库">4. 修改数据库</a></li>
+        <li><a href="#5-删除数据库">5. 删除数据库</a></li>
+        <li><a href="#6-打开数据库">6. 打开数据库</a></li>
+        <li><a href="#7-查看所处数据库">7. 查看所处数据库</a></li>
+      </ul>
+    </li>
+    <li><a href="#表管理">表管理</a>
+      <ul>
+        <li><a href="#1-创建表">1. 创建表</a></li>
+        <li><a href="#2-查看数据库的所有数据表">2. 查看数据库的所有数据表</a></li>
+        <li><a href="#3-查看数据表结构">3. 查看数据表结构</a></li>
+        <li><a href="#4-修改表">4. 修改表</a></li>
+        <li><a href="#5-删除表">5. 删除表</a></li>
+        <li><a href="#6-复制表">6. 复制表</a></li>
+      </ul>
+    </li>
+    <li><a href="#建表规范">建表规范</a></li>
+    <li><a href="#常用查询命令">常用查询命令</a></li>
+    <li><a href="#常用字段类型">常用字段类型</a>
+      <ul>
+        <li><a href="#1-整数">1. 整数</a></li>
+        <li><a href="#2-浮点数">2. 浮点数</a></li>
+        <li><a href="#3-decimal">3. decimal</a></li>
+        <li><a href="#4-char">4. char</a></li>
+        <li><a href="#5-varchar">5. varchar</a></li>
+        <li><a href="#6-text">6. text</a></li>
+        <li><a href="#7-blob">7. blob</a></li>
+        <li><a href="#8-date">8. date</a></li>
+        <li><a href="#9-time">9. time</a></li>
+        <li><a href="#10-timestamp">10. timestamp</a></li>
+        <li><a href="#10-datetime">10. datetime</a></li>
+      </ul>
+    </li>
+    <li><a href="#常见字段约束">常见字段约束</a>
+      <ul>
+        <li><a href="#1-说明">1. 说明</a></li>
+        <li><a href="#2-列表">2. 列表</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="ddl语言">DDL语言</h2>
+<p><code>DDL</code>: （Data Define Language）数据定义语言，用于对数据库和表进行管理和操作。</p>
+<h2 id="库管理">库管理</h2>
+<h3 id="1-查看所有的数据库列表">1. 查看所有的数据库列表</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">DATABASES</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-创建数据库">2. 创建数据库</h3>
+<p>详细语法为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="err">{</span><span class="k">DATABASE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">SCHEMA</span><span class="err">}</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="err">库名</span><span class="w"> </span><span class="p">[[</span><span class="k">DEFAULT</span><span class="p">]</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">]</span><span class="w"> </span><span class="err">字符集编码</span><span class="p">];</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>常见的字符集编码方式有<code>utf8</code>和<code>utf8mb4</code>。</p>
+<p><code>utf8</code>是<code>utf8mb3</code>的别名，使用该编码时，一个字符最多占3个字节。如果使用<code>utf8mb4</code>，一个字符最多占4个字节。推荐使用<code>utf8mb4</code>，方便存储<code>emoji</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="err">库名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="err">库名</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="err">如果不存在则创建</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">SCHEMA</span><span class="w"> </span><span class="err">库名</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">utf8mb4</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-查看建库语句">3. 查看建库语句</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="err">{</span><span class="k">DATABASE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">SCHEMA</span><span class="err">}</span><span class="w"> </span><span class="err">库名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-修改数据库">4. 修改数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="err">{</span><span class="k">DATABASE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">SCHEMA</span><span class="err">}</span><span class="w"> </span><span class="err">库名</span><span class="w"> </span><span class="p">[[</span><span class="k">DEFAULT</span><span class="p">]</span><span class="w"> </span><span class="nb">CHARACTER</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="p">[</span><span class="o">=</span><span class="p">]</span><span class="w"> </span><span class="err">字符编码</span><span class="p">]</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5-删除数据库">5. 删除数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="err">{</span><span class="k">DATABASE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">SCHEMA</span><span class="err">}</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="err">库名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="err">库名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">DATABASE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="err">库名</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="err">如果存在则删除</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6-打开数据库">6. 打开数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">USE</span><span class="w"> </span><span class="err">库名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="7-查看所处数据库">7. 查看所处数据库</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">DATABASE</span><span class="p">();</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="表管理">表管理</h2>
+<h3 id="1-创建表">1. 创建表</h3>
+<p>语法：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="p">[</span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="p">]</span><span class="w"> </span><span class="err">表名</span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="err">字段名</span><span class="w"> </span><span class="err">字段类型</span><span class="w"> </span><span class="p">[</span><span class="err">字段约束</span><span class="p">],</span><span class="w">
+</span><span class="w">  </span><span class="p">......</span><span class="w">
+</span><span class="w">  </span><span class="err">字段名</span><span class="w"> </span><span class="err">字段类型</span><span class="w"> </span><span class="p">[</span><span class="err">字段约束</span><span class="p">],</span><span class="w">
+</span><span class="w">  </span><span class="err">字段名</span><span class="w"> </span><span class="err">字段类型</span><span class="w"> </span><span class="p">[</span><span class="err">字段约束</span><span class="p">]</span><span class="w">
+</span><span class="w"></span><span class="p">)[</span><span class="n">ENGINE</span><span class="o">=</span><span class="err">引擎</span><span class="w"> </span><span class="p">[</span><span class="k">DEFAULT</span><span class="p">]</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="err">字符编码</span><span class="p">];</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">stuinfo</span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="n">stuid</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="n">stuname</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
+</span><span class="w">  </span><span class="n">stugender</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-查看数据库的所有数据表">2. 查看数据库的所有数据表</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">TABLES</span><span class="w"> </span><span class="p">[</span><span class="k">FROM</span><span class="w"> </span><span class="err">数据库名</span><span class="p">];</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>除了数据表，该命令也会显示视图。</p>
+<h3 id="3-查看数据表结构">3. 查看数据表结构</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DESC</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">COLUMNS</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4-修改表">4. 修改表</h3>
+<p>修改表的属性：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="err">属性名</span><span class="o">=</span><span class="err">属性值</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>修改表名：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">原表名</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">新表名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>修改表字段：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">ADD</span><span class="o">|</span><span class="k">MODIFY</span><span class="o">|</span><span class="n">CHANGE</span><span class="o">|</span><span class="k">DROP</span><span class="w"> </span><span class="p">[</span><span class="k">COLUMN</span><span class="p">]</span><span class="w"> </span><span class="err">字段名</span><span class="w"> </span><span class="err">字段类型</span><span class="w"> </span><span class="err">字段约束</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="n">engine</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">stuinfo</span><span class="w"> </span><span class="k">RENAME</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">borndate</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="n">CHANGE</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">borndate</span><span class="w"> </span><span class="n">birthday</span><span class="w"> </span><span class="n">DATETIME</span><span class="w"> </span><span class="k">NULL</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">MODIFY</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">birthday</span><span class="w"> </span><span class="k">TIMESTAMP</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">COLUMN</span><span class="w"> </span><span class="n">birthday</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="5-删除表">5. 删除表</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">tablename</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="6-复制表">6. 复制表</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">tablename1</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="n">tablename2</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="err">仅复制表结构</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">tablename1</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">tablename2</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="err">复制结构和数据</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">emp</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="w">
+</span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w">
+</span><span class="w"></span><span class="k">WHERE</span><span class="w"> </span><span class="mi">1</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="建表规范">建表规范</h2>
+<ol>
+<li>
+<p>表名不能小写，不能太长，不能使用关键字，要和业务有关。</p>
+</li>
+<li>
+<p>必须设置存储引擎和字符集。</p>
+</li>
+<li>
+<p>数据类型在满足需求的基础上，要足够简短。</p>
+</li>
+<li>
+<p>必须有主键。</p>
+</li>
+<li>
+<p>每个列尽量设置为<code>not null</code>，并设定默认值。</p>
+</li>
+<li>
+<p>每个列需要加注释。</p>
+</li>
+<li>
+<p>列名规范同表名。</p>
+</li>
+</ol>
+<h2 id="常用查询命令">常用查询命令</h2>
+<ul>
+<li>查询版本</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">();</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>查询当前时间</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">NOW</span><span class="p">();</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>查看警告信息</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">WARNINGS</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="常用字段类型">常用字段类型</h2>
+<h3 id="1-整数">1. 整数</h3>
+<ul>
+<li>
+<p><code>TINYINT</code>：1字节，有符号的范围是-128～127，无符号的范围是0~255。</p>
+</li>
+<li>
+<p><code>SMALLINT</code>：2字节，有符号的范围是-32768~32767，无符号的范围是0~65535。</p>
+</li>
+<li>
+<p><code>MEDIUMINT</code>：3字节，有符号的范围是-8388608~8388607，无符号的范围是0~16777215。</p>
+</li>
+<li>
+<p><code>INT</code>：4字节，有符号的范围是-2147483648~2147483647，无符号的范围是0~4294967295。</p>
+</li>
+<li>
+<p><code>BIGINT</code>：8字节。</p>
+</li>
+</ul>
+<h3 id="2-浮点数">2. 浮点数</h3>
+<ul>
+<li>
+<p><code>FLOAT</code>: 4字节单精度浮点数</p>
+</li>
+<li>
+<p><code>DOUBLE</code>: 8字节双精度浮点数</p>
+</li>
+</ul>
+<p>例如：double(5, 2)表示最多5位，其中有且仅有2位小数，即最大值为999.99。</p>
+<h3 id="3-decimal">3. decimal</h3>
+<p>浮点型，不会出现精度问题。</p>
+<h3 id="4-char">4. char</h3>
+<p>固定长度字符串类型；内容范围是0~255字符；</p>
+<p><code>char(n)</code>：n参数默认为1，不管实际存储，开辟空间都是<code>n</code>个字节，效率高。<code>mysql5</code>之后，<code>n</code>指的是字符个数。</p>
+<h3 id="5-varchar">5. varchar</h3>
+<p>可变长度字符串类型；内容范围为0~65535字节；</p>
+<p><code>varchar(n)</code>最大字节个数<code>n</code>必选，根据实际存储空间决定开辟空间，效率低。<code>varchar</code>会消耗额外1到2个字节，存储字符长度。<code>mysql5</code>之后，<code>n</code>指的是字符。</p>
+<h3 id="6-text">6. text</h3>
+<p>字符串类型，通常存储较长文本。</p>
+<h3 id="7-blob">7. blob</h3>
+<p>字节类型；常用于<code>jpg, mp3, avi</code>。</p>
+<h3 id="8-date">8. date</h3>
+<p>日期类型；格式为<code>yyyy-MM-dd</code>。</p>
+<h3 id="9-time">9. time</h3>
+<p>时间类型；格式为<code>hh:mm:ss</code>。</p>
+<h3 id="10-timestamp">10. timestamp</h3>
+<p>用于保存日期和时间，保存格式为时间戳，共占用4个字节。</p>
+<p><code>timestamp</code>值的范围是<code>1970-01-01 00:00:01 UTC</code>到<code>2038-01-19 03:14:07 UTC</code>。</p>
+<p>用命令行工具更新该值时，数据格式为“年月日时分秒”，“时分秒可以省略”。</p>
+<h3 id="10-datetime">10. datetime</h3>
+<p>用于保存日期和时间，格式为时间戳，占用5个字节。</p>
+<p><code>datetime</code>精度可以到微秒，如果需要保存毫秒和微秒，则需要消耗额外空间，最大可扩展到8字节。</p>
+<p>注意，上述规则不适用于<code>MySQL5.6.4</code>之前版本。在该版本之前，<code>datetime</code>固定占用8字节。</p>
+<p>取值范围是<code>0000-01-01 00:00:00</code>到<code>9999-12-31 23:59:59</code>。显示具体值时，只会精确到秒。</p>
+<h2 id="常见字段约束">常见字段约束</h2>
+<h3 id="1-说明">1. 说明</h3>
+<p>用于限制表中字段的数据。</p>
+<h3 id="2-列表">2. 列表</h3>
+<ul>
+<li>
+<p><code>NOT NULL</code></p>
+<p>非空。用于限制该字段为必填项。</p>
+</li>
+<li>
+<p><code>DEFAULT</code></p>
+<p>默认值。如果该字段没有插入值，则显示默认值。</p>
+</li>
+<li>
+<p><code>PRIMARY KEY</code></p>
+<p>主键。被设为主键的列值不能重复，并且不能为空。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">tbl_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>UNIQUE</code></p>
+<p>唯一。限制字段不能重复，但是可以为空。</p>
+</li>
+<li>
+<p><code>CHECK</code></p>
+<p>检查。限制该字段值必须满足指定条件，<code>MySQL</code>不支持。</p>
+</li>
+<li>
+<p><code>FOREIGN KEY</code></p>
+<p>外键，用于限制两个表的关系。</p>
+<p>外键列的值必须来自主表的关联列。主表关联列和从表关联列必须类型一致，意思一致，但是名称无要求。主表的关联列要求必须是主键。</p>
+<p>定义外键：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">teblename</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="err">外键名</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="err">列名</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="err">表名（关联列）</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">teblename</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span><span class="w">	</span><span class="p">...</span><span class="w">
+</span><span class="w">	</span><span class="k">CONSTRAINT</span><span class="w"> </span><span class="err">外键名</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="err">列名</span><span class="p">)</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="err">表名</span><span class="p">(</span><span class="err">关联列</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="p">);</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>删除外键：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">DROP</span><span class="w"> </span><span class="k">FOREIGN</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="err">键名</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>AUTO_INCREMENT</code></p>
+<p>自增长列必须设置在一个键上，比如主键或唯一键。</p>
+<p>自增长列要求数据类型为数值型。</p>
+<p>一个表至多有一个自增长列。</p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-06-19</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">MySQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql-dcl/" class="prev" rel="prev" title="【MySQL】DCL用户管理"><i class="fas fa-angle-left fa-fw"></i>【MySQL】DCL用户管理</a>
+            <a href="/mysql-dml/" class="next" rel="next" title="【MySQL】DML数据操作">【MySQL】DML数据操作<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-06-19T00:46:11+08:00","owner":"","repo":"","title":"【MySQL】DDL数据定义"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

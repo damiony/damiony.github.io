@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-optimizer/" /><link rel="prev" href="http://example.org/linux-date/" /><link rel="next" href="http://example.org/linux_sed/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-optimizer/" /><link rel="prev" href="http://example.org/linux-date/" /><link rel="next" href="http://example.org/mysql-var/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-optimizer\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  374 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  499 ,
         "url": "http:\/\/example.org\/mysql-optimizer\/","datePublished": "2020-07-15T19:15:22+08:00","dateModified": "2020-07-15T19:15:22+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,30 +115,6 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#sql性能问题">SQL性能问题</a>
-      <ul>
-        <li><a href="#1-说明">1. 说明</a></li>
-      </ul>
-    </li>
-    <li><a href="#sql执行计划">SQL执行计划</a>
-      <ul>
-        <li><a href="#1-语法">1. 语法</a></li>
-      </ul>
-    </li>
-    <li><a href="#执行计划分析">执行计划分析</a>
-      <ul>
-        <li><a href="#1-id">1. id</a></li>
-        <li><a href="#2-select_type">2. select_type</a></li>
-        <li><a href="#3-table">3. table</a></li>
-        <li><a href="#4-type">4. type</a></li>
-        <li><a href="#5-possible_keys">5. Possible_keys</a></li>
-        <li><a href="#6-key">6. key</a></li>
-        <li><a href="#7-key_len">7. key_len</a></li>
-        <li><a href="#8-ref">8. ref</a></li>
-        <li><a href="#9-rows">9. rows</a></li>
-        <li><a href="#10-extra">10. extra</a></li>
-      </ul>
-    </li>
     <li><a href="#sql优化">SQL优化</a></li>
     <li><a href="#单表优化">单表优化</a></li>
     <li><a href="#双表优化">双表优化</a></li>
@@ -153,17 +129,16 @@
         </li>
       </ul>
     </li>
-    <li><a href="#慢查询">慢查询</a></li>
-    <li><a href="#mysqldumpslow">mysqldumpslow</a></li>
-    <li><a href="#海量数据分析">海量数据分析</a>
+    <li><a href="#慢查询日志">慢查询日志</a>
       <ul>
-        <li>
-          <ul>
-            <li><a href="#1-profiles">1. profiles</a></li>
-            <li><a href="#2-精确分析">2. 精确分析</a></li>
-            <li><a href="#3-全局查询日志">3. 全局查询日志</a></li>
-          </ul>
-        </li>
+        <li><a href="#1-检查是否打开了慢查询日志">1. 检查是否打开了慢查询日志</a></li>
+        <li><a href="#2-临时开启">2. 临时开启</a></li>
+        <li><a href="#3-永久开启">3. 永久开启</a></li>
+        <li><a href="#4-查看慢查询阀值">4. 查看慢查询阀值</a></li>
+        <li><a href="#5-设置慢查询阀值">5. 设置慢查询阀值</a></li>
+        <li><a href="#6-永久设置阀值">6. 永久设置阀值</a></li>
+        <li><a href="#7-查询超过阀值的sql个数">7. 查询超过阀值的sql个数</a></li>
+        <li><a href="#8-mysqldumpslow">8. mysqldumpslow</a></li>
       </ul>
     </li>
     <li><a href="#锁机制">锁机制</a>
@@ -215,172 +190,69 @@
         </li>
       </ul>
     </li>
+    <li><a href="#查看服务器状态">查看服务器状态</a></li>
+    <li><a href="#排查低效率语句">排查低效率语句</a></li>
+    <li><a href="#执行计划字段分析">执行计划字段分析</a>
+      <ul>
+        <li><a href="#1-id">1. id</a></li>
+        <li><a href="#2-select_type">2. select_type</a></li>
+        <li><a href="#3-table">3. table</a></li>
+        <li><a href="#4-type">4. type</a></li>
+        <li><a href="#5-possible_keys">5. Possible_keys</a></li>
+        <li><a href="#6-key">6. key</a></li>
+        <li><a href="#7-key_len">7. key_len</a></li>
+        <li><a href="#8-ref">8. ref</a></li>
+        <li><a href="#9-rows">9. rows</a></li>
+        <li><a href="#10-extra">10. extra</a></li>
+      </ul>
+    </li>
+    <li><a href="#语句分析">语句分析</a>
+      <ul>
+        <li><a href="#1-profiles">1. profiles</a></li>
+        <li><a href="#2-trace">2. <code>trace</code></a></li>
+        <li><a href="#3-记录全局日志">3. 记录全局日志</a></li>
+      </ul>
+    </li>
+    <li><a href="#批量导入数据的优化">批量导入数据的优化</a>
+      <ul>
+        <li><a href="#1-批量插入数据的命令">1. 批量插入数据的命令</a></li>
+        <li><a href="#2-优化建议">2. 优化建议</a></li>
+      </ul>
+    </li>
+    <li><a href="#insert优化"><code>INSERT</code>优化</a></li>
+    <li><a href="#group-by优化"><code>group by</code>优化</a></li>
+    <li><a href="#子查询优化">子查询优化</a></li>
+    <li><a href="#or优化"><code>or</code>优化</a></li>
+    <li><a href="#分页查询优化">分页查询优化</a></li>
+    <li><a href="#人为控制索引">人为控制索引</a>
+      <ul>
+        <li><a href="#1-use-index">1. <code>USE INDEX</code></a></li>
+        <li><a href="#2-ignore-index">2. <code>IGNORE INDEX</code></a></li>
+        <li><a href="#3-force-index">3. <code>FORCE INDEX</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#应用层面的优化">应用层面的优化</a>
+      <ul>
+        <li><a href="#1-使用连接池">1. 使用连接池</a></li>
+        <li><a href="#2-避免对数据进行重复查询">2. 避免对数据进行重复查询</a></li>
+        <li><a href="#3-增加缓存">3. 增加缓存</a></li>
+        <li><a href="#4-对查询进行分流">4. 对查询进行分流</a></li>
+        <li><a href="#5-分布式数据库架构">5. 分布式数据库架构</a></li>
+      </ul>
+    </li>
+    <li><a href="#mysql并发参数"><code>MySQL</code>并发参数</a>
+      <ul>
+        <li><a href="#1-max_connections">1. <code>max_connections</code></a></li>
+        <li><a href="#2-back_log">2. <code>back_log</code></a></li>
+        <li><a href="#3-thread_cache_size">3. <code>thread_cache_size</code></a></li>
+        <li><a href="#4-innodb_lock_wait_timeout">4. <code>innodb_lock_wait_timeout</code></a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="sql性能问题">SQL性能问题</h2>
-<h3 id="1-说明">1. 说明</h3>
-<ul>
-<li>
+            </div><div class="content" id="content"><h2 id="sql优化">SQL优化</h2>
 <p>主要是通过分析SQL执行计划，分析性能。</p>
-</li>
-<li>
-<p>注意，SQL查询优化器会干扰我们的优化。</p>
-</li>
-</ul>
-<h2 id="sql执行计划">SQL执行计划</h2>
-<h3 id="1-语法">1. 语法</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">explain</span><span class="w"> </span><span class="n">SQL语句</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h2 id="执行计划分析">执行计划分析</h2>
-<h3 id="1-id">1. id</h3>
-<h3 id="2-select_type">2. select_type</h3>
-<ul>
-<li>
-<p><code>Primary</code>：包含子查询的SQL中的主查询（最外层）。</p>
-</li>
-<li>
-<p><code>Subquery</code>：包含子查询的SQL中的子查询（非最外层）。</p>
-</li>
-<li>
-<p><code>Simple</code>：简单查询（不包含子查询、union）。</p>
-</li>
-<li>
-<p><code>derived</code>：衍生查询（使用到了临时表）；如在from子查询中只有一张表；又或者在from子查询中，如果有table1 union table2，则table1就是derived，table2就是union。</p>
-</li>
-<li>
-<p><code>union</code>：说明见上例。</p>
-</li>
-<li>
-<p><code>union result</code>：告知哪些表之间存在union查询。</p>
-</li>
-</ul>
-<h3 id="3-table">3. table</h3>
-<h3 id="4-type">4. type</h3>
-<p><code>System &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; all</code></p>
-<p>其中：<code>system</code>，<code>const</code>只是理想情况，实际能达到 <code>ref &gt; range</code>。</p>
-<p>优化前提：有索引。</p>
-<ul>
-<li>
-<p><code>system</code>（忽略）</p>
-<p>只有一条数据的系统表；或衍生表只有一条数据的主查询。</p>
-</li>
-<li>
-<p><code>const</code></p>
-<p>仅仅能查到一条数据的<code>SQL</code>，用于<code>primary key</code>或者<code>unique</code>索引（类型与索引类型有关）。</p>
-</li>
-<li>
-<p><code>eq_ref</code></p>
-<p>唯一性索引；对于每个索引键的查询，返回匹配的唯一行数据（有且只有1个，不能为0）；常见于唯一索引和主键索引。</p>
-</li>
-<li>
-<p><code>ref</code></p>
-<p>非唯一性索引，对于每个索引键的查询，返回匹配的所有行。</p>
-</li>
-<li>
-<p><code>range</code></p>
-<p>检索指定范围的行。</p>
-</li>
-<li>
-<p><code>index</code></p>
-<p>查询全部索引表中的数据。</p>
-</li>
-<li>
-<p><code>all</code></p>
-<p>查询表中的所有数据。</p>
-</li>
-</ul>
-<h3 id="5-possible_keys">5. Possible_keys</h3>
-<p>可能用到的索引，是一种预测。</p>
-<h3 id="6-key">6. key</h3>
-<p>实际用到的索引。</p>
-<h3 id="7-key_len">7. key_len</h3>
-<p>索引的长度。</p>
-<p>用于判断复合索引是否被完全使用。</p>
-<p>对于<code>utf8</code>，一个字符占3个字节。</p>
-<p>如果索引字段可以为<code>null</code>，则会使用1个字节用于标识。</p>
-<p>如果索引字段为<code>varchar</code>，使用2个字节标识可变长度。</p>
-<h3 id="8-ref">8. ref</h3>
-<p>注意与<code>type</code>中的<code>ref</code>值区分。</p>
-<p>作用：指明当前表所参照的字段。</p>
-<p>如：<code>select ... where a.c = b.x;</code></p>
-<h3 id="9-rows">9. rows</h3>
-<p>被索引优化查询的数据个数（实际通过索引而查询到的数据个数）。</p>
-<h3 id="10-extra">10. extra</h3>
-<ul>
-<li>
-<p><code>using filesort</code></p>
-<p>性能消耗大；需要“额外”一次排序（查询）。常见于<code>order by</code>语句中。</p>
-<p>示例1：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a2</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>小结：对于单索引，如果排序和查找是同一个字段，则不会出现<code>using filesort</code>；如果排序和查找不是同一个字段，则会出现<code>using filesort</code>。</p>
-<p>示例2：（注意存在a1, a2, a3, a4四个字段）</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="nf">idx_a1_a2_a3</span><span class="w"> </span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="n">a3</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a3</span><span class="p">;</span><span class="w"> </span><span class="c1"># using filesort
-</span><span class="c1"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a2</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a3</span><span class="p">;</span><span class="w"> </span><span class="c1"># using filesort
-</span><span class="c1"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a2</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>小结：对于复合索引，<code>where</code>和<code>order by</code>按照复合索引的顺序使用，不要跨列或无序使用。</p>
-</li>
-<li>
-<p><code>using temporary</code></p>
-<p>性能损耗大，用到了临时表。一般出现在<code>group by</code>语句中。</p>
-<p>示例：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a1</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a2</span><span class="p">;</span><span class="w"> </span><span class="c1"># using temporary
-</span></code></pre></td></tr></table>
-</div>
-</div></li>
-<li>
-<p><code>using index</code></p>
-<p>性能提升，常见于索引覆盖。</p>
-<p>只要使用到的列，全部都在索引中，就称为”索引覆盖“。</p>
-<p>不读取原文件，只从索引文件中获取数据（不需要回表查询）。</p>
-<p>索引覆盖会对<code>possible_keys</code>和<code>key</code>造成影响：如果没有<code>where</code>，则索引只出现在<code>key</code>中；如果有<code>where</code>，则索引可能出现在<code>key</code>和<code>possible_keys</code>中。</p>
-</li>
-<li>
-<p><code>using where</code></p>
-<p>回表查询时，会出现<code>using where</code>。</p>
-</li>
-<li>
-<p><code>impossible where</code></p>
-<p><code>where</code>子句永远为<code>false</code>。</p>
-</li>
-<li>
-<p><code>using join buffer</code></p>
-<p><code>mysql</code>引擎使用了连接缓存。</p>
-</li>
-</ul>
-<h2 id="sql优化">SQL优化</h2>
-<p>SQL优化是一种概率层面的优化。</p>
-<p>服务层有SQL优化器，可能会影响我们的优化。</p>
+<p>服务层的SQL优化器，可能会影响我们的优化。</p>
 <h2 id="单表优化">单表优化</h2>
 <ol>
 <li>最佳左前缀，保持索引的定义和使用的顺序一致性</li>
@@ -421,29 +293,29 @@
 <p>避免使用<code>select * ...</code></p>
 <p>复合索引不要跨列使用。</p>
 <p>保证排序字段的排序一致性。</p>
-<h2 id="慢查询">慢查询</h2>
-<p>mysql提供的一种日志记录，用于记录mysql响应超过阀值的语句，默认10秒。</p>
-<p>默认是关闭的；建议调优时打开，最终部署时关闭。</p>
-<p>检查是否打开了慢查询日志：</p>
+<h2 id="慢查询日志">慢查询日志</h2>
+<p>慢查询日志可以记录响应时间超过阀值的<code>SQL</code>语句，默认阈值为10秒。</p>
+<p>该日志默认关闭，建议调优时打开，最终部署时关闭。</p>
+<h3 id="1-检查是否打开了慢查询日志">1. 检查是否打开了慢查询日志</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%slow_query_log%&#39;</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%slow_query_log%&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p>临时开启：</p>
+</div><h3 id="2-临时开启">2. 临时开启</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">slow_query_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">slow_query_log</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p>mysql服务器重启后会失效。</p>
-<p>永久开启：</p>
+</div><p><code>MySQL</code>服务器重启后会失效。</p>
+<h3 id="3-永久开启">3. 永久开启</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -455,29 +327,38 @@
 <pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#/etc/my.cnf追加</span>
 <span class="o">[</span>mysqld<span class="o">]</span>
 <span class="nv">slow_query_log</span><span class="o">=</span><span class="m">1</span>
-<span class="nv">slow_query_log_file</span><span class="o">=</span>/var/lib/mysql/local-slow.log
+<span class="nv">slow_query_log_file</span><span class="o">=</span>/var/lib/mysql/local-slow.log <span class="c1"># 日志文件路径</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>慢查询阀值：</p>
+</div><h3 id="4-查看慢查询阀值">4. 查看慢查询阀值</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s2">&#34;%log_query_time%&#34;</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;%long_query_time%&#34;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p>设置慢查询阀值：</p>
+</div><p>或者：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">lomg_query_time</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">long_query_time</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p>重新登陆后生效。</p>
-<p>永久设置阀值：</p>
+</div><h3 id="5-设置慢查询阀值">5. 设置慢查询阀值</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">long_query_time</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>重新连接数据库后才生效。</p>
+<h3 id="6-永久设置阀值">6. 永久设置阀值</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -490,91 +371,24 @@
 <span class="nv">long_query_time</span><span class="o">=</span><span class="m">3</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>查询超过阀值的sql：</p>
+</div><h3 id="7-查询超过阀值的sql个数">7. 查询超过阀值的sql个数</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">gloval</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%slow_queries%&#39;</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%slow_queries%&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="mysqldumpslow">mysqldumpslow</h2>
-<p>用于查看慢SQL。</p>
-<h2 id="海量数据分析">海量数据分析</h2>
-<h4 id="1-profiles">1. profiles</h4>
-<p>查看开启状态</p>
+</div><h3 id="8-mysqldumpslow">8. mysqldumpslow</h3>
+<p>可以使用<code>mysqldumpslow</code>工具查看慢查询日志，用法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%profiling%&#39;</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>打开</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">set</span><span class="w"> </span><span class="n">profiling</span><span class="o">=</span><span class="k">on</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>查看profiling打开之后，全部sql查询语句所花时间，不够精确</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">profiles</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="2-精确分析">2. 精确分析</h4>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="k">all</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="err">上一步查询的</span><span class="n">query_id</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>或者</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">profile</span><span class="w"> </span><span class="n">cpu</span><span class="p">,</span><span class="w"> </span><span class="n">block</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="err">上一步查询的</span><span class="n">query_id</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h4 id="3-全局查询日志">3. 全局查询日志</h4>
-<p>记录开启之后的全部sql语句，仅仅在调优、开发过程中打开。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%general_log%&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1"># 查看状态
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">#记录在表中
-</span><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">general_log</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1"># 开启
-</span><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">log_output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1"># sql记录在表中
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">#或者记录在文件中
-</span><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">general_log</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1"># 开启
-</span><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">log_output</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1"># 或者sql记录在文件中
-</span><span class="c1"></span><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">general_log_file</span><span class="o">=</span><span class="s1">&#39;/tmp/general.log&#39;</span><span class="p">;</span><span class="w"> </span><span class="c1"># 或者sql记录在文件中
-</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">mysqldumpslow 日志文件
+</code></pre></td></tr></table>
 </div>
 </div><h2 id="锁机制">锁机制</h2>
 <p>解决因资源共享，造成的并发问题。</p>
@@ -737,6 +551,536 @@
 <li>串行话</li>
 <li>有延迟</li>
 </ol>
+<h2 id="查看服务器状态">查看服务器状态</h2>
+<p>可以使用如下命令查看服务器状态信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="p">[</span><span class="k">SESSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">GLOBAL</span><span class="p">]</span><span class="w"> </span><span class="n">STATUS</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果想查看<code>SQL</code>语句执行频率的统计信息，可以使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="p">[</span><span class="k">SESSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">GLOBAL</span><span class="p">]</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;Com_______&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果想查看<code>InnoDB</code>数据行的统计信息，可以使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="p">[</span><span class="k">SESSION</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">GLOBAL</span><span class="p">]</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;InnoDB_rows_%&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="排查低效率语句">排查低效率语句</h2>
+<p>排查低效率<code>SQL</code>语句，有以下两种方法：</p>
+<ul>
+<li>
+<p>慢查询</p>
+</li>
+<li>
+<p><code>show processlist</code></p>
+</li>
+</ul>
+<h2 id="执行计划字段分析">执行计划字段分析</h2>
+<p>获取执行计划的语法为：<code>EXPLAIN SQL语句</code>。</p>
+<h3 id="1-id">1. id</h3>
+<p><code>select</code>查询的序列号，表示查询中执行<code>select</code>子句的顺序。</p>
+<p><code>id</code>相同时，查询顺序从上往下。</p>
+<p><code>id</code>不同时，值越大，越先被执行。</p>
+<h3 id="2-select_type">2. select_type</h3>
+<p><code>SELECT</code>的类型。</p>
+<ul>
+<li>
+<p><code>SIMPLE</code>：简单查询，不包含子查询和<code>UNION</code>。</p>
+</li>
+<li>
+<p><code>PRIMARY</code>：包含子查询的SQL语句中的主查询（最外层）。</p>
+</li>
+<li>
+<p><code>SUBQUERY</code>：在<code>SELECT子</code>句或者<code>WHERE</code>子句中，包含的子查询。</p>
+</li>
+<li>
+<p><code>DERIVED</code>：衍生查询，使用到了临时表。FROM子句中的子查询会被标记为<code>DERIVED</code>，又或者<code>UNION</code>包含在<code>FROM</code>子句的子查询中，外层<code>SELECT</code>将会被标记为<code>DRIVED</code>。</p>
+</li>
+<li>
+<p><code>UNION</code>：UNION中的第二个或者之后的查询语句。</p>
+</li>
+<li>
+<p><code>UNION RESULT</code>：对<code>UNION</code>结果进行的查询。</p>
+</li>
+</ul>
+<h3 id="3-table">3. table</h3>
+<p>查询的表。</p>
+<h3 id="4-type">4. type</h3>
+<p>表示表的访问类型。</p>
+<p>连接类型的性能由好到坏，依次是：<code>NULL</code>、<code>system</code>、<code>const</code>、<code>eq_ref</code>、<code>ref</code>、<code>fulltext</code>、<code>ref_or_null</code>、<code>index_merge</code>、<code>unique_subquery</code>、<code>index_subquery</code>、<code>range</code>、<code>index</code>和<code>all</code>。</p>
+<p><code>system</code>，<code>const</code>很难遇见，最好能达到<code>ref</code>和<code>range</code>级别。</p>
+<ul>
+<li>
+<p><code>NULL</code></p>
+<p>不访问任何表，直接返回结果。</p>
+</li>
+<li>
+<p><code>system</code>（忽略）</p>
+<p>只有一条数据的系统表，或衍生表只有一条数据的主查询。</p>
+</li>
+<li>
+<p><code>const</code></p>
+<p>仅仅能查到一条数据的<code>SQL</code>，用于<code>primary key</code>或者<code>unique</code>索引。</p>
+</li>
+<li>
+<p><code>eq_ref</code></p>
+<p>用于连接查询。</p>
+<p>对于每个索引键的查询，返回匹配的唯一行数据，有且只有1个，不能为0。</p>
+<p>常见于唯一索引和主键索引。</p>
+</li>
+<li>
+<p><code>ref</code></p>
+<p>非唯一性索引查询，返回匹配的所有行。</p>
+</li>
+<li>
+<p><code>range</code></p>
+<p>检索指定范围的行，需要使用一个索引。</p>
+</li>
+<li>
+<p><code>index</code></p>
+<p>对索引表进行遍历。</p>
+</li>
+<li>
+<p><code>all</code></p>
+<p>对数据表进行遍历。</p>
+</li>
+</ul>
+<h3 id="5-possible_keys">5. Possible_keys</h3>
+<p>可能用到的索引。</p>
+<h3 id="6-key">6. key</h3>
+<p>实际用到的索引。</p>
+<h3 id="7-key_len">7. key_len</h3>
+<p>索引使用的字节数，其值为索引字段最大可能长度，越短越好。</p>
+<p>可用于判断复合索引是否被完全使用。</p>
+<p>对于<code>utf8</code>，一个字符占3个字节。如果索引字段可以为<code>null</code>，则会使用1个字节用于标识。如果索引字段为<code>varchar</code>，使用2个字节标识可变长度。</p>
+<h3 id="8-ref">8. ref</h3>
+<p>用于指明当前表所参照的字段，注意跟<code>type</code>中的<code>ref</code>值区分开。</p>
+<h3 id="9-rows">9. rows</h3>
+<p>实际通过索引查询到的数据个数。</p>
+<h3 id="10-extra">10. extra</h3>
+<p>执行情况的额外说明。</p>
+<ul>
+<li>
+<p><code>using filesort</code></p>
+<p>需要额外进行一次排序，而不是使用索引的顺序，性能消耗大。常见于<code>order by</code>语句中。</p>
+<p>示例1：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a2</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>小结：对于单索引，如果排序和查找是同一个字段，则不会出现<code>using filesort</code>；如果排序和查找不是同一个字段，则会出现<code>using filesort</code>。</p>
+<p>示例2：（注意存在a1, a2, a3, a4四个字段）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">add</span><span class="w"> </span><span class="k">index</span><span class="w"> </span><span class="n">idx_a1_a2_a3</span><span class="w"> </span><span class="p">(</span><span class="n">a1</span><span class="p">,</span><span class="w"> </span><span class="n">a2</span><span class="p">,</span><span class="w"> </span><span class="n">a3</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a3</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">filesort</span><span class="w">
+</span><span class="w"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a2</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a3</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">filesort</span><span class="w">
+</span><span class="w"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a2</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>小结：对于复合索引，<code>where</code>和<code>order by</code>按照复合索引的顺序使用，不要跨列或无序使用。</p>
+</li>
+<li>
+<p><code>using temporary</code></p>
+<p>用到了临时表，性能损耗大。一般出现在<code>order by</code>和<code>group by</code>语句中。</p>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">explain</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">test</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">a1</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">a2</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="k">temporary</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>using index</code></p>
+<p>性能较好，常见于索引覆盖。</p>
+<p>只要使用到的列，全部都在索引中，就称为”索引覆盖“。</p>
+<p>这时只需要从索引文件中获取数据，不需要读取数据文件，即不回表查询。</p>
+</li>
+<li>
+<p><code>using where</code></p>
+<p>回表查询时，会出现<code>using where</code>。</p>
+</li>
+<li>
+<p><code>impossible where</code></p>
+<p><code>where</code>子句永远为<code>false</code>。</p>
+</li>
+<li>
+<p><code>using join buffer</code></p>
+<p><code>mysql</code>引擎使用了连接缓存。</p>
+</li>
+</ul>
+<h2 id="语句分析">语句分析</h2>
+<h3 id="1-profiles">1. profiles</h3>
+<ul>
+<li>
+<p>查看是否支持<code>profiles</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;%have_profiling%&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">have_profiling</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看<code>profiles</code>开启状态。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;profiling&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">profiling</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>返回的结果中，<code>OFF</code>或者<code>0</code>表示关闭，<code>ON</code>或者<code>1</code>表示开启。</p>
+</li>
+<li>
+<p>打开<code>profiles</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">profiling</span><span class="o">=</span><span class="k">ON</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">profiling</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>proflie</code>开启之后，会记录所有查询语句所花的时间，但是不是很精确。</p>
+</li>
+<li>
+<p>关闭<code>profiles</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">profiling</span><span class="o">=</span><span class="k">OFF</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">profiling</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看<code>profiles</code>统计信息</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">profiles</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看某个查询的性能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">PROFILE</span><span class="w"> </span><span class="p">[</span><span class="k">type</span><span class="p">...]</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">QUERY</span><span class="w"> </span><span class="n">query_id</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>query_id</code>可以通过上一个命令获取。</p>
+<p><code>type</code>如果省略，则只显示时间消耗。常见的<code>type</code>参数有<code>ALL</code>、<code>BLOCK IO</code>、<code>CPU</code>、<code>IPC</code>等，表示需要进行分析的具体内容。</p>
+</li>
+</ul>
+<h3 id="2-trace">2. <code>trace</code></h3>
+<p><code>MySQL5.6</code>开始提供了针对<code>SQL</code>语句的<code>TRACE</code>，通过<code>TRACE</code>文件，可以知道执行计划的生成过程。</p>
+<ul>
+<li>
+<p>查看<code>trace</code>的开启情况。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;optimizer_trace&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">optimizer_trace</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>打开<code>trace</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">optimizer_trace</span><span class="o">=</span><span class="s2">&#34;enabled=on,one_line=off&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>设置<code>trace</code>能使用的内存大小。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">optimizer_trace_max_mem_size</span><span class="o">=</span><span class="mi">1048576</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>查看分析结果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">optimizer_trace</span><span class="err">\</span><span class="k">G</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="3-记录全局日志">3. 记录全局日志</h3>
+<p>记录开启之后的全部sql语句，建议只在调优和开发过程中打开。</p>
+<ul>
+<li>
+<p>查看状态</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%general_log%&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;%log_output%&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>开启，并将sql记录在表里</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">general_log</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">log_output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>开启，并将sql记录在文件里</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">general_log</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">log_output</span><span class="o">=</span><span class="s1">&#39;file&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="k">GLOBAL</span><span class="w"> </span><span class="n">general_log_file</span><span class="o">=</span><span class="s1">&#39;/tmp/general.log&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="批量导入数据的优化">批量导入数据的优化</h2>
+<h3 id="1-批量插入数据的命令">1. 批量插入数据的命令</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">LOAD</span><span class="w"> </span><span class="k">DATA</span><span class="w"> </span><span class="k">LOCAL</span><span class="w"> </span><span class="n">infile</span><span class="w"> </span><span class="err">数据文件路径</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="n">FIELDS</span><span class="w"> </span><span class="n">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span><span class="n">LINES</span><span class="w"> </span><span class="n">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>对于数据文件中的每行数据，以<code>,</code>号来分隔每个字段。</p>
+<h3 id="2-优化建议">2. 优化建议</h3>
+<ul>
+<li>
+<p>按照主键顺序插入。</p>
+</li>
+<li>
+<p>关闭对唯一性索引的校验：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">UNIQUE_CHECKS</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>关闭事务的自动提交：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">AUTOCOMMIT</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="insert优化"><code>INSERT</code>优化</h2>
+<ul>
+<li>
+<p>如果对一张表插入多条数据，尽量将多条数据放在一个<code>INSERT</code>语句中，能降低客户端和数据库的连接、关闭消耗，效率会比分开执行的<code>INSERT</code>语句快。</p>
+</li>
+<li>
+<p>将多个插入放在一个事务中。</p>
+</li>
+<li>
+<p>按照主键的顺序插入。</p>
+</li>
+</ul>
+<h2 id="group-by优化"><code>group by</code>优化</h2>
+<p><code>group by</code>除了会进行分组外，还会进行排序操作。如果分组时使用了聚合函数，则也会进行聚合函数的计算。</p>
+<p>如果想避免排序造成的性能消耗，可以在<code>group by</code>子句之后，使用<code>order by null</code>来取消排序。</p>
+<p>除了取消排序，还可以对分组字段建立索引。</p>
+<h2 id="子查询优化">子查询优化</h2>
+<p>使用子查询，可以一次性完成需要多个步骤才能完成的工作。</p>
+<p>子查询的优化准则为，尽量使用连接查询代替子查询。</p>
+<h2 id="or优化"><code>or</code>优化</h2>
+<p>对于包含<code>OR</code>的查询语句，如果要使用到索引，则<code>OR</code>两侧的每个条件都必须用到索引。</p>
+<p>优化方式除了增加索引外，还可以使用<code>union</code>替代<code>or</code>。</p>
+<h2 id="分页查询优化">分页查询优化</h2>
+<ol>
+<li>
+<p>在索引上完成排序分页操作，然后回数据表查询所需的其他字段。</p>
+</li>
+<li>
+<p>将<code>limit</code>查询转换成对某个位置的查询，适用于主键自增的表，即不能出现主键断层。如<code>id &gt; 10000 limit 10</code>。</p>
+</li>
+<li>
+<p>如果想优化<code>count()</code>，可以新建一张表，记录总数。</p>
+</li>
+</ol>
+<h2 id="人为控制索引">人为控制索引</h2>
+<h3 id="1-use-index">1. <code>USE INDEX</code></h3>
+<p>使用<code>USE INDEX(索引名)</code>，可以让<code>MySQL</code>只参考指定的索引，但不一定会使用。</p>
+<h3 id="2-ignore-index">2. <code>IGNORE INDEX</code></h3>
+<p>可以使用<code>IGNORE INDEX(索引名)</code>，来让<code>MySQL</code>忽略一个或多个索引。</p>
+<h3 id="3-force-index">3. <code>FORCE INDEX</code></h3>
+<p>通过使用<code>FORCE INDEX(索引名)</code>，可以强制要求<code>MySQL</code>使用指定的索引。</p>
+<h2 id="应用层面的优化">应用层面的优化</h2>
+<h3 id="1-使用连接池">1. 使用连接池</h3>
+<p>对于数据库来说，建立连接的代价比较昂贵，因此，如果频繁的建立和关闭连接，会消耗较多资源。建立连接池，可以减少连接次数，提高访问性能。</p>
+<h3 id="2-避免对数据进行重复查询">2. 避免对数据进行重复查询</h3>
+<p>尽量一次性获取所需数据，减少无用的重复请求。</p>
+<h3 id="3-增加缓存">3. 增加缓存</h3>
+<p>可以在应用层和数据库之间，增加缓存层。查询数据时，直接访问缓存层，即可以提高查询速度，也可以降低数据库的压力。</p>
+<h3 id="4-对查询进行分流">4. 对查询进行分流</h3>
+<p>通过<code>MySQL</code>的主从复制，可以实现读写分离。</p>
+<p>增删改操作由主结点执行，查询操作则分发给从结点，从而可以降低单台服务器的读写压力。</p>
+<h3 id="5-分布式数据库架构">5. 分布式数据库架构</h3>
+<p>将数据分布在多台服务器，可以很好实现负载均衡，从而解决大数据量和高负载问题。</p>
+<h2 id="mysql并发参数"><code>MySQL</code>并发参数</h2>
+<h3 id="1-max_connections">1. <code>max_connections</code></h3>
+<p><code>max_connections</code>用于控制<code>MySQL</code>数据库的最大连接数，默认151，查看变量值的命令为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;max_connections&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="k">global</span><span class="p">.</span><span class="n">max_connections</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>注意，<code>max_connections</code>是全局变量。</p>
+<p>当连接数达到最大值时，后续的连接请求可能会失败。查看失败的连接请求数的命令为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;connection_errors_max_connections&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>设置最大连接数时，需要考虑多个因素的影响。如操作系统的内存大小、连接的负荷、cpu性能、期望的响应时间等。</p>
+<h3 id="2-back_log">2. <code>back_log</code></h3>
+<p>如果<code>MySQL</code>的连接数达到<code>max_connections</code>，新来的请求会被放在堆栈中，<code>back_log</code>参数就是该堆栈能容纳的数量。</p>
+<p>如果等待连接的数量超过<code>back_log</code>，新的连接请求就会报错。</p>
+<h3 id="3-thread_cache_size">3. <code>thread_cache_size</code></h3>
+<p><code>MySQL</code>数据库会缓存一些服务线程，当又客户端请求到来时，会将其中的服务线程分配给连接会话使用。</p>
+<p><code>thread_cache_size</code>用于控制该线程数量。</p>
+<h3 id="4-innodb_lock_wait_timeout">4. <code>innodb_lock_wait_timeout</code></h3>
+<p>该参数，主要用于控制<code>InnoDB</code>事务等待行锁的时间。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -761,7 +1105,7 @@
     </div>
 
     <div class="post-nav"><a href="/linux-date/" class="prev" rel="prev" title="【Linux】date命令详解"><i class="fas fa-angle-left fa-fw"></i>【Linux】date命令详解</a>
-            <a href="/linux_sed/" class="next" rel="next" title="【Linux】sed命令详解">【Linux】sed命令详解<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/mysql-var/" class="next" rel="next" title="【MySQL】变量">【MySQL】变量<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="gitalk" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
