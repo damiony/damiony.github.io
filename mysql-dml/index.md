@@ -3,7 +3,7 @@
 
 ## DML
 
-`DML`: (Data ManipulatiON Language) 数据操作语言。
+`DML`: (Data Manipulation Language) 数据操作语言。
 
 主要操作有：
 

@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-engines/" /><link rel="prev" href="http://example.org/mysql-log/" /><link rel="next" href="http://example.org/linux_sed/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-engines/" /><link rel="prev" href="http://example.org/mysql-log/" /><link rel="next" href="http://example.org/mysql-optimizer/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-engines\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  64 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  103 ,
         "url": "http:\/\/example.org\/mysql-engines\/","datePublished": "2020-08-03T18:54:29+08:00","dateModified": "2020-08-03T18:54:29+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -120,6 +120,9 @@
       <ul>
         <li><a href="#1-表空间文件模式">1. 表空间文件模式</a></li>
         <li><a href="#2-文件存储形式">2. 文件存储形式</a></li>
+        <li><a href="#删除数据">删除数据</a></li>
+        <li><a href="#插入数据">插入数据</a></li>
+        <li><a href="#重建表">重建表</a></li>
       </ul>
     </li>
     <li><a href="#myisam"><code>MyISAM</code></a>
@@ -148,17 +151,81 @@
             </div><div class="content" id="content"><h2 id="什么是存储引擎">什么是存储引擎</h2>
 <p>存储引擎，是数据库存储数据、建立索引、更新数据和查询数据等功能的具体实现。</p>
 <p>存储引擎是基于表的，即不同的表可以使用不同的存储引擎。</p>
-<p>在<code>MySQL</code>中，可以使用<code>show engines</code>查看数据库支持的存储引擎列表，可以使用<code>show variables like &quot;%engine%&quot;;</code>查看存储引擎相关配置。</p>
-<h2 id="innodb"><code>Innodb</code></h2>
+<p>在<code>MySQL</code>中，若想查看数据库支持的存储引擎，语句为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">engines</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>若想查看存储引擎相关配置，语句为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s2">&#34;%engine%&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="innodb"><code>Innodb</code></h2>
 <h3 id="1-表空间文件模式">1. 表空间文件模式</h3>
 <p><code>InnoDB</code>包含两种表空间文件模式：共享表空间和独立表空间。</p>
-<p>共享表空间，是指所有数据保存在一个表空间里面，而这个表空间可以由多个文件组成，一个表可以跨多个文件。</p>
-<p>独立表空间，是指每张表存放在独立的表空间，每个表空间都有多个数据文件。</p>
+<p>共享表空间，是指所有数据保存在一个表空间里面，而这个表空间可以由多个文件组成，一个表可以跨多个文件。该模式下，使用<code>drop table</code>命令删除表时，会删除整个文件。</p>
+<p>独立表空间，是指每张表存放在独立的表空间，每个表空间都有多个数据文件。该模式下，使用<code>drop talbe</code>删除表时不会回收空间。</p>
 <p>可以通过参数<code>innodb_file_per_table</code>查看表空间的模式，参数为0表示为共享表空间，参数为1表示为独立表空间。</p>
+<p><code>MySQL5.6.6</code>开始，默认使用的是独立表空间，这样便于管理表数据。</p>
 <h3 id="2-文件存储形式">2. 文件存储形式</h3>
 <p>使用共享表空间时，表结构存储在<code>.frm</code>文件中，数据和索引存放在<code>innodb_data_home_dir</code>和<code>innodb_data_file_path</code>定义的表空间中，可以是多个文件。</p>
 <p>使用独立表空间时，每张表都有独立的表空间。表结构存放在<code>.frm</code>文件中，数据和索引存放在<code>.ibd</code>中，每个文件的名字就是表的名字。</p>
-<p>注意，<code>MySQL8.0</code>之后，不再使用<code>.frm</code>文件。</p>
+<p>注意，<code>MySQL8.0</code>之后，不再使用<code>.frm</code>文件，表结构和数据存放在一起。</p>
+<h3 id="删除数据">删除数据</h3>
+<p>在独立表空间中，使用<code>delete</code>删除数据时，会造成空洞。</p>
+<p>因为删除记录时，<code>InnoDB</code>引擎只会把该记录标记为删除，但磁盘空间不会被回收。等到插入数据时，可以复用该位置。</p>
+<p>如果整个数据页的数据被删除，那么该数据页就可以被复用。</p>
+<p>如果相邻数据页的利用率很小，系统会将它们合并到一个数据页上，此时另一个数据页也能被复用。</p>
+<p>对记录的位置进行复用时，要求插入的数据符合该位置的范围条件，对数据页的复用则没有该限制。</p>
+<h3 id="插入数据">插入数据</h3>
+<p>在独立表空间中，插入数据时，也可能造成空洞。</p>
+<p>如果数据按照索引递增的顺序插入，索引的数据会很紧凑，不会造成分裂。</p>
+<p>如果数据是随机插入的，则可能会发生索引数据页的分裂，从而导致空洞。</p>
+<h3 id="重建表">重建表</h3>
+<p>在独立表空间中，为了消除空洞，可以对数据表进行重建。重建命令为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="n">engine</span><span class="o">=</span><span class="n">InnoDB</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>MySQL5.6</code>之前，重建命令的执行流程为：</p>
+<ol>
+<li><code>server</code>层创建临时表B，B和A的表结构一致。</li>
+<li>按主键递增的顺序，将A的数据复制到B。</li>
+<li>用B替换A。</li>
+</ol>
+<p>流程执行过程中，A不能有更新，即该流程不是<code>Online</code>的。</p>
+<p><code>MySQL5.6</code>开始，重建命令的执行流程为：</p>
+<ol>
+<li><code>InnoDB</code>引擎新建临时文件。</li>
+<li>将A的数据页存储到临时文件中。</li>
+<li>生成临时文件的过程中，将对A的操作记录到<code>row log</code>。</li>
+<li>将<code>row log</code>中的操作应用到临时文件。</li>
+<li>用临时文件替换表A的数据文件。</li>
+</ol>
+<p>该流程是<code>Online</code>的。<code>alter</code>语句在启动时，会自动获取<code>MDL</code>写锁，然后很快会变成<code>MDL</code>读锁。</p>
+<p>重建表还可以使用如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">optimize</span><span class="w"> </span><span class="n">tale</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>该命令等同于<code>alter table...</code>和<code>analyze table A</code>一起执行。<code>analyze</code>用于对表的索引信息做重新统计。</p>
 <h2 id="myisam"><code>MyISAM</code></h2>
 <h3 id="1-文件存储形式">1. 文件存储形式</h3>
 <p>对于不同的表，<code>MyISAM</code>会在磁盘上生成三类文件。每个文件的文件名和表名相同，但扩展名分别如下：</p>
@@ -270,7 +337,7 @@
     </div>
 
     <div class="post-nav"><a href="/mysql-log/" class="prev" rel="prev" title="【MySQL】日志"><i class="fas fa-angle-left fa-fw"></i>【MySQL】日志</a>
-            <a href="/linux_sed/" class="next" rel="next" title="【Linux】sed命令详解">【Linux】sed命令详解<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/mysql-optimizer/" class="next" rel="next" title="【MySQL】优化">【MySQL】优化<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="gitalk" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.

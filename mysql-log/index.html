@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-log\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  16 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  123 ,
         "url": "http:\/\/example.org\/mysql-log\/","datePublished": "2020-08-02T17:29:48+08:00","dateModified": "2020-08-02T17:29:48+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,17 +115,65 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#bin-log日志格式"><code>bin log</code>日志格式</a>
+    <li><a href="#redo-log"><code>Redo log</code></a>
       <ul>
-        <li><a href="#statement"><code>statement</code></a></li>
-        <li><a href="#row"><code>row</code></a></li>
-        <li><a href="#mixed"><code>mixed</code></a></li>
+        <li><a href="#crash-safe"><code>crash-safe</code></a></li>
+        <li><a href="#wal技术"><code>WAL</code>技术</a></li>
+        <li><a href="#执行流程">执行流程</a></li>
+        <li><a href="#innodb_flush_log_at_trx_commit"><code>innodb_flush_log_at_trx_commit</code></a></li>
       </ul>
     </li>
+    <li><a href="#bin-log"><code>bin log</code></a>
+      <ul>
+        <li><a href="#bin-log日志格式"><code>bin log</code>日志格式</a></li>
+        <li><a href="#归档流程">归档流程</a></li>
+        <li><a href="#binlog的写入机制"><code>binlog</code>的写入机制</a></li>
+        <li><a href="#sync_binlog"><code>sync_binlog</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#二者的差异">二者的差异</a></li>
+    <li><a href="#二者的联系">二者的联系</a></li>
+    <li><a href="#更新时的日志状态">更新时的日志状态</a></li>
+    <li><a href="#两阶段提交">两阶段提交</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="bin-log日志格式"><code>bin log</code>日志格式</h2>
-<p>使用如下<code>SQL</code>语句可以查看<code>bin log</code>日志的格式：</p>
+            </div><div class="content" id="content"><p><code>Mysql</code>的更新流程会涉及到两个重要日志模块：<code>redo log</code>（重做日志）和<code>bin log</code>（归档日志）</p>
+<h2 id="redo-log"><code>Redo log</code></h2>
+<p><code>redo log</code>是<code>InnoDB</code>引擎特有的日志，记录的是数据页的修改操作。日志大小固定，并以循环的方式写入.即从头开始写，写到末尾，然后重新回到开头。</p>
+<h3 id="crash-safe"><code>crash-safe</code></h3>
+<p>有了<code>redo log</code>，即使数据库异常重启，之前提交的记录也不会丢失，这种能力称为<code>crash-safe</code>。</p>
+<h3 id="wal技术"><code>WAL</code>技术</h3>
+<p><code>WAL</code>全称是<code>Write-Ahead Logging</code>，是指先写日志，再更新磁盘的数据页。</p>
+<p>如果每次更新的数据都直接写到磁盘，那么磁盘每次都需要查找对应记录，并且更新，<code>io</code>成本和查找成本太高。因为写入日志时，使用的是顺序写，速度较快，所以先写日志的效率更高。</p>
+<h3 id="执行流程">执行流程</h3>
+<ul>
+<li>
+<p>当有一条记录更新，<code>InnoDB</code>引擎会先把记录写到<code>redo log</code>，并更新内存。</p>
+</li>
+<li>
+<p>系统比较空闲时，<code>InnoDB</code>引擎会将操作记录更新到磁盘。</p>
+</li>
+<li>
+<p>如果日志文件写满了，也会将一部分操作更新到磁盘。</p>
+</li>
+</ul>
+<h3 id="innodb_flush_log_at_trx_commit"><code>innodb_flush_log_at_trx_commit</code></h3>
+<p><code>innodb_flush_log_at_trx_commit</code>参数用于控制<code>redo log</code>刷新到磁盘的频率。</p>
+<ul>
+<li>
+<p>0: 每秒将引擎<code>log buffer</code>中的<code>redo log</code>刷新到磁盘。性能最好，会丢日志。</p>
+</li>
+<li>
+<p>1: 每次提交事务时，将日志刷新到磁盘。最慢。</p>
+</li>
+<li>
+<p>2: 每次提交事务时，先将日志写到操作系统的文件缓存，再每秒刷新到磁盘。操作系统崩溃时会丢日志。</p>
+</li>
+</ul>
+<h2 id="bin-log"><code>bin log</code></h2>
+<p><code>bin log</code>是<code>Server</code>层的日志，主要用于归档。</p>
+<h3 id="bin-log日志格式"><code>bin log</code>日志格式</h3>
+<p>使用如下<code>SQL</code>语句可以查看<code>bin log</code>的日志格式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -143,13 +191,113 @@
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">binlog_format</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h3 id="statement"><code>statement</code></h3>
-<p>设置为该格式时，日志文件中记录的都是<code>SQL</code>语句。</p>
-<p>对数据进行增删改的<code>SQL</code>语句，都会被记录在日志文件中，通过<code>mysqlbinlog</code>可以查看每条语句的内容。</p>
-<h3 id="row"><code>row</code></h3>
-<p>该日志格式，记录的时每一行的数据变更，而不是<code>SQL</code>语句本身。</p>
-<h3 id="mixed"><code>mixed</code></h3>
+</div><ul>
+<li>
+<p><code>statement</code></p>
+<p>设置为该格式时，日志文件中记录的是<code>SQL</code>语句。</p>
+<p>对数据进行增、删、改的<code>SQL</code>语句，都会被记录在日志文件中，可以使用<code>mysqlbinlog</code>查看每条语句的内容。</p>
+</li>
+<li>
+<p><code>row</code></p>
+<p>设置为该日志格式时，日志记录的是每一行的数据变更，而不是<code>SQL</code>语句本身。</p>
+</li>
+<li>
+<p><code>mixed</code></p>
 <p><code>mixed</code>混合了<code>statement</code>和<code>row</code>两种格式。默认情况采用<code>statement</code>格式，但是在某些情况下，会使用<code>row</code>来记录日志。</p>
+</li>
+</ul>
+<h3 id="归档流程">归档流程</h3>
+<p>以下介绍误删表时，<code>bin log</code>的归档流程：</p>
+<ul>
+<li>
+<p>找到最近的一次全备份，恢复到临时库。</p>
+</li>
+<li>
+<p>从全备份的时间点开始，将<code>bin log</code>依次取出来，恢复到误删表之前的时刻。</p>
+</li>
+<li>
+<p>从临时库中取出表数据，按需恢复到线上库。</p>
+</li>
+</ul>
+<h3 id="binlog的写入机制"><code>binlog</code>的写入机制</h3>
+<p>写入机制为：</p>
+<ol>
+<li>事务执行过程中，先把日志写到<code>binlog cache</code>。</li>
+<li>事务提交时，将<code>binlog cache</code>中的完整事务写入到<code>binlog</code>文件中。</li>
+<li>清空<code>binlog cache</code>。</li>
+</ol>
+<p>每个连接线程都有一个<code>binlog cache</code>，所占内存大小由<code>binlog_cache_size</code>控制。</p>
+<p>所有的线程共用一个<code>binlog</code>文件，将内存数据持久化到<code>binlog</code>文件时，需要先写入到操作系统的文件缓存，然后再写入磁盘。</p>
+<h3 id="sync_binlog"><code>sync_binlog</code></h3>
+<p><code>sync_binlog</code>参数控制着日志写入到磁盘的频率：</p>
+<ul>
+<li>
+<p>0：每次提交事务时，只将日志写到文件缓存。</p>
+</li>
+<li>
+<p>1：每提交一次事务，就将日志刷新到磁盘。最安全但性能最低。</p>
+</li>
+<li>
+<p>n：每次提交事务，都将日志写入文件缓存。提交<code>n</code>次事务后，将缓存中的日志刷新到磁盘。</p>
+</li>
+</ul>
+<h2 id="二者的差异">二者的差异</h2>
+<ol>
+<li>
+<p><code>redo log</code>是<code>InnoDB</code>引擎特有的；<code>bin log</code>是<code>Server</code>层实现的，所有引擎都可用。</p>
+</li>
+<li>
+<p><code>redo log</code>是物理日志，记录了<strong>在某个数据页上做了什么修改</strong>；<code>bin log</code>是逻辑日志，记录的是<strong>语句的原始逻辑</strong>。</p>
+</li>
+<li>
+<p><code>redo log</code>是循环写，<code>bin log</code>是追加写。</p>
+</li>
+<li>
+<p><code>redo log</code>用于<code>crash-safe</code>，<code>bin log</code>用于归档。</p>
+</li>
+</ol>
+<h2 id="二者的联系">二者的联系</h2>
+<ul>
+<li>
+<p>在崩溃恢复的场景中，<code>InnoDB</code>如果判断一个数据页丢失了更新，会去读<code>redo log</code>。</p>
+</li>
+<li>
+<p>如果<code>redo log</code>既有<code>prepare</code>状态，又有<code>commit</code>状态，则直接提交该事务。</p>
+</li>
+<li>
+<p>如果只有<code>commit</code>状态，就从<code>redo log</code>中获取<code>XID</code>，然后去<code>bin log</code>查找对应事务。</p>
+</li>
+</ul>
+<h2 id="更新时的日志状态">更新时的日志状态</h2>
+<p>记录更新时的状态变化如下：</p>
+<ul>
+<li>
+<p>执行器找引擎取指定行数据。如果数据页位于内存，就直接返回给执行器；如果不在内存中，则先从磁盘加载再返回。</p>
+</li>
+<li>
+<p>执行器拿到数据进行修改，调用引擎接口写入这行新数据。</p>
+</li>
+<li>
+<p>引擎将新数据记录到内存，将更新操作记录到<code>redo log</code>，将<code>redo log</code>设为<code>prepare</code>状态，告知执行器执行完成。</p>
+</li>
+<li>
+<p>执行器生成<code>bin log</code>并视情况写入磁盘。</p>
+</li>
+<li>
+<p>调用引擎接口提交事务，引擎将<code>redo log</code>改为<code>commit</code>状态，流程结束。</p>
+</li>
+</ul>
+<h2 id="两阶段提交">两阶段提交</h2>
+<p>更新过程中使用的是两阶段提交，即先将<code>redo log</code>设为<code>prepare</code>状态，再生成<code>bin log</code>，最后将<code>redo log</code>设为<code>commit</code>状态。目的是为了让两份日志之间的逻辑一致。</p>
+<p>如果不用两阶段提交，可能会导致主从数据库、或者主备数据库逻辑上的不一致：</p>
+<ul>
+<li>
+<p>如果先写<code>redo log</code>再写<code>bin log</code>，写<code>redo log</code>之后、<code>bin log</code>之前，系统<code>crash</code>，用<code>bin log</code>恢复出来的数据会比原库少。</p>
+</li>
+<li>
+<p>如果先写<code>bin log</code>再写<code>redo log</code>，写<code>bin log</code>之后、<code>redo log</code>之前，系统<code>crash</code>，用<code>bin log</code>恢复出来的数据会比原库多。</p>
+</li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">

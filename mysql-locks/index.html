@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-locks\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  39 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  227 ,
         "url": "http:\/\/example.org\/mysql-locks\/","datePublished": "2020-08-02T00:38:11+08:00","dateModified": "2020-08-02T00:38:11+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,81 +115,266 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#myisam锁"><code>MyISAM</code>锁</a>
+    <li><a href="#锁的概念">锁的概念</a></li>
+    <li><a href="#锁的分类">锁的分类</a></li>
+    <li><a href="#全局锁">全局锁</a>
       <ul>
-        <li><a href="#1-显式加锁">1. 显式加锁</a></li>
+        <li><a href="#全库逻辑备份">全库逻辑备份</a></li>
+        <li><a href="#--single-transaction"><code>--single-transaction</code></a></li>
+        <li><a href="#readonly"><code>readonly</code></a></li>
       </ul>
     </li>
-    <li><a href="#查看表的使用情况">查看表的使用情况</a></li>
-    <li><a href="#innodb锁"><code>InnoDB</code>锁</a>
+    <li><a href="#表级锁">表级锁</a>
       <ul>
-        <li><a href="#1-显式加锁-1">1. 显式加锁</a></li>
-        <li><a href="#2-优化建议">2. 优化建议</a></li>
+        <li><a href="#表锁">表锁</a></li>
+        <li><a href="#mdlmeta-data-lock"><code>MDL(meta data lock)</code></a></li>
+        <li><a href="#修改表结构">修改表结构</a></li>
+        <li><a href="#分析表锁状态">分析表锁状态</a></li>
       </ul>
     </li>
+    <li><a href="#行锁">行锁</a>
+      <ul>
+        <li><a href="#意向锁">意向锁</a></li>
+        <li><a href="#读写锁">读写锁</a></li>
+        <li><a href="#自增锁">自增锁</a></li>
+        <li><a href="#记录锁">记录锁</a></li>
+        <li><a href="#间隙锁">间隙锁</a></li>
+        <li><a href="#插入意向锁">插入意向锁</a></li>
+        <li><a href="#两阶段协议">两阶段协议</a></li>
+        <li><a href="#查看行锁状态">查看行锁状态</a></li>
+      </ul>
+    </li>
+    <li><a href="#死锁">死锁</a>
+      <ul>
+        <li><a href="#等待超时">等待超时</a></li>
+        <li><a href="#死锁检测">死锁检测</a></li>
+        <li><a href="#控制并发度">控制并发度</a></li>
+      </ul>
+    </li>
+    <li><a href="#自增锁-1">自增锁</a>
+      <ul>
+        <li><a href="#insert种类"><code>insert</code>种类</a></li>
+        <li><a href="#innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code></a></li>
+        <li><a href="#bulk-inserts申请自增id"><code>bulk inserts</code>申请自增<code>id</code></a></li>
+        <li><a href="#mixed-mode-inserts申请自增id"><code>mixed-mode inserts</code>申请自增<code>id</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#锁的优化建议">锁的优化建议</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="myisam锁"><code>MyISAM</code>锁</h2>
-<h3 id="1-显式加锁">1. 显式加锁</h3>
-<p><code>MyISAM</code>只支持表锁。</p>
-<p>在执行查询语句时，会自动给涉及到的表加读锁。在执行增删改操作时，会自动给涉及到的表加写锁。</p>
-<p>如果想显式加锁，语法为：</p>
+            </div><div class="content" id="content"><h2 id="锁的概念">锁的概念</h2>
+<p>锁被用于解决因资源共享，造成的并发问题。</p>
+<p>或者说，数据库的锁是为了解决事务的隔离性问题，让事务之间互不影响。</p>
+<h2 id="锁的分类">锁的分类</h2>
+<p>锁的具体分类为：</p>
 <ul>
 <li>
-<p>加读锁</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">LOCK</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">READ</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div></li>
+<p>全局锁</p>
+</li>
 <li>
-<p>加写锁</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">LOCK</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="k">WRITE</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div></li>
+<p>表级锁</p>
+</li>
 <li>
-<p>解锁</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">UNLOCK</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div></li>
+<p>行锁</p>
+</li>
 </ul>
-<h2 id="查看表的使用情况">查看表的使用情况</h2>
+<h2 id="全局锁">全局锁</h2>
+<p>全局锁用于对整个数据库实例加锁。命令如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">OPEN</span><span class="w"> </span><span class="n">TABLES</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">flush</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">lock</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p>或者：</p>
+</div><p>加锁之后，数据库处于只读状态。使用<code>unlock tables</code>释放锁。</p>
+<p>其他线程的以下语句会被阻塞：数据增删改、删表建表、修改表结构、删库建库和更新类事务的提交语句。</p>
+<h3 id="全库逻辑备份">全库逻辑备份</h3>
+<p>全库逻辑备份，是全局锁的典型使用场景。此时使用全局锁会存在如下缺陷：</p>
+<ul>
+<li>
+<p>如果在主库执行备份，会让更新无法执行。</p>
+</li>
+<li>
+<p>如果在从库执行备份，备库将不能执行主库同步过来的<code>bin log</code>，导致主从延迟。</p>
+</li>
+<li>
+<p>如果不加锁，会导致得到的备份不在一个逻辑时间点。</p>
+</li>
+</ul>
+<h3 id="--single-transaction"><code>--single-transaction</code></h3>
+<p>如果<code>mysqldump</code>使用了参数<code>--single-transaction</code>，导出数据前将会启动一个事务，确保拿到一致性视图。通过该方式，可以避免加全局锁。</p>
+<p>前提是引擎要支持可重复读隔离级别和事务，并且所有表都使用了该引擎，才能使用该参数。<code>MyISAM</code>不支持事务，因此无法使用该参数。</p>
+<h3 id="readonly"><code>readonly</code></h3>
+<p>语法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">STATUS</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;Table%&#34;</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">readonly</span><span class="o">=</span><span class="k">true</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="innodb锁"><code>InnoDB</code>锁</h2>
-<h3 id="1-显式加锁-1">1. 显式加锁</h3>
-<p>对于增删改操作，<code>InnoDB</code>会自动给记录添加排他锁。对于查询操作，<code>InnoDB</code>不会加任何锁。</p>
+</div><p><code>readonly</code>也可以让全库进入只读状态，但是全局锁场景下不推荐。原因如下：</p>
+<ul>
+<li>
+<p>有些系统中，<code>readonly</code>会被用来做其他逻辑，如判断主库和备库。</p>
+</li>
+<li>
+<p>如果客户端发生异常，会自动释放使用<code>FTWRL</code>加的全局锁，使用<code>readonly</code>后数据库会一直保持该状态。</p>
+</li>
+</ul>
+<h2 id="表级锁">表级锁</h2>
+<p>表级锁会一次性对一张表整体加锁，具体分为表锁和元数据锁两种。</p>
+<h3 id="表锁">表锁</h3>
+<p><strong>加锁语法如下：</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">lock</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="err">表名</span><span class="p">...</span><span class="w"> </span><span class="k">read</span><span class="o">/</span><span class="k">write</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p><code>read</code>锁会阻塞本线程和其他线程的写操作，不会阻塞读操作。本线程不能对其他表进行读写操作，其他线程可以对其他表进行读写操作。</p>
+<p><code>write</code>锁会阻塞其他线程的读写操作，不会阻塞本线程的读写操作。本线程不能对其他表进行读写操作，其他线程可以对其他表进行读写操作。</p>
+<p><strong>锁的释放时机如下：</strong></p>
+<ul>
+<li>
+<p>客户端断开时会自动释放。</p>
+</li>
+<li>
+<p>执行<code>unlock tables</code>命令也会主动释放。</p>
+</li>
+<li>
+<p>再次执行<code>lock tables</code>获取表锁时，会释放之前持有的锁。</p>
+</li>
+<li>
+<p>执行<code>start trasaction</code>或者<code>begin</code>开启事务时，会释放锁。</p>
+</li>
+</ul>
+<h3 id="mdlmeta-data-lock"><code>MDL(meta data lock)</code></h3>
+<p><code>MySQL5.5</code>版本引入了<code>MDL</code>。</p>
+<p><strong>锁的规则如下：</strong></p>
+<ul>
+<li>
+<p>对一个表做增删改查操作时，会自动对该表加<code>MDL</code>读锁，对表结构做变更操作时，会自动对该表加<code>MDL</code>写锁。</p>
+</li>
+<li>
+<p>读锁之间不互斥，多个线程可以对一张表增删改查。</p>
+</li>
+<li>
+<p>读写锁、写写锁之间互斥。</p>
+</li>
+</ul>
+<p><strong>锁的释放时机如下：</strong></p>
+<ul>
+<li>
+<p>事务执行时会申请<code>MDL</code>锁，等到事务提交或回滚后锁才会释放。</p>
+</li>
+<li>
+<p>会话断开时，会自动释放。</p>
+</li>
+</ul>
+<p>如果程序中有<code>lock tables</code>和<code>unlock tables</code>语法，可以尽量改成<code>begin</code>和<code>commit</code>。</p>
+<h3 id="修改表结构">修改表结构</h3>
+<p>给表加字段、或者加索引都需要小心，否则很有可能会出现如下问题：</p>
+<ol>
+<li>
+<p>事务<code>A</code>正在读表数据，会加<code>MDL</code>读锁。</p>
+</li>
+<li>
+<p>有事务<code>B</code>想修改表结构，会请求<code>MDL</code>写锁，被阻塞。</p>
+</li>
+<li>
+<p>其他事务想读取表数据，会被<code>MDL</code>写锁阻塞。</p>
+</li>
+<li>
+<p>线程会爆满。</p>
+</li>
+</ol>
+<p>如果想给表加字段。可以设置语句的等待时间，等待时间内拿不到写锁就放弃，之后再重试。<code>MariaDB</code>和<code>AliSQL</code>已经支持<code>NOWAIT/WAIT n</code>语法。</p>
+<h3 id="分析表锁状态">分析表锁状态</h3>
+<ol>
+<li>查看表锁定的状态</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="k">open</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">In_use是1代表加了锁</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>分析表锁的竞争状态</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;table%&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p><code>table_lock_immediate</code>：立即获取到表锁的次数。</p>
+</li>
+<li>
+<p><code>tale_locks_waited</code>：等待表锁的次数，该值越大，锁竞争越大。</p>
+</li>
+</ul>
+<p>当<code>table_locks_immediate / table_locks_waited</code> &gt; 5000，建议采用InnoDB引擎。</p>
+<h2 id="行锁">行锁</h2>
+<p>行锁是各个引擎自己实现的，<code>MyISAM</code>不支持行锁，而<code>InnoDB</code>支持行锁。</p>
+<p>行锁按类型分为：读意向锁、写意向锁、读锁、写锁、自增锁。</p>
+<p>行锁按粒度分为：记录锁、间隙锁、<code>next-key lock</code>、插入意向锁。</p>
+<h3 id="意向锁">意向锁</h3>
+<p>意向锁是一种不与行级锁冲突的表级锁。</p>
+<ul>
+<li>
+<p>读意向锁：也叫意向共享锁<code>IS</code>，事务有意向对表中的某些行加共享锁（<code>S</code>锁）。</p>
+</li>
+<li>
+<p>写意向锁：也叫意向排他锁<code>IX</code>，事务有意向对表中的某些行加排他锁（<code>X</code>锁）。</p>
+</li>
+</ul>
+<p>意向锁不需要手动添加，在给数据行加共享锁/排他锁之前，会自动给数据所在表加意向锁。</p>
+<p><strong>意向锁存在的意义：</strong></p>
+<p>当给整张表加锁时，需要判断表是否持有行锁。有了意向锁，就不需要扫描整张表查找行锁，只需要判断表是否持有意向锁即可。</p>
+<p><strong>意向锁的冲突规则为：</strong></p>
+<ul>
+<li>
+<p>意向锁和行锁不冲突。</p>
+</li>
+<li>
+<p>意向锁和<code>AUTO_INC</code>表锁不冲突。</p>
+</li>
+<li>
+<p>意向共享锁和表级共享锁兼容。</p>
+</li>
+<li>
+<p>意向共享锁和表级排他锁冲突。</p>
+</li>
+<li>
+<p>意向排他锁和表级共享锁冲突。</p>
+</li>
+<li>
+<p>意向排他锁和表级排他锁冲突。</p>
+</li>
+</ul>
+<h3 id="读写锁">读写锁</h3>
+<ul>
+<li>
+<p>读锁：也叫共享锁（<code>S</code>锁）。加了读锁的记录，所有事务都可以读取，但是不能修改。可以有多个事务对记录加读锁。</p>
+</li>
+<li>
+<p>写锁：也叫排他锁（<code>X</code>锁），或独占锁。加了写锁的记录，只有持有锁的事务才能读写。同一时间只能有一个事务加写锁。</p>
+</li>
+</ul>
+<p>对于增、删、改操作，<code>InnoDB</code>会自动给记录添加排他锁。对于查询操作，<code>InnoDB</code>不会加任何锁。</p>
 <p>如果想显式加锁，语法为：</p>
 <ul>
 <li>
@@ -215,7 +400,129 @@
 </div>
 </div></li>
 </ul>
-<h3 id="2-优化建议">2. 优化建议</h3>
+<h3 id="自增锁">自增锁</h3>
+<p>自增锁也叫<code>AUTO_INC</code>，是一种表锁。当插入的表中有自增列，且数据库需要自动生成自增值时，会为该表加<code>AUTO_INC</code>表锁。</p>
+<p>下文会详细叙述自增锁的机制原理。</p>
+<h3 id="记录锁">记录锁</h3>
+<p>记录锁就是给每行记录加上的行锁。</p>
+<h3 id="间隙锁">间隙锁</h3>
+<p>间隙锁是一种加在索引之间的锁。</p>
+<p>使用间隙锁，可以防止其他事务在这个范围内插入或者修改记录，从而避免出现幻读现象。</p>
+<p>间隙锁和间隙锁之间互不冲突。</p>
+<h3 id="插入意向锁">插入意向锁</h3>
+<p>插入意向锁，是一种间隙锁，不是意向锁。</p>
+<p>只有<code>insert</code>的时候，才会加插入意向锁。</p>
+<p>插入意向锁之间互不冲突，不同事务对同一个间隙插入值时，只要索引无冲突，事务之间就不会有冲突。</p>
+<p>如果某个间隙已经存在该锁，在该间隙加其他锁不会引起冲突。</p>
+<p>如果某个间隙存在间隙锁，则该间隙无法再加插入意向锁。</p>
+<h3 id="两阶段协议">两阶段协议</h3>
+<p><code>InnoDB</code>事务中，行锁是在需要的时候加上去的，等到事务结束时释放。这就是两阶段锁协议。</p>
+<p>如果事务中需要锁多个行，要把最可能造成锁冲突、最可能影响并发度的锁尽量往后移。</p>
+<h3 id="查看行锁状态">查看行锁状态</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%innodb_row_lock%&#39;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p><code>Innodb_row_locl_current_waits</code>：当前正在等待锁的数量。</p>
+</li>
+<li>
+<p><code>Innodb_row_lock_time</code>：等待总时长，从系统启动到现在，一共等待的时间。</p>
+</li>
+<li>
+<p><code>Innodb_row_lock_time_avg</code>：平均等待时长，从系统启动到现在的平均等待间。</p>
+</li>
+<li>
+<p><code>Innodb_row_lock_time_max</code>：最大等待时长，从系统启动到现在的最大等待间。</p>
+</li>
+<li>
+<p><code>Innodb_row_lock_waits</code>：从系统启动到现在，等待的次数。</p>
+</li>
+</ul>
+<h2 id="死锁">死锁</h2>
+<p>并发系统中，不同线程都在等待对方释放资源时，会导致这些线程进入无限等待的状态，称为死锁。</p>
+<p>解决死锁的方式有：</p>
+<ul>
+<li>
+<p>等待超时</p>
+</li>
+<li>
+<p>死锁检测</p>
+</li>
+<li>
+<p>控制请求的并发度</p>
+</li>
+</ul>
+<h3 id="等待超时">等待超时</h3>
+<p>所谓的等待超时，就是一直等待锁释放直到超时。</p>
+<p>超时时间由<code>innodb_lock_wait_timeout</code>参数控制，默认为50s。</p>
+<p>注意不能将<code>innodb_lock_wait_timeout</code>设置的很小，否则会造成简单的锁等待超时。</p>
+<h3 id="死锁检测">死锁检测</h3>
+<p>所谓的死锁检测，是当一个事务出现锁等待时，判断它依赖的资源有没有被别的线程锁住，最后判断是否出现循环等待，即死锁。死锁检测会消耗大量<code>cpu</code>资源。</p>
+<p>发现死锁后，数据库会回滚死锁链条中的某一个事务，从而解决死锁。</p>
+<p>将参数<code>innodb_deadlock_detect</code>设置为<code>ON</code>可开启死锁检测。</p>
+<h3 id="控制并发度">控制并发度</h3>
+<p>通过控制并发度，也可以减少锁等待个数，降低死锁检测成本。如设计中间件进行请求排队，或者将一行数据改成逻辑上的多行。</p>
+<h2 id="自增锁-1">自增锁</h2>
+<p>自增锁是一种特殊的表级锁，当事务将数据插入到具有自增列的表中，且申请了自增值时，会产生自增锁。</p>
+<p>自增锁的出现，是为了解决高并发场景下自增值的竞争问题。</p>
+<h3 id="insert种类"><code>insert</code>种类</h3>
+<p>自增锁和<code>insert</code>有关，所以需要先讨论<code>insert</code>的种类。</p>
+<ul>
+<li>
+<p><code>insert like</code></p>
+<p>任何会产生新记录的插入操作，都叫<code>insert like</code>。</p>
+<p>如<code>insert</code>，<code>insert ... select</code>，<code>replace</code>，<code>replace ... select</code>和<code>load data</code>。</p>
+</li>
+<li>
+<p><code>simple insert</code></p>
+<p>插入的记录的行数是确定的。</p>
+<p>如<code>insert into</code>和<code>replace</code>，但是不包括<code>insert ... on duplicate key update...</code>。</p>
+</li>
+<li>
+<p><code>bulk inserts</code></p>
+<p>插入的记录数不能马上确定。</p>
+<p>如<code>insert ... select</code>，<code>replace ... select</code>，<code>load data</code>。</p>
+</li>
+<li>
+<p><code>mixed-mode inserts</code></p>
+<p>有一部分自增值值是给定的，有一部分自增值是未指定的。</p>
+<p>如<code>insert ... on duplicate key update...</code>。</p>
+</li>
+</ul>
+<h3 id="innodb_autoinc_lock_mode"><code>innodb_autoinc_lock_mode</code></h3>
+<p><code>MySQL5.1.22</code>版本之后，引入了<code>innodb_autoinc_lock_mode</code>参数，用来控制自增锁，默认值<code>1</code>。</p>
+<ul>
+<li>
+<p>参数为0时，自增锁是语句级别，等到语句执行结束，自增锁才会释放。</p>
+</li>
+<li>
+<p>参数为1时，分两种情况讨论。对于<code>simple insert</code>，自增锁在申请之后就马上释放；对于<code>bulk inserts</code>，自增锁需要等待语句执行结束。</p>
+</li>
+<li>
+<p>参数为2时，所有的自增锁，都是在申请自增值之后马上释放，并发性能最好。</p>
+</li>
+</ul>
+<p>对于<code>bulk inserts</code>，使用语句级别的自增锁，是为了保证主从复制时的数据一致性。</p>
+<p>建议配置<code>innodb_autoinc_lock_mode</code>为<code>2</code>，并且配置<code>binlog_format</code>为<code>row</code>，这样，既能提升并发性，又不会出现数据一致性问题。</p>
+<h3 id="bulk-inserts申请自增id"><code>bulk inserts</code>申请自增<code>id</code></h3>
+<ul>
+<li>
+<p>第一次申请时，分配1个。</p>
+</li>
+<li>
+<p>同一语句去申请自增<code>id</code>，每次申请到的个数，都是上一次的两倍。</p>
+</li>
+</ul>
+<h3 id="mixed-mode-inserts申请自增id"><code>mixed-mode inserts</code>申请自增<code>id</code></h3>
+<p>每次申请的自增<code>id</code>个数，等于插入的记录个数。</p>
+<p>特别需要注意的是<code>insert ... on duplicate key update...</code>语句，申请的自增<code>id</code>个数，等于插入记录数和更新记录数之和。</p>
+<h2 id="锁的优化建议">锁的优化建议</h2>
 <ul>
 <li>
 <p>尽可能使用索引来完成检索，避免无索引时导致行锁升级为表锁。</p>

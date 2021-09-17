@@ -8,14 +8,14 @@
 存储过程和函数的区别，在于存储过程无返回值，而函数有返回值。
 
 
-## 使用存储过程的好处
+## 存储过程的好处
 
 1. 提高了代码的重用性。
 
 2. 减少了`SQL`语句的编译次数，提高了效率。
 
 
-## 存储过程语法
+## 存储过程的语法
 
 ### 1. 创建
 
@@ -32,9 +32,9 @@ END
 
 - 参数模式有三种：`IN`输入，`OUT`输出，`INOUT`输入和输出。
 
-- 如果存储过程体只有一句话，begin和end可以省略。
+- 如果存储过程体只有一句话，`BEGIN`和`END`可以省略。
 
-- 存储过程体中，每句都以分号表示结束。
+- 存储过程体中，每句`SQL`语句以分号表示结束。
 
 - 在存储过程的结尾`END`处，需要使用`DELIMITER`设置的结束标记。
 
@@ -52,8 +52,8 @@ DROP PROCEDURE [IF EXISTS] 过程名;
 
 ### 4. 查看存储过程
 
-```mysql
-SHOW CREATER PROCEDURE 过程名
+```sql
+SHOW CREATE PROCEDURE 过程名;
 ```
 
 或者：
@@ -81,46 +81,33 @@ SELECT * FROM mysql.proc;
 
 ```sql
 DELIMITER $
-CREATE PROCEDURE myp1()
+CREATE PROCEDURE test_pro1()
 BEGIN
-    INSERT INTO admin(username, `password`)
-    VALUES('john1', '0000'), ('lily', '0000');
+    INSERT INTO admin(username, password) VALUES ('a', '1234'), ('b', '1234');
 END $
 ```
 
 调用：
 
 ```sql
-CALL myp1()$
+CALL test_pro1()$
 ```
 
 ### 2. IN
-
-```sql
-DELIMITER $
-CREATE PROCEDURE myp2(IN beautyName VARCHAR(20))
-BEGIN
-    SELECT bo.*
-    FROM boys bo
-    RIGHT JOIN beauty b
-    ON bo.id = b.boyfriend_id
-    WHERE b.name=beautyName
-END $
-```
-
-### 3. IN
 
 定义：
 
 ```sql
 DELIMITER $
-CREATE PROCEDURE myp4(IN username VARCHAR(20), IN PASSWORD VARCHAR(20))
+CREATE PROCEDURE test_pro2(IN username VARCHAR(20), IN password VARCHAR(20))
 BEGIN
     DECLARE result INT DEFAULT 0;
-    SELECT COUNT(*) INTO result
-    FROM admin
-    WHERE admin.username = username
-    AND admin.password = PASSWORD;      	
+    SELECT
+        COUNT(*) INTO result
+    FROM
+        admin
+    WHERE
+        admin.username = username AND admin.password = password;
     SELECT IF(result>0,'成功','失败');
 END $
 ```
@@ -128,31 +115,26 @@ END $
 调用：
 
 ```sql
-CALL myp4('张飞', '8888')$
+CALL test_pro2('abc', '1234')$
 ```
 
-### 4. OUT
+### 3. OUT
 
 定义：
 
 ```sql
 DELIMITER $
-CREATE PROCEDURE myp5(IN beautyName VARCHAR(20), OUT boyName VARCHAR(20))
+CREATE PROCEDURE test_pro3(IN a int, IN b int)
 BEGIN
-    SELECT bo.boyName INTO boyName
-    FROM boys bo
-    INNER JOIN beauty b
-    ON bo.id = b.boyfriend_id
-    WHERE b.name=beautyName;
-END $
+    SET b = a*2;
+END$
 ```
 
 调用：
 
 ```sql
-[SET @bName $]
-CALL myp5('小昭', @bName) $
-SELECT @bName $
+CALL test_pro3(10, @res)$
+SELECT @res$
 ```
 
 ### 5. INOUT
@@ -161,30 +143,26 @@ SELECT @bName $
 
 ```sql
 DELIMITER $
-CREATE PROCEDURE myp6(INOUT a INT, INOUT b INT)
+CREATE PROCEDURE test_pro4(INOUT a INT)
 BEGIN
     SET a=a*2
-    SET b=b*2
-END $
+END$
 ```
 
 调用：
 
 ```sql
 SET @m=10$
-SET @n=20$
-CALL myp6(@m, @n)$
+CALL test_pro4(@m)$
 ```
 
 
 ## 什么是函数
 
-函数的定义和存储过程一致，都是经过编译并存储在数据库中的一段`SQL`语句集合。
-
-函数有且仅有一个返回值。
+函数和存储过程类似，都是经过编译并存储在数据库中的一段`SQL`语句集合。但是函数有且仅有一个返回值，而存储过程没有返回值。
 
 
-## 函数语法
+## 函数的语法
 
 ### 1. 创建函数
 
@@ -197,13 +175,13 @@ END
 
 说明：
 
-1. 参数列表包含两部分：参数名 参数类型。
+1. 参数列表包含两部分：参数名和参数类型。
 
-2. 函数体中必须包含return。
+2. 函数体中必须包含`RETURN`。
 
-3. 如果函数体仅有一句话，可以省略begin和end。
+3. 如果函数体仅有一句话，可以省略`BEGIN`和`END`。
 
-4. 使用delimiter语句设置函数结束标记。
+4. 使用`DELIMITER`语句设置函数结束标记。
 
 ### 2. 调用
 
@@ -227,33 +205,40 @@ DROP FUNCTION 函数名;
 
 - 无参有返回
 
+定义：
+
 ```sql
 DELIMITER $
-CREATE FUNCTION myf1() RETURNS INT
+CREATE FUNCTION test_func1() RETURNS int
 BEGIN
-    DECLARE c INT DEFAULT 0;
-    SELECT COUNT(*) INTO c
-    FROM employees;
-    RETURN c;
-END $
+    DECLARE a int DEFAULT 10;
+    RETURN a;
+END$
+```
 
-SELECT myf1()$
+调用：
+
+```sql
+SELECT test_func1()$
 ```
 
 - 有参有返回
 
+定义：
+
 ```sql
 DELIMITER $
-CREATE FUNCTION myf2(empName VARCHAR(20)) RETURNS DOUBLE
+CREATE FUNCTION test_func2(a int) RETURNS int
 BEGIN
-    SET @sal=0;
-    SELECT salary INTO @sal
-    FROM employees
-    WHERE name=empName;
-    RETURN @sal
-END $
+    SET a = a*2;
+    RETURN a;
+END$
+```
 
-SELECT myf2('tom')$
+调用：
+
+```sql
+SELECT test_func2(10)$
 ```
 
 
@@ -287,7 +272,7 @@ CLOSE cursor_name;
 
 ### 5. `DECLARE EXIT HANDLER FOR NOT FOUND`
 
-在存储过程中，当游标配合循环语句时，需要知道循环合适结束，这时就需要使用如下机制：
+在存储过程中，当游标配合循环语句一起使用时，需要知道循环何时结束，此时就需要使用如下机制：
 
 ```sql
 DECLARE EXIT|COUTINUE HANDLER FOR NOT FOUND 语句;

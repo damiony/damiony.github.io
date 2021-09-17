@@ -67,7 +67,7 @@ DROP view 视图名...;
 
 ### 3. 删除
 
-- 使用`delete`语法。
+- 使用表的`delete`语法。
 
 - 会更新原始表。
 
@@ -95,7 +95,7 @@ DROP view 视图名...;
   创建视图：
 
   ```sql
-  CREATE view myv1
+  CREATE view test_v1
   AS
   SELECT name, department, title
   FROM employees e
@@ -106,7 +106,7 @@ DROP view 视图名...;
   使用视图：
 
   ```sql
-  SELECT * FROM myv1 WHERE name LIKE "%a%";
+  SELECT * FROM test_v1 WHERE name LIKE "%a%";
   ```
 
 - 查询各部门的平均工资级别：
@@ -114,7 +114,7 @@ DROP view 视图名...;
   创建视图：
   
   ```sql
-  CREATE view myv2
+  CREATE view test_v2
   AS
   SELECT AVG(salary) ag, department_id
   FROM employees
@@ -124,12 +124,5 @@ DROP view 视图名...;
   使用：
 
   ```sql
-  SELECT
-    myv2.`ag`, g.grade_level
-  FROM
-    myv2
-  JOIN
-    job_grades g
-  ON
-    myv2.`ag` BETWEEN g.`lowest_sal` AND g.`highest_sal`;
+  SELECT * FROM test_v2;
   ```

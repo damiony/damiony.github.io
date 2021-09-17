@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-views\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  85 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  78 ,
         "url": "http:\/\/example.org\/mysql-views\/","datePublished": "2020-07-08T02:26:59+08:00","dateModified": "2020-07-08T02:26:59+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -218,7 +218,7 @@
 <h3 id="3-删除">3. 删除</h3>
 <ul>
 <li>
-<p>使用<code>delete</code>语法。</p>
+<p>使用表的<code>delete</code>语法。</p>
 </li>
 <li>
 <p>会更新原始表。</p>
@@ -261,7 +261,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">myv1</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">test_v1</span><span class="w">
 </span><span class="w"></span><span class="k">AS</span><span class="w">
 </span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">department</span><span class="p">,</span><span class="w"> </span><span class="n">title</span><span class="w">
 </span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w">
@@ -275,7 +275,7 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">myv1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;%a%&#34;</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_v1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;%a%&#34;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -291,7 +291,7 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">myv2</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="n">test_v2</span><span class="w">
 </span><span class="w"></span><span class="k">AS</span><span class="w">
 </span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="n">ag</span><span class="p">,</span><span class="w"> </span><span class="n">department_id</span><span class="w">
 </span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w">
@@ -302,23 +302,9 @@
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w">
-</span><span class="w">  </span><span class="n">myv2</span><span class="p">.</span><span class="o">`</span><span class="n">ag</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="n">grade_level</span><span class="w">
-</span><span class="w"></span><span class="k">FROM</span><span class="w">
-</span><span class="w">  </span><span class="n">myv2</span><span class="w">
-</span><span class="w"></span><span class="k">JOIN</span><span class="w">
-</span><span class="w">  </span><span class="n">job_grades</span><span class="w"> </span><span class="k">g</span><span class="w">
-</span><span class="w"></span><span class="k">ON</span><span class="w">
-</span><span class="w">  </span><span class="n">myv2</span><span class="p">.</span><span class="o">`</span><span class="n">ag</span><span class="o">`</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="o">`</span><span class="n">lowest_sal</span><span class="o">`</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">g</span><span class="p">.</span><span class="o">`</span><span class="n">highest_sal</span><span class="o">`</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_v2</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>

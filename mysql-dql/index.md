@@ -4,18 +4,16 @@
 
 ## DQL
 
-`DQL`：数据查询语言，用来查询记录。
+`DQL`：（Data Query Language）数据查询语言，用来查询记录。
 
 
-## 查询语句
+## 查询语法
 
-### 1. 语法
+查询语句的基本语法如下：
 
 ```sql
 SELECT 查询列表 FROM 表名;
 ```
-
-### 2. 查询列表
 
 常见的查询列表内容如下：
 
@@ -46,9 +44,9 @@ SELECT 查询列表 FROM 表名;
   ```
 
 
-## 补充说明
+## 查询说明
 
-### 1. 起别名
+### 1. 别名
 
 可以对查询的结果起别名，或者对被查询的表起别名。
 
@@ -64,28 +62,30 @@ SELECT 查询列表 FROM 表名;
   SELECT user() username;
   ```
 
-### 2. mysql中`+`号的作用
+### 2. `+`号
+
+在`MySQL`中，使用`+`号时需注意如下规则：
 
 - 如果两个数都是数值型，则直接相加。
 
-- 如果其中一个操作数为字符型，则将字符型转换成数值型。如果无法转换，则直接当作`0`处理。
+- 如果其中一个操作数为字符型，则将字符型转换成数值型。如果无法转换，则当作`0`处理。
 
-- 其中一个操作数为null，结果为null。 
+- 其中一个操作数为`null`，结果为`null`。 
 
-### 3. distinct
+### 3. `DISTINCT`去重
 
-`distinct`子句可以消除重复字段。
+`DISINCT`子句可以消除重复字段。语法如下：
 
 ```sql
 SELECT DISTINCT field FROM tablename
 ```
 
-### 4. ifnull
+### 4. `IFNULL`函数
 
 - 语法：
 
   ```sql
-  ifnull(表达式1, 表达式2)
+  IFNULL(表达式1, 表达式2)
   ```
 
 - 功能：
@@ -137,26 +137,16 @@ SELECT * FROM 表名 WHERE 字段 REGEXP 正则表达式;
   ```
 
 - `SUBSTR`截取子串
-
-  语法为：
   
   ```sql
   SUBSTR(string, start, end)
   ```
   
-  语法含义为截取从`start`到`end`的所有字符。包含`end`，`start`从1开始。
+  截取从`start`到`end`（包含`end`）的所有字符，字符串从1开始计数。
   
   `start`可以为负数，表示从最后一个字符开始往前数。
   
   `end`可以省略，表示一直到结尾。
-  
-  ```sql
-  SELECT SUBSTR('少年你好骚啊',1,2);
-  ```
-  
-  ```sql
-  SELECT SUBSTR('你好骚啊少年',5);
-  ```
 
 - `LEFT`从左边截取字符
 
@@ -184,14 +174,16 @@ SELECT * FROM 表名 WHERE 字段 REGEXP 正则表达式;
   TRIM ([BOTH | LEADING | TRAILING] [removed] [FROM] str)
   ```
   
-  其中，`BOTH`表示删除首尾字符，`LEADING`表示删除前导字符，`TRAILING`表示删除尾随字符。
+  `BOTH`表示删除首尾字符，`LEADING`表示删除前导字符，`TRAILING`表示删除尾随字符。
   
   `BOTH`、`LEADING`和`TRAILING`都可以省略，省略后默认使用`BOTH`。
   
-  `removed`是被删除的字符，可以省略，省略时删除空格。
+  `removed`是被删除的字符，可以省略，省略时默认删除空格。
   
   `FROM`可以省略，但是如果`BOTH | LEADING | TRAILING`存在，或者`removed`存在，则`FROM`不可省略。
   
+  使用示例：
+
   ```sql
   SELECT TRIM(' 空  格 ') as result;
   ```
@@ -200,21 +192,25 @@ SELECT * FROM 表名 WHERE 字段 REGEXP 正则表达式;
   SELECT TRIM('x' FROM 'xxx空xxx格xxx') as result;
   ```
 
-- `LPAD/RPAD`左填充/右填充
+- `LPAD`左填充
 
   左填充满10个字符：
   
   ```sql
   SELECT LPAD('木婉清', 10, 'a');
   ```
-  
+
+- `RPAD`右填充
+
   右填充满10个字符：
   
   ```sql
   SELECT RPAD('木婉清', 10, 'a');
   ```
 
-- `UPPER/LOWER`变大写/变小写
+- `UPPER`字符转大写
+
+- `LOWER`字符转小写
 
 - `STRCMP`比较两个字符串的字符大小
 
@@ -251,7 +247,7 @@ SELECT * FROM 表名 WHERE 字段 REGEXP 正则表达式;
 - `TRUNCATE`截断小数位
 
   ```sql
-  SELECT TRUNCATE(1.8765, 1);
+  SELECT TRUNCATE(1.8765, 1); # 1.8
   ```
 
 - `MOD`取余
@@ -306,7 +302,7 @@ SELECT * FROM 表名 WHERE 字段 REGEXP 正则表达式;
 
 - `TIMESTAMPDIFF`比较两个日期时间的差距
 
-  语法为：
+  语法：
 
   ```sql
   TIMESTAMPDIFF(时间类型, 时间1, 时间2)
@@ -417,7 +413,7 @@ WHERE 筛选条件；
 
 - 按逻辑表达式筛选：`and`、`or`、`not`，也可以使用 `&&`、`||`、`!`。
 
-- 模糊查询：`like`、`in`、`not in`、`is null`、`is not null`、`between ... AND ...`、`not BETWEEN ... AND ... `。
+- 模糊查询：`like`、`in`、`not in`、`is null`、`is not null`、`between ... and ...`、`not bwtween ... and ... `。
 
 ### 3. 示例
 
@@ -478,7 +474,7 @@ SELECT name FROM employees WHERE department BETWEEN 30 AND 90;
 - 查询部门编号不是30～90之间的员工姓名
 
 ```sql
-SELECT name FROM employees WHERE department not BETWEEN 30 AND 90;
+SELECT name FROM employees WHERE department NOT BETWEEN 30 AND 90;
 ```
 
 
@@ -599,13 +595,9 @@ SELECT * FROM employees LIMIT 0, 5;
 
 ### 2. 说明
 
-- 子查询不一定必须出现在`select`子句中，只是这种情况比较常见。
+- 子查询一般放在小括号中。
 
-- 子查询放在条件中，要求必须出现在条件右侧
-
-- 子查询一般放在小括号中
-
-- 单行子查询对应了单行操作符：`>, <, >=, <=, =, <>, !=`
+- 单行子查询对应了单行操作符：`>, <, >=, <=, =, <>, !=`。
 
 - 多行子查询对应了多行操作符：`any, some, all, in`。
 
@@ -702,9 +694,9 @@ SELECT * FROM employees LIMIT 0, 5;
 - 等值连接：查询部门编号`>100`的部门名和所在的城市名。
 
   ```sql
-  SELECT d.`department_name`, l.`city`
+  SELECT d.department_name, l.city
   FROM departments d, locations l
-  WHERE d.`location_id` = l.`location_id` AND d.`department_id`>100;
+  WHERE d.location_id = l.location_id AND d.department_id>100;
   ```
 
 - 非等值连接：查询员工的工资和工资级别。
@@ -712,7 +704,7 @@ SELECT * FROM employees LIMIT 0, 5;
   ```sql
   SELECT e.salary, g.grade_level
   FROM employees e, job_grades g
-  WHERE e.salary BETWEEN g.`lowest_sal` AND g.`highest_sal`;
+  WHERE e.salary BETWEEN g.lowest_sal AND g.highest_sal;
   ```
 
 - 自连接：查询员工名和上级的名称。
@@ -720,7 +712,7 @@ SELECT * FROM employees LIMIT 0, 5;
   ```sql
   SELECT e.employee_id, e.last_name, m.employee_id, m.last_name
   FROM employees e, employees m
-  WHERE e.`manager_id` = m.`employee_id`;
+  WHERE e.manager_id = m.employee_id;
   ```
 
 
@@ -743,7 +735,13 @@ ORDER BY 排序列表;
 
 - 使用关键字`JOIN`代替了逗号，连接条件和筛选条件进行了分离。
 
-### 3. 示例
+### 3. `straight_join`
+
+`straight_join`与内连接类似，不同的地方在于，`straight_join`会强制使用左边的表作为驱动表，使用右边的表作为被驱动的表。
+
+上述特性，在某些特定情况下可用于调优。
+
+### 4. 示例
 
 - 查询员工名和部门名
 
@@ -760,8 +758,8 @@ ORDER BY 排序列表;
   SELECT d.department_name, e.city
   FROM departments d
   JOIN locations l
-  ON d.`location_id` = l.`location_id`
-  WHERE d.`department_id` > 100;
+  ON d.location_id = l.location_id
+  WHERE d.department_id > 100;
   ```
 
 - 查询部门中员工个数`<10`的部门名，并按照员工个数降序
@@ -770,29 +768,19 @@ ORDER BY 排序列表;
   SELECT COUNT(*) 员工个数, d.department_name
   FROM employees e
   JOIN departments d
-  ON e.`department_id` = d.`department_id`
-  GROUP BY d.`department_id`
+  ON e.department_id = d.department_id
+  GROUP BY d.department_id
   HAVING 员工个数 < 10
   ORDER BY 员工个数 DESC;
-  ```
-
-- 查询部门员工的工资级别，并按照级别进行分组
-
-  ```sql
-  SELECT COUNT(*) 个数, g.grade
-  FROM employees e
-  JOIN sal_grage g
-  ON e.`salary` BETWEEN g.`min_salary` AND g.`max_salary`
-  GROUP BY g.grade
   ```
 
 - 查询员工名和对应的领导名
 
   ```sql
-  SELECT e.`name`, m.`name`
+  SELECT e.name, m.name
   FROM employees e
   JOIN employees m
-  ON e.`manager_id` = m.`employee_id`
+  ON e.manager_id = m.employee_id;
   ```
 
 
@@ -804,9 +792,7 @@ ORDER BY 排序列表;
 
 - 外连接主从表的顺序不可随意改变。
 
-- 左连接的主表在左边。
-
-- 右连接的主表在右边。
+- 左连接的主表在左边，右连接的主表在右边。
 
 - MySQL不支持全外连接。
 
@@ -883,7 +869,7 @@ SELECT 查询列表 FROM 表2 WHERE 筛选条件
 
 ## MySQL语句处理顺序
 
-`MySQL`查询语句如下：
+`MySQL`完整的查询语句如下：
 
 ```sql
 SELECT DISTINCT 字段

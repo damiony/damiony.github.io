@@ -1,9 +1,9 @@
 # 【MySQL】DCL用户管理
 
 
-## DCL说明
+## DCL
 
-数据控制语言，用来定义访问权限和安全级别。
+`DCL`：（Data Control Language）数据控制语言，用来定义访问权限和安全级别。
 
 ## MySQL的用户定义
 

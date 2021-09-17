@@ -3,7 +3,10 @@
 
 ## `information_schema`介绍
 
-`information_schema`库中，存放着多个视图，主要用来统计数据库相关的元数据。
+`information_schema`库中，存放着多个视图，主要用来统计数据库相关的元数据。常用的有：
+
+- `TABLES`。
+
 
 ## `TABLES`
 

@@ -9,8 +9,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/mysql-cun-chu-guo-cheng-han-shu/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-07-28T17:58:35&#43;08:00" />
-<meta property="article:modified_time" content="2020-07-28T17:58:35&#43;08:00" />
+<meta property="article:published_time" content="2020-06-28T17:58:35&#43;08:00" />
+<meta property="article:modified_time" content="2020-06-28T17:58:35&#43;08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-cun-chu-guo-cheng-han-shu/" /><link rel="prev" href="http://example.org/mysql-index/" /><link rel="next" href="http://example.org/mysql-chu-fa-qi/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-cun-chu-guo-cheng-han-shu/" /><link rel="prev" href="http://example.org/mysql-var/" /><link rel="next" href="http://example.org/mysql-liu-cheng-kong-zhi/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,8 +29,8 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-cun-chu-guo-cheng-han-shu\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  226 ,
-        "url": "http:\/\/example.org\/mysql-cun-chu-guo-cheng-han-shu\/","datePublished": "2020-07-28T17:58:35+08:00","dateModified": "2020-07-28T17:58:35+08:00","publisher": {
+        },"genre": "posts","keywords": "MySQL","wordcount":  205 ,
+        "url": "http:\/\/example.org\/mysql-cun-chu-guo-cheng-han-shu\/","datePublished": "2020-06-28T17:58:35+08:00","dateModified": "2020-06-28T17:58:35+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -106,7 +106,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">【MySQL】存储过程和函数</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>MySQL</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2020-07-28">2020-07-28</time>&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2020-06-28">2020-06-28</time>&nbsp;
                 </div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -116,8 +116,8 @@
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#什么是存储过程">什么是存储过程</a></li>
-    <li><a href="#使用存储过程的好处">使用存储过程的好处</a></li>
-    <li><a href="#存储过程语法">存储过程语法</a>
+    <li><a href="#存储过程的好处">存储过程的好处</a></li>
+    <li><a href="#存储过程的语法">存储过程的语法</a>
       <ul>
         <li><a href="#1-创建">1. 创建</a></li>
         <li><a href="#2-调用">2. 调用</a></li>
@@ -130,13 +130,12 @@
       <ul>
         <li><a href="#1-无参">1. 无参</a></li>
         <li><a href="#2-in">2. IN</a></li>
-        <li><a href="#3-in">3. IN</a></li>
-        <li><a href="#4-out">4. OUT</a></li>
+        <li><a href="#3-out">3. OUT</a></li>
         <li><a href="#5-inout">5. INOUT</a></li>
       </ul>
     </li>
     <li><a href="#什么是函数">什么是函数</a></li>
-    <li><a href="#函数语法">函数语法</a>
+    <li><a href="#函数的语法">函数的语法</a>
       <ul>
         <li><a href="#1-创建函数">1. 创建函数</a></li>
         <li><a href="#2-调用-1">2. 调用</a></li>
@@ -160,7 +159,7 @@
             </div><div class="content" id="content"><h2 id="什么是存储过程">什么是存储过程</h2>
 <p>存储过程，是经过编译并存储在数据库中的一段<code>SQL</code>语句集合。</p>
 <p>存储过程和函数的区别，在于存储过程无返回值，而函数有返回值。</p>
-<h2 id="使用存储过程的好处">使用存储过程的好处</h2>
+<h2 id="存储过程的好处">存储过程的好处</h2>
 <ol>
 <li>
 <p>提高了代码的重用性。</p>
@@ -169,7 +168,7 @@
 <p>减少了<code>SQL</code>语句的编译次数，提高了效率。</p>
 </li>
 </ol>
-<h2 id="存储过程语法">存储过程语法</h2>
+<h2 id="存储过程的语法">存储过程的语法</h2>
 <h3 id="1-创建">1. 创建</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -194,10 +193,10 @@
 <p>参数模式有三种：<code>IN</code>输入，<code>OUT</code>输出，<code>INOUT</code>输入和输出。</p>
 </li>
 <li>
-<p>如果存储过程体只有一句话，begin和end可以省略。</p>
+<p>如果存储过程体只有一句话，<code>BEGIN</code>和<code>END</code>可以省略。</p>
 </li>
 <li>
-<p>存储过程体中，每句都以分号表示结束。</p>
+<p>存储过程体中，每句<code>SQL</code>语句以分号表示结束。</p>
 </li>
 <li>
 <p>在存储过程的结尾<code>END</code>处，需要使用<code>DELIMITER</code>设置的结束标记。</p>
@@ -227,7 +226,7 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">SHOW</span><span class="w"> </span><span class="n">CREATER</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="err">过程名</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="err">过程名</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>或者：</p>
@@ -260,14 +259,12 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">myp1</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">test_pro1</span><span class="p">()</span><span class="w">
 </span><span class="w"></span><span class="k">BEGIN</span><span class="w">
-</span><span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">admin</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">password</span><span class="o">`</span><span class="p">)</span><span class="w">
-</span><span class="w">    </span><span class="k">VALUES</span><span class="p">(</span><span class="s1">&#39;john1&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0000&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;lily&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;0000&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">admin</span><span class="p">(</span><span class="n">username</span><span class="p">,</span><span class="w"> </span><span class="n">password</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1234&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1234&#39;</span><span class="p">);</span><span class="w">
 </span><span class="w"></span><span class="k">END</span><span class="w"> </span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -277,35 +274,10 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CALL</span><span class="w"> </span><span class="n">myp1</span><span class="p">()</span><span class="err">$</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CALL</span><span class="w"> </span><span class="n">test_pro1</span><span class="p">()</span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2-in">2. IN</h3>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">myp2</span><span class="p">(</span><span class="k">IN</span><span class="w"> </span><span class="n">beautyName</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="w">
-</span><span class="w"></span><span class="k">BEGIN</span><span class="w">
-</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">bo</span><span class="p">.</span><span class="o">*</span><span class="w">
-</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">boys</span><span class="w"> </span><span class="n">bo</span><span class="w">
-</span><span class="w">    </span><span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">beauty</span><span class="w"> </span><span class="n">b</span><span class="w">
-</span><span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">bo</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">boyfriend_id</span><span class="w">
-</span><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">name</span><span class="o">=</span><span class="n">beautyName</span><span class="w">
-</span><span class="w"></span><span class="k">END</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h3 id="3-in">3. IN</h3>
 <p>定义：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -319,16 +291,20 @@
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">myp4</span><span class="p">(</span><span class="k">IN</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">PASSWORD</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">test_pro2</span><span class="p">(</span><span class="k">IN</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="w">
 </span><span class="w"></span><span class="k">BEGIN</span><span class="w">
 </span><span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">result</span><span class="w">
-</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="k">admin</span><span class="w">
-</span><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="k">admin</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">username</span><span class="w">
-</span><span class="w">    </span><span class="k">AND</span><span class="w"> </span><span class="k">admin</span><span class="p">.</span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PASSWORD</span><span class="p">;</span><span class="w">      	
+</span><span class="w">    </span><span class="k">SELECT</span><span class="w">
+</span><span class="w">        </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">result</span><span class="w">
+</span><span class="w">    </span><span class="k">FROM</span><span class="w">
+</span><span class="w">        </span><span class="k">admin</span><span class="w">
+</span><span class="w">    </span><span class="k">WHERE</span><span class="w">
+</span><span class="w">        </span><span class="k">admin</span><span class="p">.</span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">admin</span><span class="p">.</span><span class="n">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">password</span><span class="p">;</span><span class="w">
 </span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">IF</span><span class="p">(</span><span class="k">result</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;成功&#39;</span><span class="p">,</span><span class="s1">&#39;失败&#39;</span><span class="p">);</span><span class="w">
 </span><span class="w"></span><span class="k">END</span><span class="w"> </span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
@@ -339,10 +315,10 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CALL</span><span class="w"> </span><span class="n">myp4</span><span class="p">(</span><span class="s1">&#39;张飞&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;8888&#39;</span><span class="p">)</span><span class="err">$</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CALL</span><span class="w"> </span><span class="n">test_pro2</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1234&#39;</span><span class="p">)</span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h3 id="4-out">4. OUT</h3>
+</div><h3 id="3-out">3. OUT</h3>
 <p>定义：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -351,21 +327,13 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">myp5</span><span class="p">(</span><span class="k">IN</span><span class="w"> </span><span class="n">beautyName</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w"> </span><span class="k">OUT</span><span class="w"> </span><span class="n">boyName</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">test_pro3</span><span class="p">(</span><span class="k">IN</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span><span class="w">
 </span><span class="w"></span><span class="k">BEGIN</span><span class="w">
-</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">bo</span><span class="p">.</span><span class="n">boyName</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="n">boyName</span><span class="w">
-</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">boys</span><span class="w"> </span><span class="n">bo</span><span class="w">
-</span><span class="w">    </span><span class="k">INNER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">beauty</span><span class="w"> </span><span class="n">b</span><span class="w">
-</span><span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">bo</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">boyfriend_id</span><span class="w">
-</span><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">name</span><span class="o">=</span><span class="n">beautyName</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">END</span><span class="w"> </span><span class="err">$</span><span class="w">
+</span><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">END</span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>调用：</p>
@@ -373,12 +341,10 @@
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="p">[</span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">bName</span><span class="w"> </span><span class="err">$</span><span class="p">]</span><span class="w">
-</span><span class="w"></span><span class="k">CALL</span><span class="w"> </span><span class="n">myp5</span><span class="p">(</span><span class="s1">&#39;小昭&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">bName</span><span class="p">)</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">bName</span><span class="w"> </span><span class="err">$</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CALL</span><span class="w"> </span><span class="n">test_pro3</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">res</span><span class="p">)</span><span class="err">$</span><span class="w">
+</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">@</span><span class="n">res$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="5-inout">5. INOUT</h3>
@@ -390,15 +356,13 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">myp6</span><span class="p">(</span><span class="k">INOUT</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w"> </span><span class="k">INOUT</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">PROCEDURE</span><span class="w"> </span><span class="n">test_pro4</span><span class="p">(</span><span class="k">INOUT</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="nb">INT</span><span class="p">)</span><span class="w">
 </span><span class="w"></span><span class="k">BEGIN</span><span class="w">
 </span><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="w">
-</span><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">b</span><span class="o">=</span><span class="n">b</span><span class="o">*</span><span class="mi">2</span><span class="w">
-</span><span class="w"></span><span class="k">END</span><span class="w"> </span><span class="err">$</span><span class="w">
+</span><span class="w"></span><span class="k">END</span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>调用：</p>
@@ -406,18 +370,15 @@
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
-</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">m</span><span class="o">=</span><span class="mi">10</span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">n</span><span class="o">=</span><span class="mi">20</span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">CALL</span><span class="w"> </span><span class="n">myp6</span><span class="p">(</span><span class="o">@</span><span class="n">m</span><span class="p">,</span><span class="w"> </span><span class="o">@</span><span class="n">n</span><span class="p">)</span><span class="err">$</span><span class="w">
+</span><span class="w"></span><span class="k">CALL</span><span class="w"> </span><span class="n">test_pro4</span><span class="p">(</span><span class="o">@</span><span class="n">m</span><span class="p">)</span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h2 id="什么是函数">什么是函数</h2>
-<p>函数的定义和存储过程一致，都是经过编译并存储在数据库中的一段<code>SQL</code>语句集合。</p>
-<p>函数有且仅有一个返回值。</p>
-<h2 id="函数语法">函数语法</h2>
+<p>函数和存储过程类似，都是经过编译并存储在数据库中的一段<code>SQL</code>语句集合。但是函数有且仅有一个返回值，而存储过程没有返回值。</p>
+<h2 id="函数的语法">函数的语法</h2>
 <h3 id="1-创建函数">1. 创建函数</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -436,16 +397,16 @@
 </div><p>说明：</p>
 <ol>
 <li>
-<p>参数列表包含两部分：参数名 参数类型。</p>
+<p>参数列表包含两部分：参数名和参数类型。</p>
 </li>
 <li>
-<p>函数体中必须包含return。</p>
+<p>函数体中必须包含<code>RETURN</code>。</p>
 </li>
 <li>
-<p>如果函数体仅有一句话，可以省略begin和end。</p>
+<p>如果函数体仅有一句话，可以省略<code>BEGIN</code>和<code>END</code>。</p>
 </li>
 <li>
-<p>使用delimiter语句设置函数结束标记。</p>
+<p>使用<code>DELIMITER</code>语句设置函数结束标记。</p>
 </li>
 </ol>
 <h3 id="2-调用-1">2. 调用</h3>
@@ -479,61 +440,63 @@
 <ul>
 <li>无参有返回</li>
 </ul>
+<p>定义：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">myf1</span><span class="p">()</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">INT</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">test_func1</span><span class="p">()</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">int</span><span class="w">
 </span><span class="w"></span><span class="k">BEGIN</span><span class="w">
-</span><span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="k">c</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="k">c</span><span class="w">
-</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="k">c</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">END</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">myf1</span><span class="p">()</span><span class="err">$</span><span class="w">
+</span><span class="w">    </span><span class="k">DECLARE</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="nb">int</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">END</span><span class="err">$</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">test_func1</span><span class="p">()</span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>有参有返回</li>
 </ul>
+<p>定义：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">myf2</span><span class="p">(</span><span class="n">empName</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="n">DOUBLE</span><span class="w">
+</span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">FUNCTION</span><span class="w"> </span><span class="n">test_func2</span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span><span class="w"> </span><span class="k">RETURNS</span><span class="w"> </span><span class="nb">int</span><span class="w">
 </span><span class="w"></span><span class="k">BEGIN</span><span class="w">
-</span><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="o">@</span><span class="n">sal</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">@</span><span class="n">sal</span><span class="w">
-</span><span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w">
-</span><span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">empName</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="o">@</span><span class="n">sal</span><span class="w">
-</span><span class="w"></span><span class="k">END</span><span class="w"> </span><span class="err">$</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">myf2</span><span class="p">(</span><span class="s1">&#39;tom&#39;</span><span class="p">)</span><span class="err">$</span><span class="w">
+</span><span class="w">    </span><span class="k">SET</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="k">RETURN</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">END</span><span class="err">$</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>调用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">test_func2</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="err">$</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h2 id="游标">游标</h2>
@@ -575,7 +538,7 @@
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="5-declare-exit-handler-for-not-found">5. <code>DECLARE EXIT HANDLER FOR NOT FOUND</code></h3>
-<p>在存储过程中，当游标配合循环语句时，需要知道循环合适结束，这时就需要使用如下机制：</p>
+<p>在存储过程中，当游标配合循环语句一起使用时，需要知道循环何时结束，此时就需要使用如下机制：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -634,7 +597,7 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2020-07-28</span>
+                <span>更新于 2020-06-28</span>
             </div>
             <div class="post-info-license"></div>
         </div>
@@ -653,8 +616,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/mysql-index/" class="prev" rel="prev" title="【MySQL】索引"><i class="fas fa-angle-left fa-fw"></i>【MySQL】索引</a>
-            <a href="/mysql-chu-fa-qi/" class="next" rel="next" title="【MySQL】触发器">【MySQL】触发器<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/mysql-var/" class="prev" rel="prev" title="【MySQL】变量"><i class="fas fa-angle-left fa-fw"></i>【MySQL】变量</a>
+            <a href="/mysql-liu-cheng-kong-zhi/" class="next" rel="next" title="【MySQL】流程控制">【MySQL】流程控制<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="gitalk" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
@@ -669,5 +632,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw"></i>
             </a>
-        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-07-28T17:58:35+08:00","owner":"","repo":"","title":"【MySQL】存储过程和函数"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2020-06-28T17:58:35+08:00","owner":"","repo":"","title":"【MySQL】存储过程和函数"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

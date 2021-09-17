@@ -1,7 +1,7 @@
 # 【MySQL】DDL数据定义
 
 
-## DDL语言
+## DDL
 
 `DDL`: （Data Define Language）数据定义语言，用于对数据库和表进行管理和操作。
 

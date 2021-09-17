@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【MySQL】Join原理 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【MySQL】Join原理" />
+<meta property="og:description" content="Join原理 常有人说，查询数据时不要使用Join，因为性能很差。然而，你是否好奇过，事实真的是这样吗？
+为了能准确分析出Join语法的执行效率，接下来将会对Join的原理进行讨论。
+Index Nested-Loop Join Index Nested-Loop Join简称为NLJ，算法的具体执行流程为：
+  从表1中读取一行记录。
+  取出这行记录的指定字段，去表2进行查找。
+  从表2中取出满足条件的行，与步骤1取出的行组成结果集。
+  重复执行上述步骤，直到读取完表1的记录。
+  上述算法的重要前提是，被驱动表可以使用索引。此时，因为使用到了表2的索引，所以Join的性能较好。
+Simple Nested-Loop Join 该算法的使用前提是，被驱动表无法使用索引。
+因为无法使用索引，所以每次去被驱动表做匹配时，都需要进行全表扫描，性能很差。
+注意，无索引情况下，MySQL使用的是Block Nested-Loop Join算法。
+Block Nested-Loop Join Block Nested-Loop Join简称BNL，该算法也不会用到被驱动表的索引。
+具体的执行流程为：
+  将表1的数据全部读入join_buffer中。
+  遍历表2，读取每一行数据。
+  每从表2中读取一行数据，就去join_buffer中做匹配。如果满足条件，就放入结果集。
+  BNL与Simple Nested-Loop Join的区别在于，BNL的匹配操作是在内存中完成的，速度更快。
+如果join_buffer内存放不下表1的所有数据，则执行流程为：
+  扫描表1，顺序读取部分数据，放入join_buffer中。
+  扫描表2，读取每一行数据。
+  从表2中每读取一行数据，就跟join_buffer做对比。如果满足条件，就放入结果集。
+  清空join_buffer。
+  继续扫描表1，然后执行步骤2，直到数据扫描完毕。
+  join_buffer的大小受参数join_buffer_size控制，默认是256k。该参数设置的越大，可以容纳的表1数据就会越多，被驱动表的扫描次数越少，性能也会越好。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/mysql-join/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-17T17:54:30&#43;08:00" />
+<meta property="article:modified_time" content="2021-09-17T17:54:30&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【MySQL】Join原理"/>
+<meta name="twitter:description" content="Join原理 常有人说，查询数据时不要使用Join，因为性能很差。然而，你是否好奇过，事实真的是这样吗？
+为了能准确分析出Join语法的执行效率，接下来将会对Join的原理进行讨论。
+Index Nested-Loop Join Index Nested-Loop Join简称为NLJ，算法的具体执行流程为：
+  从表1中读取一行记录。
+  取出这行记录的指定字段，去表2进行查找。
+  从表2中取出满足条件的行，与步骤1取出的行组成结果集。
+  重复执行上述步骤，直到读取完表1的记录。
+  上述算法的重要前提是，被驱动表可以使用索引。此时，因为使用到了表2的索引，所以Join的性能较好。
+Simple Nested-Loop Join 该算法的使用前提是，被驱动表无法使用索引。
+因为无法使用索引，所以每次去被驱动表做匹配时，都需要进行全表扫描，性能很差。
+注意，无索引情况下，MySQL使用的是Block Nested-Loop Join算法。
+Block Nested-Loop Join Block Nested-Loop Join简称BNL，该算法也不会用到被驱动表的索引。
+具体的执行流程为：
+  将表1的数据全部读入join_buffer中。
+  遍历表2，读取每一行数据。
+  每从表2中读取一行数据，就去join_buffer中做匹配。如果满足条件，就放入结果集。
+  BNL与Simple Nested-Loop Join的区别在于，BNL的匹配操作是在内存中完成的，速度更快。
+如果join_buffer内存放不下表1的所有数据，则执行流程为：
+  扫描表1，顺序读取部分数据，放入join_buffer中。
+  扫描表2，读取每一行数据。
+  从表2中每读取一行数据，就跟join_buffer做对比。如果满足条件，就放入结果集。
+  清空join_buffer。
+  继续扫描表1，然后执行步骤2，直到数据扫描完毕。
+  join_buffer的大小受参数join_buffer_size控制，默认是256k。该参数设置的越大，可以容纳的表1数据就会越多，被驱动表的扫描次数越少，性能也会越好。"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-join/" /><link rel="prev" href="http://example.org/mysql_innodb_read_ahead/" /><link rel="next" href="http://example.org/mysql-framework/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【MySQL】Join原理",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/mysql-join\/"
+        },"genre": "posts","keywords": "MySQL","wordcount":  63 ,
+        "url": "http:\/\/example.org\/mysql-join\/","datePublished": "2021-09-17T17:54:30+08:00","dateModified": "2021-09-17T17:54:30+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【MySQL】Join原理</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>MySQL</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2021-09-17">2021-09-17</time>&nbsp;
+                </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#join原理"><code>Join</code>原理</a>
+      <ul>
+        <li><a href="#index-nested-loop-join"><code>Index Nested-Loop Join</code></a></li>
+        <li><a href="#simple-nested-loop-join"><code>Simple Nested-Loop Join</code></a></li>
+        <li><a href="#block-nested-loop-join"><code>Block Nested-Loop Join</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#join使用建议"><code>Join</code>使用建议</a>
+      <ul>
+        <li><a href="#1-使用场景">1. 使用场景</a></li>
+        <li><a href="#驱动表的选择">驱动表的选择</a></li>
+        <li><a href="#如何查找小表">如何查找小表</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="join原理"><code>Join</code>原理</h2>
+<p>常有人说，查询数据时不要使用<code>Join</code>，因为性能很差。然而，你是否好奇过，事实真的是这样吗？</p>
+<p>为了能准确分析出<code>Join</code>语法的执行效率，接下来将会对<code>Join</code>的原理进行讨论。</p>
+<h3 id="index-nested-loop-join"><code>Index Nested-Loop Join</code></h3>
+<p><code>Index Nested-Loop Join</code>简称为<code>NLJ</code>，算法的具体执行流程为：</p>
+<ol>
+<li>
+<p>从表1中读取一行记录。</p>
+</li>
+<li>
+<p>取出这行记录的指定字段，去表2进行查找。</p>
+</li>
+<li>
+<p>从表2中取出满足条件的行，与步骤1取出的行组成结果集。</p>
+</li>
+<li>
+<p>重复执行上述步骤，直到读取完表1的记录。</p>
+</li>
+</ol>
+<p>上述算法的重要前提是，被驱动表可以使用索引。此时，因为使用到了表2的索引，所以<code>Join</code>的性能较好。</p>
+<h3 id="simple-nested-loop-join"><code>Simple Nested-Loop Join</code></h3>
+<p>该算法的使用前提是，被驱动表无法使用索引。</p>
+<p>因为无法使用索引，所以每次去被驱动表做匹配时，都需要进行全表扫描，性能很差。</p>
+<p>注意，无索引情况下，<code>MySQL</code>使用的是<code>Block Nested-Loop Join</code>算法。</p>
+<h3 id="block-nested-loop-join"><code>Block Nested-Loop Join</code></h3>
+<p><code>Block Nested-Loop Join</code>简称<code>BNL</code>，该算法也不会用到被驱动表的索引。</p>
+<p>具体的执行流程为：</p>
+<ol>
+<li>
+<p>将表1的数据全部读入<code>join_buffer</code>中。</p>
+</li>
+<li>
+<p>遍历表2，读取每一行数据。</p>
+</li>
+<li>
+<p>每从表2中读取一行数据，就去<code>join_buffer</code>中做匹配。如果满足条件，就放入结果集。</p>
+</li>
+</ol>
+<p><code>BNL</code>与<code>Simple Nested-Loop Join</code>的区别在于，<code>BNL</code>的匹配操作是在内存中完成的，速度更快。</p>
+<p>如果<code>join_buffer</code>内存放不下表1的所有数据，则执行流程为：</p>
+<ol>
+<li>
+<p>扫描表1，顺序读取部分数据，放入<code>join_buffer</code>中。</p>
+</li>
+<li>
+<p>扫描表2，读取每一行数据。</p>
+</li>
+<li>
+<p>从表2中每读取一行数据，就跟<code>join_buffer</code>做对比。如果满足条件，就放入结果集。</p>
+</li>
+<li>
+<p>清空<code>join_buffer</code>。</p>
+</li>
+<li>
+<p>继续扫描表1，然后执行步骤2，直到数据扫描完毕。</p>
+</li>
+</ol>
+<p><code>join_buffer</code>的大小受参数<code>join_buffer_size</code>控制，默认是256k。该参数设置的越大，可以容纳的表1数据就会越多，被驱动表的扫描次数越少，性能也会越好。</p>
+<h2 id="join使用建议"><code>Join</code>使用建议</h2>
+<h3 id="1-使用场景">1. 使用场景</h3>
+<p>如果能使用到被驱动表的索引，则可以使用<code>Join</code>。</p>
+<p>如果不能使用到被驱动表的索引，查询时会扫描过多行数。在这种情况下，尽量不要使用<code>Join</code>。</p>
+<h3 id="驱动表的选择">驱动表的选择</h3>
+<p>对于<code>Index Nested-Loop Join</code>，应选择小表做驱动表。</p>
+<p>对于<code>Simple Nested-Loop Join</code>，无论哪张表做驱动表，性能都是一样的。</p>
+<p>对于<code>Block Nested-Loop Join</code>，如果<code>join_buffer_size</code>足够大，则任何一种选择都没差别，如果不够大，则选择小表做驱动表。</p>
+<p>可以根据执行计划的<code>extra</code>字段，来判断<code>join</code>使用的是何种算法。</p>
+<h3 id="如何查找小表">如何查找小表</h3>
+<p>查找小表的步骤如下：</p>
+<ol>
+<li>
+<p>先将所有表按照条件过滤。</p>
+</li>
+<li>
+<p>然后计算参与<code>join</code>的各个字段的总数据量。</p>
+</li>
+<li>
+<p>数据量小的就是小表。</p>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-09-17</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">MySQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql_innodb_read_ahead/" class="prev" rel="prev" title="【MySQL】预读机制"><i class="fas fa-angle-left fa-fw"></i>【MySQL】预读机制</a>
+            <a href="/mysql-framework/" class="next" rel="next" title="【MySQL】基本架构">【MySQL】基本架构<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2021-09-17T17:54:30+08:00","owner":"","repo":"","title":"【MySQL】Join原理"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-shi-wu\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  115 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  152 ,
         "url": "http:\/\/example.org\/mysql-shi-wu\/","datePublished": "2020-08-01T18:54:50+08:00","dateModified": "2020-08-01T18:54:50+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -117,18 +117,19 @@
   <ul>
     <li><a href="#事务">事务</a>
       <ul>
-        <li><a href="#1-概念">1. 概念</a></li>
-        <li><a href="#2-事务特性">2. 事务特性</a></li>
-        <li><a href="#3-分类">3. 分类</a></li>
-        <li><a href="#4-示例">4. 示例</a></li>
+        <li><a href="#1-事务的概念">1. 事务的概念</a></li>
+        <li><a href="#2-事务的特性">2. 事务的特性</a></li>
+        <li><a href="#3-事务的分类">3. 事务的分类</a></li>
+        <li><a href="#4-使用示例">4. 使用示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#隔离级别">隔离级别</a>
+      <ul>
+        <li><a href="#1-什么是隔离级别">1. 什么是隔离级别</a></li>
+        <li><a href="#2-并发问题">2. 并发问题</a></li>
       </ul>
     </li>
     <li><a href="#数据库的隔离级别">数据库的隔离级别</a>
-      <ul>
-        <li><a href="#1-说明">1. 说明</a></li>
-      </ul>
-    </li>
-    <li><a href="#数据库的隔离级别-1">数据库的隔离级别</a>
       <ul>
         <li><a href="#1-隔离级别说明">1. 隔离级别说明</a></li>
         <li><a href="#2-oracle支持的事务隔离级别">2. Oracle支持的事务隔离级别：</a></li>
@@ -137,52 +138,71 @@
     </li>
     <li><a href="#mysql设置隔离级别">MySql设置隔离级别</a>
       <ul>
-        <li><a href="#1-说明-1">1. 说明</a></li>
-        <li><a href="#2-mysql查看当前连接的隔离级别">2. mysql查看当前连接的隔离级别</a></li>
-        <li><a href="#3-mysql修改当前连接的隔离级别">3. mysql修改当前连接的隔离级别</a></li>
-        <li><a href="#4-mysql设置数据库系统全局的隔离级别">4. mysql设置数据库系统全局的隔离级别</a></li>
+        <li><a href="#1-说明">1. 说明</a></li>
+        <li><a href="#2-查看当前连接的隔离级别">2. 查看当前连接的隔离级别</a></li>
+        <li><a href="#3-设置当前连接的隔离级别">3. 设置当前连接的隔离级别</a></li>
+        <li><a href="#4-设置全局的隔离级别">4. 设置全局的隔离级别</a></li>
       </ul>
     </li>
     <li><a href="#savepoint">SAVEPOINT</a>
       <ul>
-        <li><a href="#1-说明-2">1. 说明</a></li>
+        <li><a href="#1-什么是savepoint">1. 什么是<code>SAVEPOINT</code></a></li>
         <li><a href="#2-示例">2. 示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#长事务弊端">长事务弊端</a>
+      <ul>
+        <li><a href="#查询长事务">查询长事务</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="事务">事务</h2>
-<h3 id="1-概念">1. 概念</h3>
-<p>事务由一条或者多条sql语句构成，这些sql语句要么全部执行成功，要么全部执行失败。</p>
-<h3 id="2-事务特性">2. 事务特性</h3>
+<h3 id="1-事务的概念">1. 事务的概念</h3>
+<p>事务是数据库并发操作中，最小的控制单元，由一条或者多条sql语句构成，这些sql语句要么全部执行成功，要么全部执行失败。</p>
+<p>事务在引擎层实现。有的引擎支持事务，如<code>InnoDB</code>，有的引擎不支持，如<code>MyISAM</code>和<code>Memory</code>。</p>
+<h3 id="2-事务的特性">2. 事务的特性</h3>
 <p>事务具备<code>ACID</code>特性。</p>
 <ul>
 <li>
-<p>原子性 (atomicity)：事务中所有操作是不可再分割的原子单位。事务中所有操作要么全部执行成功，要么全部执行失败。</p>
+<p>原子性 (atomicity)：</p>
+<p>事务中所有操作是不可再分割的原子单位。事务的所有操作要么全部执行成功，要么全部执行失败。</p>
 </li>
 <li>
-<p>一致性 (consistency)：事务执行后，数据库的状态仍与业务规则保持一致。如转账业务，无论事务执行成功与否，参与转账的两个账号余额之和应该是不变的。</p>
+<p>一致性 (consistency)：</p>
+<p>事务执行后，数据库的状态仍与业务规则保持一致。</p>
+<p>如转账业务，无论事务执行成功与否，参与转账的两个账号余额之和应该是不变的。</p>
 </li>
 <li>
-<p>隔离性 (isolation)：在并发操作中，不同事务之间应该隔离开来，使每个并发中的事务不会相互干扰。</p>
+<p>隔离性 (isolation)：</p>
+<p>在并发操作中，不同事务之间保持隔离，不会相互干扰。</p>
 </li>
 <li>
-<p>持久性 (durability)：一旦事务提交成功，事务中所有的数据操作都必须被持久化到数据库。即使提交事务后，数据库马上崩溃，在数据库重启时，也能通过某种机制恢复数据。</p>
+<p>持久性 (durability)：</p>
+<p>事务一旦提交成功，所有数据操作都会被持久化到数据库。</p>
 </li>
 </ul>
-<h3 id="3-分类">3. 分类</h3>
-<ul>
+<h3 id="3-事务的分类">3. 事务的分类</h3>
+<p>事务分为隐式事务和显式事务。</p>
+<p>隐式事务没有开启和结束标记，一条<code>SQL</code>语句就是一个事务。使用隐式事务可能导致意外的长事务。</p>
+<p>显式事务可以有开启标记，也可以没有开启标记，但是一定要有结束标记。</p>
+<p>显式事务的执行步骤为：</p>
+<ol>
 <li>
-<p>隐式事务：</p>
-<p>没有明显的开启和结束标记。</p>
+<p>取消隐式事务自动开启的功能。</p>
 </li>
 <li>
-<p>显式事务：</p>
-<p>具有明显的开启和结束标记。</p>
-<p>执行步骤为，取消隐式事务自动开启的功能 =&gt; 开启事务 =&gt; 编写事务语句 =&gt; 结束事务</p>
+<p>开启事务，开启语句为<code>BEGIN</code>、<code>START TRANSACTION</code>或者什么也不写。</p>
 </li>
-</ul>
-<h3 id="4-示例">4. 示例</h3>
+<li>
+<p>编写事务语句。</p>
+</li>
+<li>
+<p>结束事务。</p>
+</li>
+</ol>
+<p>对于显式事务，如果不想每次都执行<code>begin</code>，可以使用<code>commit work and chain</code>，表示提交本事务后，自动开启下一个事务。</p>
+<h3 id="4-使用示例">4. 使用示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt"> 1
@@ -205,12 +225,12 @@
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">#</span><span class="w"> </span><span class="err">取消事务自动开启</span><span class="w">
 </span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="n">autocommit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">开启事务</span><span class="w"> </span><span class="err">有的客户端不用加这句</span><span class="w">
+</span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">开启事务</span><span class="w">
 </span><span class="w"></span><span class="k">START</span><span class="w"> </span><span class="k">TRANSACTION</span><span class="p">;</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">更新数据</span><span class="w">
-</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">stuinfo</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">balance</span><span class="o">=</span><span class="n">balance</span><span class="o">-</span><span class="mi">5000</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">stuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">stuinfo</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">balance</span><span class="o">=</span><span class="n">balabce</span><span class="o">+</span><span class="mi">5000</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">stuid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">userinfo</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">balance</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">5000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="n">userinfo</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">balance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">balabce</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">5000</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="err">提交</span><span class="w">
 </span><span class="w"></span><span class="k">COMMIT</span><span class="p">;</span><span class="w">
@@ -219,10 +239,12 @@
 </span><span class="w"></span><span class="o">#</span><span class="w"> </span><span class="k">ROLLBACK</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="数据库的隔离级别">数据库的隔离级别</h2>
-<h3 id="1-说明">1. 说明</h3>
-<p>一个事务与其他事务隔离的程度称为隔离级别。不同隔离级别对应不同的干扰程度，隔离级别越高，数据一致性就越好，但并发性越弱。</p>
-<p>当多个事务同时运行、并访问数据库中的相同数据时，如果没有采取必要的隔离机制，就会导致各种并发问题：</p>
+</div><h2 id="隔离级别">隔离级别</h2>
+<h3 id="1-什么是隔离级别">1. 什么是隔离级别</h3>
+<p>一个事务与其他事务隔离的程度称为隔离级别。</p>
+<p>隔离级别越高，数据一致性就越好，但并发性越弱。</p>
+<h3 id="2-并发问题">2. 并发问题</h3>
+<p>当多个事务并发访问数据库中的相同数据时，如果没有使用合适的隔离级别，就会产生各种问题：</p>
 <ul>
 <li>
 <p>脏读。</p>
@@ -237,24 +259,28 @@
 <p>对于两个事务T1和T2，T1从一个表中根据某些条件读取出一些记录，然后T2向该表插入了符合条件的新记录。T1再次读取时，就会把新记录也读出来。</p>
 </li>
 </ul>
-<h2 id="数据库的隔离级别-1">数据库的隔离级别</h2>
+<h2 id="数据库的隔离级别">数据库的隔离级别</h2>
 <h3 id="1-隔离级别说明">1. 隔离级别说明</h3>
 <ul>
 <li>
-<p>读未提交数据(READ UNCOMMITTED)</p>
-<p>允许事务读取未被其他事务提交的变更。脏读，不可重复读和幻读的问题都会出现。</p>
+<p>读未提交数据（<code>READ UNCOMMITTED</code>）</p>
+<p>允许事务读取未被其他事务提交的变更。</p>
+<p>会出现脏读，不可重复读和幻读的问题。</p>
 </li>
 <li>
-<p>读已提交数据(READ COMMITTED)</p>
-<p>只允许事务读取已经被其他事务提交的变更。可以避免脏读，但不可重复读和幻读问题仍然会出现。简称<code>RC</code>。</p>
+<p>读已提交数据（<code>READ COMMITTED</code>）</p>
+<p>简称<code>RC</code>。只允许事务读取已经被其他事务提交的变更。</p>
+<p>可以避免脏读，但不可重复读和幻读问题仍然会出现。</p>
 </li>
 <li>
-<p>可重复读(REPEATABLE READ)</p>
-<p>确保事务可以多次从一个字段中读取相同的值，但这个事务持续期间，禁止其他事务对这个字段进行更新。可以避免脏读和不可重复读，但幻读的问题仍然存在。简称<code>RR</code>。</p>
+<p>可重复读（<code>REPEATABLE READ</code>）</p>
+<p>简称<code>RR</code>。一个事务执行过程中看到的数据，总是跟它启动时看到的数据一致。</p>
+<p>可以避免脏读和不可重复读，但幻读的问题仍然存在。</p>
 </li>
 <li>
-<p>串行化(SERIALIZABLE)</p>
-<p>确保事务可以从一个表中读取相同的行，在这个事务持续期间，禁止其他事务对该表执行插入、更新和删除操作。所有并发问题都可以避免，但性能十分低下。</p>
+<p>串行化（<code>SERIALIZABLE</code>）</p>
+<p>在事务持续期间，禁止其他事务对该表执行插入、更新和删除操作。对一行记录，”写“会加”写锁“，读会加”读锁“。</p>
+<p>所有并发问题都可以避免，但性能十分低下。</p>
 </li>
 </ul>
 <h3 id="2-oracle支持的事务隔离级别">2. Oracle支持的事务隔离级别：</h3>
@@ -282,40 +308,41 @@
 </li>
 </ul>
 <h2 id="mysql设置隔离级别">MySql设置隔离级别</h2>
-<h3 id="1-说明-1">1. 说明</h3>
-<p>每启动一个mysql客户端程序，就会建立一个连接会话，每个连接都有一个变量<code>tx_isolation</code>表示当前的事务隔离级别。注意，新版<code>mysql</code>使用的是<code>transaction_isolation</code>变量。</p>
-<h3 id="2-mysql查看当前连接的隔离级别">2. mysql查看当前连接的隔离级别</h3>
+<h3 id="1-说明">1. 说明</h3>
+<p>每启动一个<code>MySQL</code>客户端程序，就会建立一个连接会话，每个连接会话都有一个变量<code>tx_isolation</code>表示当前的事务隔离级别。</p>
+<p>注意，新版<code>MySQL</code>使用的是<code>transaction_isolation</code>变量。</p>
+<h3 id="2-查看当前连接的隔离级别">2. 查看当前连接的隔离级别</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="k">select</span><span class="w"> </span><span class="o">@@</span><span class="n">tx_isolation</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">@@</span><span class="n">tx_isolation</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h3 id="3-mysql修改当前连接的隔离级别">3. mysql修改当前连接的隔离级别</h3>
-<p>当前连接的隔离级别不会影响到其他连接。</p>
+</div><h3 id="3-设置当前连接的隔离级别">3. 设置当前连接的隔离级别</h3>
+<p>当前连接的隔离级别不会影响到其他连接。设置语法如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">set</span><span class="w"> </span><span class="n">session</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="n">uncommitted</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">set</span><span class="w"> </span><span class="k">session</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">uncommitted</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h3 id="4-mysql设置数据库系统全局的隔离级别">4. mysql设置数据库系统全局的隔离级别</h3>
-<p>需要重新打开<code>mysql</code>会话，设置才会生效。</p>
+</div><h3 id="4-设置全局的隔离级别">4. 设置全局的隔离级别</h3>
+<p>需要重新建立<code>MySQL</code>连接，全局设置才会生效。语法如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="kt">set</span><span class="w"> </span><span class="n">global</span><span class="w"> </span><span class="n">transaction</span><span class="w"> </span><span class="n">isolation</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="n">committed</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="k">transaction</span><span class="w"> </span><span class="k">isolation</span><span class="w"> </span><span class="k">level</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">committed</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h2 id="savepoint">SAVEPOINT</h2>
-<h3 id="1-说明-2">1. 说明</h3>
-<p>只能搭配<code>rollback</code>使用</p>
+<h3 id="1-什么是savepoint">1. 什么是<code>SAVEPOINT</code></h3>
+<p><code>SAVEPOINT</code>是在事务中搭配<code>ROLLBACK</code>一起使用的某种机制，可以控制事务回滚的进度。</p>
 <h3 id="2-示例">2. 示例</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -324,14 +351,37 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-mysql" data-lang="mysql"><span class="o">&gt;</span><span class="w"> </span><span class="kt">SET</span><span class="w"> </span><span class="n">autocommit</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">25</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">28</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">ROLLBACK</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SET</span><span class="w"> </span><span class="n">autocommit</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">25</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="n">SAVEPOINT</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">DELETE</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="o">=</span><span class="mi">28</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">ROLLBACK</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
+</div>
+</div><h2 id="长事务弊端">长事务弊端</h2>
+<p>长事务提交前，它可能用到的回滚日志都必须保留，会占用大量存储空间。</p>
+<p><code>MySQL5.5</code>及以前的版本，回滚日志跟数据字典一起放在<code>ibdata</code>文件里，即使回滚段被清除，文件也不会变小。</p>
+<p>长事务还会占用锁资源，从而拖垮整个库。</p>
+<p>因此，尽量不要使用长事务。</p>
+<h3 id="查询长事务">查询长事务</h3>
+<p>如果查询持续时间超过<code>60s</code>的长事务，可以使用如下语句：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">select</span> * from information_schema.innodb_trx where TIME_TO_SEC<span class="o">(</span>TIMEDIFF<span class="o">(</span>now<span class="o">()</span>, trx_started<span class="o">))</span> &gt; 60<span class="p">;</span>
+</code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">

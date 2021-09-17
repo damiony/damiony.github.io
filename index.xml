@@ -3,9 +3,53 @@
         <title>Damion&#39;s Blog</title>
         <link>http://example.org/</link>
         <description>Damon&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 13 Jun 2021 17:42:22 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 17 Sep 2021 22:00:17 &#43;0800</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>【MySQL】版本并发控制MVCC</title>
+    <link>http://example.org/mysql-mvcc/</link>
+    <pubDate>Fri, 17 Sep 2021 22:00:17 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-mvcc/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】基本架构</title>
+    <link>http://example.org/mysql-framework/</link>
+    <pubDate>Fri, 17 Sep 2021 17:55:38 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-framework/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>【MySQL】Join原理</title>
+    <link>http://example.org/mysql-join/</link>
+    <pubDate>Fri, 17 Sep 2021 17:54:30 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/mysql-join/</guid>
+    <description><![CDATA[Join原理 常有人说，查询数据时不要使用Join，因为性能很差。然而，你是否好奇过，事实真的是这样吗？
+为了能准确分析出Join语法的执行效率，接下来将会对Join的原理进行讨论。
+Index Nested-Loop Join Index Nested-Loop Join简称为NLJ，算法的具体执行流程为：
+  从表1中读取一行记录。
+  取出这行记录的指定字段，去表2进行查找。
+  从表2中取出满足条件的行，与步骤1取出的行组成结果集。
+  重复执行上述步骤，直到读取完表1的记录。
+  上述算法的重要前提是，被驱动表可以使用索引。此时，因为使用到了表2的索引，所以Join的性能较好。
+Simple Nested-Loop Join 该算法的使用前提是，被驱动表无法使用索引。
+因为无法使用索引，所以每次去被驱动表做匹配时，都需要进行全表扫描，性能很差。
+注意，无索引情况下，MySQL使用的是Block Nested-Loop Join算法。
+Block Nested-Loop Join Block Nested-Loop Join简称BNL，该算法也不会用到被驱动表的索引。
+具体的执行流程为：
+  将表1的数据全部读入join_buffer中。
+  遍历表2，读取每一行数据。
+  每从表2中读取一行数据，就去join_buffer中做匹配。如果满足条件，就放入结果集。
+  BNL与Simple Nested-Loop Join的区别在于，BNL的匹配操作是在内存中完成的，速度更快。
+如果join_buffer内存放不下表1的所有数据，则执行流程为：
+  扫描表1，顺序读取部分数据，放入join_buffer中。
+  扫描表2，读取每一行数据。
+  从表2中每读取一行数据，就跟join_buffer做对比。如果满足条件，就放入结果集。
+  清空join_buffer。
+  继续扫描表1，然后执行步骤2，直到数据扫描完毕。
+  join_buffer的大小受参数join_buffer_size控制，默认是256k。该参数设置的越大，可以容纳的表1数据就会越多，被驱动表的扫描次数越少，性能也会越好。]]></description>
+</item><item>
     <title>【MySQL】预读机制</title>
     <link>http://example.org/mysql_innodb_read_ahead/</link>
     <pubDate>Sun, 13 Jun 2021 17:42:22 &#43;0800</pubDate>
@@ -18,27 +62,6 @@
     <pubDate>Sun, 06 Jun 2021 01:13:21 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/ci-pan/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>【操作系统】用户态和内核态</title>
-    <link>http://example.org/yong-hu-tai-he-nei-he-tai/</link>
-    <pubDate>Thu, 06 May 2021 16:01:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/yong-hu-tai-he-nei-he-tai/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>【Linux】文件搜索</title>
-    <link>http://example.org/linux-find-files/</link>
-    <pubDate>Wed, 10 Mar 2021 13:19:44 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/linux-find-files/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>【Linux】gawk详解</title>
-    <link>http://example.org/linux-gawk/</link>
-    <pubDate>Wed, 10 Feb 2021 11:28:36 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/linux-gawk/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

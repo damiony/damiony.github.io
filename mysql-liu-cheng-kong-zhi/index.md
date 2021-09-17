@@ -1,9 +1,9 @@
 # 【MySQL】流程控制
 
 
-## 流程控制结构分类
+## 结构分类
 
-流程控制结构可分为如下几类：
+流程控制的结构，可分为如下几类：
 
 - 顺序结构：程序从上往下依次执行。
 
@@ -42,8 +42,8 @@ CASE 变量|表达式|字段
 WHEN 要判断的值 THEN 返回的值1或语句;
 WHEN 要判断的值 THEN 返回的值2或语句;
 ...
-ELSE 要返回的值n或语句;
-END;
+ELSE 返回的值或语句;
+END CASE;
 ```
 
 或者
@@ -53,8 +53,30 @@ CASE
 WHEN 要判断的条件1 THEN 返回的值1或语句;
 WHEN 要判断的条件2 THEN 返回的值2或语句;
 ...
-ELSE 要返回的值n或语句;
+ELSE 要返回的值;
 END CASE;
+```
+
+以上两种写法主要用于`BEGIN/END`语句块中。其他情况下，可以使用如下语句：
+
+```sql
+CASE 变量|表达式|字段
+WHEN 要判断的值 THEN 返回的值1或语句
+WHEN 要判断的值 THEN 返回的值2或语句
+...
+ELSE 返回的值或语句
+END
+```
+
+或者：
+
+```sql
+CASE
+WHEN 要判断的条件1 THEN 返回的值1或语句
+WHEN 要判断的条件2 THEN 返回的值2或语句
+...
+ELSE 要返回的值
+END
 ```
 
 ### 3. `IF`结构
@@ -75,7 +97,7 @@ IF结构主要应用于`BEGIN/END`语句块中。
 
 ```mysql
 DELIMITER $
-CREATE PROCEDURE test_case(IN score INT)
+CREATE PROCEDURE test_case(IN score int)
 BEGIN
     CASE
     WHEN score>=90 AND score<=100 THEN SELECT 'A';
@@ -110,7 +132,7 @@ END $
 
 - `REPEAT`
 
-除了循环结构外，还存在几种语法，可用于控制循环的流程：
+控制循环流程的语法如下：
 
 - `ITERATE`：类似于`continue`。
 
@@ -139,7 +161,7 @@ END REPEAT [标签];
 
 注意`LOOP`需要搭配标签使用，否则会变成死循环。
 
-标签主要用于`iterate`和`leave`跳出循环。
+标签主要用于搭配`iterate`和`leave`跳出循环。
 
 ### 2. 示例
 
@@ -168,7 +190,7 @@ BEGIN
     REPEAT
         SET sum=sum+n;
         SET n=n-1;
-    UNTIL n =0
+    UNTIL n = 0
     END REPEAT;
     SELECT sum AS result;
 END$
