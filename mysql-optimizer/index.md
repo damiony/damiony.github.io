@@ -261,6 +261,10 @@ SHOW [SESSION | GLOBAL] STATUS LIKE "InnoDB_rows_%";
 
   `mysql`引擎使用了连接缓存。
 
+- `using index condition`
+  
+  索引下推，先进行条件过滤再回表。
+
 
 ## 语句分析
 

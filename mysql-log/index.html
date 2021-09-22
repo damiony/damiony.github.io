@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-log\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  123 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  134 ,
         "url": "http:\/\/example.org\/mysql-log\/","datePublished": "2020-08-02T17:29:48+08:00","dateModified": "2020-08-02T17:29:48+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -158,18 +158,21 @@
 </li>
 </ul>
 <h3 id="innodb_flush_log_at_trx_commit"><code>innodb_flush_log_at_trx_commit</code></h3>
-<p><code>innodb_flush_log_at_trx_commit</code>参数用于控制<code>redo log</code>刷新到磁盘的频率。</p>
+<p><code>innodb_flush_log_at_trx_commit</code>参数用于控制<code>redo log</code>的写入策略。</p>
 <ul>
 <li>
-<p>0: 每秒将引擎<code>log buffer</code>中的<code>redo log</code>刷新到磁盘。性能最好，会丢日志。</p>
+<p>0: 每隔1秒，将<code>redo log buffer</code>中的日志刷新到磁盘。性能最好，会丢日志。</p>
 </li>
 <li>
-<p>1: 每次提交事务时，将日志刷新到磁盘。最慢。</p>
+<p>1: 每次提交事务时，将<code>redo log</code>日志全部刷新到磁盘。最慢。</p>
 </li>
 <li>
-<p>2: 每次提交事务时，先将日志写到操作系统的文件缓存，再每秒刷新到磁盘。操作系统崩溃时会丢日志。</p>
+<p>2: 每次提交事务时，先将<code>redo log</code>日志写到操作系统的文件缓存，再每秒刷新到磁盘。操作系统崩溃时会丢日志。</p>
 </li>
 </ul>
+<p>参数为0时，可能会将未提交事务的<code>redo log</code>持久化到磁盘。</p>
+<p><code>redo log buffer</code>占用空间达到<code>innodb_log_buffer_size</code>一半的时候，后台线程会将<code>redo log</code>写入操作系统的文件缓存。</p>
+<p>如果参数为1，事务A提交时，也会将事务B的<code>redo log</code>持久化到磁盘，即使事务B未提交。<code>redo log</code>在<code>prepare</code>阶段会持久化到磁盘，在<code>commit</code>阶段只会刷新到操作系统的文件缓存。</p>
 <h2 id="bin-log"><code>bin log</code></h2>
 <p><code>bin log</code>是<code>Server</code>层的日志，主要用于归档。</p>
 <h3 id="bin-log日志格式"><code>bin log</code>日志格式</h3>

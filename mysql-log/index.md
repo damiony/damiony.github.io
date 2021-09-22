@@ -28,13 +28,19 @@
 
 ### `innodb_flush_log_at_trx_commit`
 
-`innodb_flush_log_at_trx_commit`参数用于控制`redo log`刷新到磁盘的频率。
+`innodb_flush_log_at_trx_commit`参数用于控制`redo log`的写入策略。
 
-- 0: 每秒将引擎`log buffer`中的`redo log`刷新到磁盘。性能最好，会丢日志。
+- 0: 每隔1秒，将`redo log buffer`中的日志刷新到磁盘。性能最好，会丢日志。
 
-- 1: 每次提交事务时，将日志刷新到磁盘。最慢。
+- 1: 每次提交事务时，将`redo log`日志全部刷新到磁盘。最慢。
 
-- 2: 每次提交事务时，先将日志写到操作系统的文件缓存，再每秒刷新到磁盘。操作系统崩溃时会丢日志。
+- 2: 每次提交事务时，先将`redo log`日志写到操作系统的文件缓存，再每秒刷新到磁盘。操作系统崩溃时会丢日志。
+
+参数为0时，可能会将未提交事务的`redo log`持久化到磁盘。
+
+`redo log buffer`占用空间达到`innodb_log_buffer_size`一半的时候，后台线程会将`redo log`写入操作系统的文件缓存。
+
+如果参数为1，事务A提交时，也会将事务B的`redo log`持久化到磁盘，即使事务B未提交。`redo log`在`prepare`阶段会持久化到磁盘，在`commit`阶段只会刷新到操作系统的文件缓存。
 
 
 ## `bin log`

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【MySQL】主从复制 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【MySQL】主从复制" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/mysql-zhu-cong-fu-zhi/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-22T21:39:41&#43;08:00" />
+<meta property="article:modified_time" content="2021-09-22T21:39:41&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【MySQL】主从复制"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-zhu-cong-fu-zhi/" /><link rel="prev" href="http://example.org/mysql-order-by/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【MySQL】主从复制",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/mysql-zhu-cong-fu-zhi\/"
+        },"genre": "posts","keywords": "MySQL","wordcount":  119 ,
+        "url": "http:\/\/example.org\/mysql-zhu-cong-fu-zhi\/","datePublished": "2021-09-22T21:39:41+08:00","dateModified": "2021-09-22T21:39:41+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【MySQL】主从复制</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>MySQL</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2021-09-22">2021-09-22</time>&nbsp;
+                </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#主备架构">主备架构</a>
+      <ul>
+        <li><a href="#readonly"><code>readonly</code></a></li>
+        <li><a href="#同步流程">同步流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#change-master"><code>change master</code></a>
+      <ul>
+        <li><a href="#语法">语法</a></li>
+        <li><a href="#常见选项">常见选项</a></li>
+        <li><a href="#示例">示例</a></li>
+      </ul>
+    </li>
+    <li><a href="#查看binlog">查看<code>binlog</code></a></li>
+    <li><a href="#binlog格式"><code>binlog</code>格式</a>
+      <ul>
+        <li><a href="#statement"><code>statement</code></a></li>
+        <li><a href="#row"><code>row</code></a></li>
+        <li><a href="#mixed"><code>mixed</code></a></li>
+        <li><a href="#数据恢复">数据恢复</a></li>
+        <li><a href="#binlog重放"><code>binlog</code>重放</a></li>
+      </ul>
+    </li>
+    <li><a href="#双m架构">双M架构</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="主备架构">主备架构</h2>
+<p><code>MySQL</code>的高可用架构是从一主一备的的基础上演化过来的。</p>
+<p>所谓的主备架构，即客户端从主节点读写数据，备节点是主节点的备份，和主节点的数据保持同步。进行切换时，备库被切成主库，主库被切成备库。</p>
+<h3 id="readonly"><code>readonly</code></h3>
+<p>通常情况下，会将备库设置为<code>readonly</code>模式。原因如下：</p>
+<ul>
+<li>
+<p>备库常被用于执行一些分析语句，设为只读可防止误操作。</p>
+</li>
+<li>
+<p>防止切换过程中出现双写，进而导致主备不一致。</p>
+</li>
+<li>
+<p>常用<code>readonly</code>状态来判断节点的角色。</p>
+</li>
+</ul>
+<p>注意，<code>readonly</code>配置对超级权限用户无效，进行同步的线程拥有超级权限。</p>
+<h3 id="同步流程">同步流程</h3>
+<p>主备同步的流程如下：</p>
+<ol>
+<li>
+<p>备库使用<code>change master</code>命令，设置主库的<code>IP</code>、端口、用户名、密码、<code>binlog</code>文件名和日志偏移量。</p>
+</li>
+<li>
+<p>在备库执行<code>start slave</code>命令。之后备库会启动两类线程，<code>io_thread</code>和<code>sql_thread</code>。</p>
+</li>
+<li>
+<p><code>sql_thread</code>和主库建立连接。</p>
+</li>
+<li>
+<p>主库校验完用户名和密码后，根据备库指定的<code>binlog</code>文件名和偏移量，从本地读取日志，然后发给备库。</p>
+</li>
+<li>
+<p>备库拿到<code>binlog</code>后，写到本地中转日志<code>relay log</code>。</p>
+</li>
+<li>
+<p><code>sql_thread</code>读取中转日志，然后进行解析执行。</p>
+</li>
+</ol>
+<h2 id="change-master"><code>change master</code></h2>
+<p>配置主从复制的时候，需要在从库上执行<code>change master</code>语句，才能和主库保持同步。</p>
+<h3 id="语法">语法</h3>
+<p><code>change master</code>语法为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">change</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="p">[,</span><span class="w"> </span><span class="k">option</span><span class="p">]</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="常见选项">常见选项</h3>
+<p>常见的<code>option</code>参数如下：</p>
+<ul>
+<li>
+<p><code>MASTER_HOST</code>：主库的主机名或者<code>ip</code>。</p>
+</li>
+<li>
+<p><code>MASTER_PORT</code>：主库的端口。</p>
+</li>
+<li>
+<p><code>MASTER_USER</code>：连接到主库的用户名。</p>
+</li>
+<li>
+<p><code>MASTER_PASSWORD</code>：连接到主库的密码。</p>
+</li>
+<li>
+<p><code>MASTER_LOG_FILE</code>：指定主库的<code>binlog</code>文件位置。</p>
+</li>
+<li>
+<p><code>MASTER_LOG_POS</code>：指定从<code>binlog</code>的该位置开始复制。</p>
+</li>
+</ul>
+<h3 id="示例">示例</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">change</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="k">to</span><span class="w">
+</span><span class="w"></span><span class="n">master_host</span><span class="o">=</span><span class="s2">&#34;127.0.0.1&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="n">master_port</span><span class="o">=</span><span class="mi">3306</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="n">master_user</span><span class="o">=</span><span class="s2">&#34;root&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="n">master_password</span><span class="o">=</span><span class="s2">&#34;123456&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="查看binlog">查看<code>binlog</code></h2>
+<ol>
+<li>查看<code>binlog</code>是否开启。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s2">&#34;log_bin%&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>查看第一个<code>binlog</code>内容。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">binlog</span><span class="w"> </span><span class="n">events</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>查看<code>binlog</code>文件列表。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="nb">binary</span><span class="w"> </span><span class="n">logs</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li>查看正在使用的<code>binlog</code>。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">master</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>查看指定<code>binlog</code>内容。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">binlog</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="err">文件名</span><span class="p">;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="binlog格式"><code>binlog</code>格式</h2>
+<p><code>binlog</code>有三种格式，<code>statement</code>、<code>row</code>和<code>mixed</code>。</p>
+<h3 id="statement"><code>statement</code></h3>
+<p><code>binlog_format</code>设置为<code>statement</code>时，<code>binlog</code>里面记录的是<code>SQL</code>语句本身。</p>
+<p>使用<code>statement</code>可能会导致主备数据不一致。因为日志记录的是<code>sql</code>语句，因此主库在执行时使用的索引，可能和备库执行时使用的索引不一样，从而可能会造成数据不一致。</p>
+<h3 id="row"><code>row</code></h3>
+<p><code>row</code>格式的<code>binlog</code>记录的不是语句原文，而是“操作的哪张表”和“对该表进行的操作”。如下示例中的<code>Table_map</code>和<code>Delete_rows</code>就是被记录的<code>event</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="o">|</span><span class="w"> </span><span class="n">binlog</span><span class="p">.</span><span class="mi">000040</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="mi">156</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Anonymous_Gtid</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">235</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">@@</span><span class="k">SESSION</span><span class="p">.</span><span class="n">GTID_NEXT</span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;ANONYMOUS&#39;</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">binlog</span><span class="p">.</span><span class="mi">000040</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="mi">235</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Query</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">310</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">BEGIN</span><span class="w">                                </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">binlog</span><span class="p">.</span><span class="mi">000040</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="mi">310</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Table_map</span><span class="w">      </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">366</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">table_id</span><span class="p">:</span><span class="w"> </span><span class="mi">88</span><span class="w"> </span><span class="p">(</span><span class="n">test</span><span class="p">.</span><span class="n">t1</span><span class="p">)</span><span class="w">               </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">binlog</span><span class="p">.</span><span class="mi">000040</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="mi">366</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Delete_rows</span><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">406</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">table_id</span><span class="p">:</span><span class="w"> </span><span class="mi">88</span><span class="w"> </span><span class="n">flags</span><span class="p">:</span><span class="w"> </span><span class="n">STMT_END_F</span><span class="w">       </span><span class="o">|</span><span class="w">
+</span><span class="w"></span><span class="o">|</span><span class="w"> </span><span class="n">binlog</span><span class="p">.</span><span class="mi">000040</span><span class="w"> </span><span class="o">|</span><span class="w">  </span><span class="mi">406</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Xid</span><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">437</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">COMMIT</span><span class="w"> </span><span class="cm">/* xid=14 */</span><span class="w">                  </span><span class="o">|</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>如果想看到日志的详细内容，可以在终端使用如下命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mysqlbinlog -vv 日志路径 -start-position<span class="o">=</span><span class="m">310</span> --stop-position<span class="o">=</span><span class="m">437</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用<code>row</code>格式，不会造成主备数据不一致。</p>
+<h3 id="mixed"><code>mixed</code></h3>
+<p>如果使用<code>statement</code>，可能会导致主备不一致。如果使用<code>row</code>，生成的日志会占用大量的空间，消耗<code>io</code>资源，对语句性能造成影响。</p>
+<p>由于上述的种种原因，从而有了<code>mixed</code>格式。</p>
+<p>设置成<code>mixed</code>格式时，<code>MySQL</code>会判断语句是否会引起主备不一致。如果可能会，就用<code>row</code>格式，否则用<code>statement</code>格式。</p>
+<h3 id="数据恢复">数据恢复</h3>
+<p>因操作不当，导致数据出现错误时，还可以使用<code>row</code>格式的<code>binlog</code>将数据恢复到之前的状态。</p>
+<h3 id="binlog重放"><code>binlog</code>重放</h3>
+<p><code>binlog</code>的一个重要使用场景是归档。使用某个时间点的备份，和该时间点之后的<code>binlog</code>日志，可以让数据恢复到指定时刻。</p>
+<p>需要注意的是，<code>binlog</code>重放时，不能直接执行<code>statement</code>格式记录的语句，因为有些语句是依赖上下文环境的，如时间等。正确做法是，使用<code>mysqlbinlog</code>工具解析，然后将整个解析结果发给<code>MySQL</code>执行。</p>
+<p>示例如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">mysqlbinlog binlog.000040 --start-position<span class="o">=</span><span class="m">4</span> <span class="p">|</span> mysql -uroot -p
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="双m架构">双M架构</h2>
+<p>在双M架构中，客户端仍旧从单个节点读写数据，另一个节点与该节点保持数据同步，但是节点之间互为主备关系。在这种架构中，如果发生了切换，就不再需要修改主备关系。</p>
+<p>如果将参数<code>log_slave_updates</code>设置为<code>on</code>，备库执行完<code>relay log</code>后，会生成<code>bin log</code>。</p>
+<p>由于节点之间互为主备，因此可能会产生<code>bin log</code>循环复制的问题。为了解决这个问题，节点的<code>server id</code>必须互不相同。</p>
+<p>备库收到<code>bin log</code>并且重放后，会生成新的<code>bin log</code>，新<code>bin log</code>的<code>server id</code>和原来<code>bin log</code>的<code>server id</code>一致。</p>
+<p>备库收到主库发来的<code>bin log</code>时，会判断<code>server id</code>是否和自己的相等。如果相等，就表示这个日志是自己生成的，需要丢弃。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-09-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">MySQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql-order-by/" class="prev" rel="prev" title="【MySQL】Order By执行流程"><i class="fas fa-angle-left fa-fw"></i>【MySQL】Order By执行流程</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2021-09-22T21:39:41+08:00","owner":"","repo":"","title":"【MySQL】主从复制"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
