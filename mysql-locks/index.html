@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-locks\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  227 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  233 ,
         "url": "http:\/\/example.org\/mysql-locks\/","datePublished": "2020-08-02T00:38:11+08:00","dateModified": "2020-08-02T00:38:11+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -139,6 +139,7 @@
         <li><a href="#自增锁">自增锁</a></li>
         <li><a href="#记录锁">记录锁</a></li>
         <li><a href="#间隙锁">间隙锁</a></li>
+        <li><a href="#next-key-lock"><code>next-key lock</code></a></li>
         <li><a href="#插入意向锁">插入意向锁</a></li>
         <li><a href="#两阶段协议">两阶段协议</a></li>
         <li><a href="#查看行锁状态">查看行锁状态</a></li>
@@ -404,11 +405,14 @@
 <p>自增锁也叫<code>AUTO_INC</code>，是一种表锁。当插入的表中有自增列，且数据库需要自动生成自增值时，会为该表加<code>AUTO_INC</code>表锁。</p>
 <p>下文会详细叙述自增锁的机制原理。</p>
 <h3 id="记录锁">记录锁</h3>
-<p>记录锁就是给每行记录加上的行锁。</p>
+<p>记录锁就是给每行记录加上的行锁，又称<code>record</code>锁。</p>
 <h3 id="间隙锁">间隙锁</h3>
-<p>间隙锁是一种加在索引之间的锁。</p>
+<p>间隙锁是一种加在索引之间的锁，又称<code>gap</code>锁，只有在<code>InnoDB</code>的可重复度读隔离级别下才使用。</p>
 <p>使用间隙锁，可以防止其他事务在这个范围内插入或者修改记录，从而避免出现幻读现象。</p>
 <p>间隙锁和间隙锁之间互不冲突。</p>
+<h3 id="next-key-lock"><code>next-key lock</code></h3>
+<p><code>next-key lock</code>是行锁和间隙锁的组合。</p>
+<p>对于存储引擎<code>Innodb</code>，如果事务的隔离级别为可重复读，则此时使用的锁就是<code>next-key lock</code>。</p>
 <h3 id="插入意向锁">插入意向锁</h3>
 <p>插入意向锁，是一种间隙锁，不是意向锁。</p>
 <p>只有<code>insert</code>的时候，才会加插入意向锁。</p>

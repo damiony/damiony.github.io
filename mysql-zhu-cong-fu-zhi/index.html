@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-zhu-cong-fu-zhi/" /><link rel="prev" href="http://example.org/mysql-order-by/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-zhu-cong-fu-zhi/" /><link rel="prev" href="http://example.org/mysql-order-by/" /><link rel="next" href="http://example.org/mysql-next-key-lock/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-zhu-cong-fu-zhi\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  119 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  122 ,
         "url": "http:\/\/example.org\/mysql-zhu-cong-fu-zhi\/","datePublished": "2021-09-22T21:39:41+08:00","dateModified": "2021-09-22T21:39:41+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -119,6 +119,7 @@
       <ul>
         <li><a href="#readonly"><code>readonly</code></a></li>
         <li><a href="#同步流程">同步流程</a></li>
+        <li><a href="#主备切换">主备切换</a></li>
       </ul>
     </li>
     <li><a href="#change-master"><code>change master</code></a>
@@ -138,7 +139,7 @@
         <li><a href="#binlog重放"><code>binlog</code>重放</a></li>
       </ul>
     </li>
-    <li><a href="#双m架构">双M架构</a></li>
+    <li><a href="#双主架构">双主架构</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="主备架构">主备架构</h2>
@@ -180,6 +181,9 @@
 <p><code>sql_thread</code>读取中转日志，然后进行解析执行。</p>
 </li>
 </ol>
+<h3 id="主备切换">主备切换</h3>
+<p>主备切换有两种方案。</p>
+<p>第一种：</p>
 <h2 id="change-master"><code>change master</code></h2>
 <p>配置主从复制的时候，需要在从库上执行<code>change master</code>语句，才能和主库保持同步。</p>
 <h3 id="语法">语法</h3>
@@ -338,8 +342,8 @@
 <pre class="chroma"><code class="language-shell" data-lang="shell">mysqlbinlog binlog.000040 --start-position<span class="o">=</span><span class="m">4</span> <span class="p">|</span> mysql -uroot -p
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="双m架构">双M架构</h2>
-<p>在双M架构中，客户端仍旧从单个节点读写数据，另一个节点与该节点保持数据同步，但是节点之间互为主备关系。在这种架构中，如果发生了切换，就不再需要修改主备关系。</p>
+</div><h2 id="双主架构">双主架构</h2>
+<p>在双主架构中，客户端仍旧从单个节点读写数据，另一个节点与该节点保持数据同步，但是节点之间互为主备关系。在这种架构中，如果发生了切换，就不再需要修改主备关系。</p>
 <p>如果将参数<code>log_slave_updates</code>设置为<code>on</code>，备库执行完<code>relay log</code>后，会生成<code>bin log</code>。</p>
 <p>由于节点之间互为主备，因此可能会产生<code>bin log</code>循环复制的问题。为了解决这个问题，节点的<code>server id</code>必须互不相同。</p>
 <p>备库收到<code>bin log</code>并且重放后，会生成新的<code>bin log</code>，新<code>bin log</code>的<code>server id</code>和原来<code>bin log</code>的<code>server id</code>一致。</p>
@@ -367,7 +371,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/mysql-order-by/" class="prev" rel="prev" title="【MySQL】Order By执行流程"><i class="fas fa-angle-left fa-fw"></i>【MySQL】Order By执行流程</a></div>
+    <div class="post-nav"><a href="/mysql-order-by/" class="prev" rel="prev" title="【MySQL】Order By执行流程"><i class="fas fa-angle-left fa-fw"></i>【MySQL】Order By执行流程</a>
+            <a href="/mysql-next-key-lock/" class="next" rel="next" title="【MySQL】next-key lock规则">【MySQL】next-key lock规则<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="gitalk" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.

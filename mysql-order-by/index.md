@@ -3,7 +3,8 @@
 
 ## `sort_buffer`
 
-`MySQL`会给每个连接线程分配一块内存用于排序，称为`sort_buffer`。
+`MySQL`会给每个连接线程分配一块内存，称为`sort_buffer`。`order by`的所有排序算法，都需要依靠这块内存来完成。
+
 
 ## 全字段排序
 

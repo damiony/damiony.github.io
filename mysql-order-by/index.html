@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-order-by\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  36 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  37 ,
         "url": "http:\/\/example.org\/mysql-order-by\/","datePublished": "2021-09-19T22:52:26+08:00","dateModified": "2021-09-19T22:52:26+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -123,7 +123,7 @@
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="sort_buffer"><code>sort_buffer</code></h2>
-<p><code>MySQL</code>会给每个连接线程分配一块内存用于排序，称为<code>sort_buffer</code>。</p>
+<p><code>MySQL</code>会给每个连接线程分配一块内存，称为<code>sort_buffer</code>。<code>order by</code>的所有排序算法，都需要依靠这块内存来完成。</p>
 <h2 id="全字段排序">全字段排序</h2>
 <p>假设有一条查询语句：</p>
 <div class="highlight"><div class="chroma">
