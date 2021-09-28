@@ -3,7 +3,7 @@
 
 `Linux`系统中有多个压缩和归档工具，现在介绍常见的几种。
 
-## `gzip`
+## gzip
 
 `gzip`用于压缩一个或多个文件，具体用法为：
 
@@ -47,6 +47,7 @@ gzip [options] [file...]
 
 `zcat`命令会将结果输出到标准输出，不会生成新的文件，也不会被删除被解压文件。
 
+
 ## bzip2
 
 `bzip2`同样可以压缩文件。
@@ -57,7 +58,8 @@ gzip [options] [file...]
 
 可以使用`bzip2 -d`、`bunzip2`和`bzcat`解压缩，`bzcat`的作用和`zcat`也是一样的。
 
-## `gzip`和`bzip2`的使用
+
+## gzip 和 bzip2 的使用
 
 已经被压缩过的文件，不应该再次被压缩，即使使用的是不同压缩算法。
 
@@ -100,6 +102,7 @@ zip [options] [zipfile [file...]]
 使用`unzip`即可对`zip`归档文件进行解压。
 
 如果使用`unzip -l`，则只会显示`zip`归档文件内的包含的文件。
+
 
 ## tar
 

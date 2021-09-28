@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux-gawk/" /><link rel="prev" href="http://example.org/zhong-duan/" /><link rel="next" href="http://example.org/linux-find-files/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/linux-gawk/" /><link rel="prev" href="http://example.org/os-zhong-duan/" /><link rel="next" href="http://example.org/linux-wen-jian-sou-suo/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/linux-gawk\/"
-        },"genre": "posts","keywords": "Linux, gawk, awk","wordcount":  550 ,
+        },"genre": "posts","keywords": "Linux, gawk, awk","wordcount":  552 ,
         "url": "http:\/\/example.org\/linux-gawk\/","datePublished": "2021-02-10T11:28:36+08:00","dateModified": "2021-02-10T11:28:36+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,8 +115,8 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#什么是gawk">什么是<code>gawk</code></a></li>
-    <li><a href="#gawk命令格式"><code>gawk</code>命令格式</a>
+    <li><a href="#什么是-gawk">什么是 gawk</a></li>
+    <li><a href="#gawk-命令格式">gawk 命令格式</a>
       <ul>
         <li><a href="#1-options">1. options</a></li>
         <li><a href="#2-program">2. program</a></li>
@@ -152,14 +152,14 @@
         <li><a href="#4-for循环">4. for循环</a></li>
       </ul>
     </li>
-    <li><a href="#printf"><code>printf</code></a></li>
+    <li><a href="#printf">printf</a></li>
     <li><a href="#结语">结语</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="什么是gawk">什么是<code>gawk</code></h2>
+            </div><div class="content" id="content"><h2 id="什么是-gawk">什么是 gawk</h2>
 <p><code>gawk</code>是<code>Unix</code>中原始<code>awk</code>程序的<code>GNU</code>版本，可以将<code>gawk</code>看成是一种编程语言，并用它处理数据。</p>
 <p><code>gawk</code>的执行流程和<code>sed</code>类似，首先从标准输入<code>stdin</code>或者文件中读取数据，每次读取一行，并针对该行数据执行脚本命令，然后继续读取下一行并重复前面的操作。</p>
-<h2 id="gawk命令格式"><code>gawk</code>命令格式</h2>
+<h2 id="gawk-命令格式">gawk 命令格式</h2>
 <p><code>gawk</code>命令格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -246,10 +246,18 @@
 <h3 id="1-数据字段变量">1. 数据字段变量</h3>
 <p>每行的数据字段都会对应一个变量，字段是根据字段分隔符来划分的。</p>
 <ul>
-<li>$0：代表整行文本。</li>
-<li>$1：代表第一个字段。</li>
-<li>$2：代表第二个字段。</li>
-<li>$n：代表第n个字段。</li>
+<li>
+<p><code>$0</code>：代表整行文本。</p>
+</li>
+<li>
+<p><code>$1</code>：代表第一个字段。</p>
+</li>
+<li>
+<p><code>$2</code>：代表第二个字段。</p>
+</li>
+<li>
+<p><code>$n</code>：代表第n个字段。</p>
+</li>
 </ul>
 <h3 id="2-内建变量">2. 内建变量</h3>
 <p>假设<code>data.txt</code>是一个文本文件。</p>
@@ -526,16 +534,36 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 </div><h2 id="算数运算符">算数运算符</h2>
 <p><code>gawk</code>支持下列算数运算符：</p>
 <ul>
-<li><code>+</code>：加。</li>
-<li><code>-</code>：减。</li>
-<li><code>*</code>：乘。</li>
-<li><code>/</code>：除。</li>
-<li><code>%</code>：取余。</li>
-<li><code>^或者**</code>：乘方。</li>
-<li><code>++x</code>：<code>x</code>加1，然后返回<code>x</code>。</li>
-<li><code>x++</code>：先返回<code>x</code>，然后<code>x</code>加一。</li>
-<li><code>--x</code>：<code>x</code>减一，然后返回<code>x</code>。</li>
-<li><code>x--</code>：先返回<code>x</code>，然后<code>x</code>减一。</li>
+<li>
+<p><code>+</code>：加。</p>
+</li>
+<li>
+<p><code>-</code>：减。</p>
+</li>
+<li>
+<p><code>*</code>：乘。</p>
+</li>
+<li>
+<p><code>/</code>：除。</p>
+</li>
+<li>
+<p><code>%</code>：取余。</p>
+</li>
+<li>
+<p><code>^或者**</code>：乘方。</p>
+</li>
+<li>
+<p><code>++x</code>：<code>x</code>加1，然后返回<code>x</code>。</p>
+</li>
+<li>
+<p><code>x++</code>：先返回<code>x</code>，然后<code>x</code>加一。</p>
+</li>
+<li>
+<p><code>--x</code>：<code>x</code>减一，然后返回<code>x</code>。</p>
+</li>
+<li>
+<p><code>x--</code>：先返回<code>x</code>，然后<code>x</code>减一。</p>
+</li>
 </ul>
 <h2 id="模式">模式</h2>
 <p>在<code>gawk</code>程序脚本中，可以使用不同类型的匹配模式，来过滤数据行。</p>
@@ -574,20 +602,38 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <h3 id="2-数学比较表达式">2. 数学比较表达式</h3>
 <p>可以使用的数学比较表达式有：</p>
 <ul>
-<li>x == y</li>
-<li>x &lt;= y</li>
-<li>x &lt; y</li>
-<li>x &gt;= y</li>
-<li>x &gt; y</li>
+<li>
+<p>x == y</p>
+</li>
+<li>
+<p>x &lt;= y</p>
+</li>
+<li>
+<p>x &lt; y</p>
+</li>
+<li>
+<p>x &gt;= y</p>
+</li>
+<li>
+<p>x &gt; y</p>
+</li>
 </ul>
 <p>比较双方，既可以为数字，也可以是任意字符串。</p>
 <h2 id="流程控制语句">流程控制语句</h2>
 <p><code>gawk</code>支持多种流程控制语句：</p>
 <ul>
-<li><code>if...else...</code>、</li>
-<li><code>while...</code>、</li>
-<li><code>do...while...</code>、</li>
-<li><code>for</code>循环</li>
+<li>
+<p><code>if...else...</code>、</p>
+</li>
+<li>
+<p><code>while...</code>、</p>
+</li>
+<li>
+<p><code>do...while...</code>、</p>
+</li>
+<li>
+<p><code>for</code>循环</p>
+</li>
 </ul>
 <h3 id="1-ifelse">1. if&hellip;else&hellip;</h3>
 <p>语法格式为：</p>
@@ -668,7 +714,7 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="printf"><code>printf</code></h2>
+</div><h2 id="printf">printf</h2>
 <p><code>gawk</code>可以使用<code>printf</code>进行格式化打印。</p>
 <p><code>printf</code>的命令格式为：</p>
 <div class="highlight"><div class="chroma">
@@ -814,14 +860,24 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 </ul>
 <p><code>modifier</code>如下：</p>
 <ul>
-<li><code>width</code>：输出字段最小宽度。</li>
-<li><code>prec</code>：指定浮点数的最小宽度和精度。</li>
-<li><code>-</code>：文本设置为左对齐，默认是右对齐。</li>
-<li><code>+</code>：文本设置为右对齐。</li>
-<li><code>#</code>：在八进制数前显示<code>0</code>，在十六进制前显示<code>0x</code>。</li>
+<li>
+<p><code>width</code>：输出字段最小宽度。</p>
+</li>
+<li>
+<p><code>prec</code>：指定浮点数的最小宽度和精度。</p>
+</li>
+<li>
+<p><code>-</code>：文本设置为左对齐，默认是右对齐。</p>
+</li>
+<li>
+<p><code>+</code>：文本设置为右对齐。</p>
+</li>
+<li>
+<p><code>#</code>：在八进制数前显示<code>0</code>，在十六进制前显示<code>0x</code>。</p>
+</li>
 </ul>
 <h2 id="结语">结语</h2>
-<p><code>gawk</code>还有很多有用的特性，如函数等，暂时不做说明。</p>
+<p><code>gawk</code>还有很多有用的特性，如函数等，对此暂时不做说明。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -845,8 +901,8 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
         </section>
     </div>
 
-    <div class="post-nav"><a href="/zhong-duan/" class="prev" rel="prev" title="【操作系统】中断"><i class="fas fa-angle-left fa-fw"></i>【操作系统】中断</a>
-            <a href="/linux-find-files/" class="next" rel="next" title="【Linux】文件搜索">【Linux】文件搜索<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/os-zhong-duan/" class="prev" rel="prev" title="【操作系统】中断"><i class="fas fa-angle-left fa-fw"></i>【操作系统】中断</a>
+            <a href="/linux-wen-jian-sou-suo/" class="next" rel="next" title="【Linux】文件搜索">【Linux】文件搜索<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 <div id="comments"><div id="gitalk" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.

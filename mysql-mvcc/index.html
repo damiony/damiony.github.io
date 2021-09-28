@@ -124,10 +124,10 @@
         <li><a href="#数据可见性">数据可见性</a></li>
       </ul>
     </li>
-    <li><a href="#mvcc"><code>MVCC</code></a>
+    <li><a href="#mvcc">MVCC</a>
       <ul>
         <li><a href="#回滚日志">回滚日志</a></li>
-        <li><a href="#mvcc-1"><code>MVCC</code></a></li>
+        <li><a href="#mvcc-1">MVCC</a></li>
       </ul>
     </li>
     <li><a href="#当前读">当前读</a>
@@ -214,10 +214,10 @@
 <p>版本已提交，而且是在视图创建前提交，可见。</p>
 </li>
 </ul>
-<h2 id="mvcc"><code>MVCC</code></h2>
+<h2 id="mvcc">MVCC</h2>
 <h3 id="回滚日志">回滚日志</h3>
 <p>每条记录更新时，都会记录一条回滚日志。通过回滚日志，可以得到前一个状态的值。</p>
-<h3 id="mvcc-1"><code>MVCC</code></h3>
+<h3 id="mvcc-1">MVCC</h3>
 <p>同一条记录在系统中可以存在多个版本，这就是版本并发控制（<code>MVCC</code>）。</p>
 <p>不同时刻启动的事务有不同的一致性视图，一致性视图结合回滚日志实现数据的版本并发控制。</p>
 <p>通过一致性视图判断当前版本数据是否可见，如果不可见，就使用回滚日志查找它的上一个版本。</p>

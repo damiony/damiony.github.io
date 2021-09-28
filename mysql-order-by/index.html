@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-order-by\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  37 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  38 ,
         "url": "http:\/\/example.org\/mysql-order-by\/","datePublished": "2021-09-19T22:52:26+08:00","dateModified": "2021-09-19T22:52:26+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,14 +115,14 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#sort_buffer"><code>sort_buffer</code></a></li>
+    <li><a href="#sort_buffer">sort_buffer</a></li>
     <li><a href="#全字段排序">全字段排序</a></li>
-    <li><a href="#rowid排序"><code>rowid</code>排序</a></li>
-    <li><a href="#sort_buffer_size"><code>sort_buffer_size</code></a></li>
+    <li><a href="#rowid-排序">rowid 排序</a></li>
+    <li><a href="#sort_buffer_size">sort_buffer_size</a></li>
     <li><a href="#排序算法比较">排序算法比较</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="sort_buffer"><code>sort_buffer</code></h2>
+            </div><div class="content" id="content"><h2 id="sort_buffer">sort_buffer</h2>
 <p><code>MySQL</code>会给每个连接线程分配一块内存，称为<code>sort_buffer</code>。<code>order by</code>的所有排序算法，都需要依靠这块内存来完成。</p>
 <h2 id="全字段排序">全字段排序</h2>
 <p>假设有一条查询语句：</p>
@@ -156,7 +156,7 @@
 <p>取前<code>1000</code>行返回。</p>
 </li>
 </ol>
-<h2 id="rowid排序"><code>rowid</code>排序</h2>
+<h2 id="rowid-排序">rowid 排序</h2>
 <p>如果单行数据太大，<code>MySQL</code>会采用<code>rowid</code>排序。</p>
 <p>参数<code>max_length_for_sort_data</code>用来控制排序数据的长度。如果单行数据长度超过该值，<code>MySQL</code>就认为单行太大，转而使用<code>rowid</code>排序。</p>
 <p>还是同样的查询语句：</p>
@@ -189,7 +189,7 @@
 <p>取前<code>1000</code>行，按照<code>id</code>的值回原表取<code>city</code>、<code>name</code>和<code>age</code>三个字段返回。</p>
 </li>
 </ol>
-<h2 id="sort_buffer_size"><code>sort_buffer_size</code></h2>
+<h2 id="sort_buffer_size">sort_buffer_size</h2>
 <p>排序操作可能在内存中完成，也可能使用外部排序。这取决于排序所需内存，和参数<code>sort_buffer_size</code>。</p>
 <p>参数<code>sort_buffer_size</code>代表着<code>sort_buffer</code>的大小，如果待排序数据量小于该参数，排序就在内存中完成，否则就在临时文件中完成。</p>
 <p>外部排序一般使用归并排序算法。</p>

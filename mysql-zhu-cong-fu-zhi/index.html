@@ -117,26 +117,25 @@
   <ul>
     <li><a href="#主备架构">主备架构</a>
       <ul>
-        <li><a href="#readonly"><code>readonly</code></a></li>
+        <li><a href="#readonly">readonly</a></li>
         <li><a href="#同步流程">同步流程</a></li>
-        <li><a href="#主备切换">主备切换</a></li>
       </ul>
     </li>
-    <li><a href="#change-master"><code>change master</code></a>
+    <li><a href="#change-master">change master</a>
       <ul>
         <li><a href="#语法">语法</a></li>
         <li><a href="#常见选项">常见选项</a></li>
         <li><a href="#示例">示例</a></li>
       </ul>
     </li>
-    <li><a href="#查看binlog">查看<code>binlog</code></a></li>
-    <li><a href="#binlog格式"><code>binlog</code>格式</a>
+    <li><a href="#查看-binlog">查看 binlog</a></li>
+    <li><a href="#binlog-格式">binlog 格式</a>
       <ul>
-        <li><a href="#statement"><code>statement</code></a></li>
-        <li><a href="#row"><code>row</code></a></li>
-        <li><a href="#mixed"><code>mixed</code></a></li>
+        <li><a href="#statement">statement</a></li>
+        <li><a href="#row">row</a></li>
+        <li><a href="#mixed">mixed</a></li>
         <li><a href="#数据恢复">数据恢复</a></li>
-        <li><a href="#binlog重放"><code>binlog</code>重放</a></li>
+        <li><a href="#binlog-重放">binlog 重放</a></li>
       </ul>
     </li>
     <li><a href="#双主架构">双主架构</a></li>
@@ -145,7 +144,7 @@
             </div><div class="content" id="content"><h2 id="主备架构">主备架构</h2>
 <p><code>MySQL</code>的高可用架构是从一主一备的的基础上演化过来的。</p>
 <p>所谓的主备架构，即客户端从主节点读写数据，备节点是主节点的备份，和主节点的数据保持同步。进行切换时，备库被切成主库，主库被切成备库。</p>
-<h3 id="readonly"><code>readonly</code></h3>
+<h3 id="readonly">readonly</h3>
 <p>通常情况下，会将备库设置为<code>readonly</code>模式。原因如下：</p>
 <ul>
 <li>
@@ -181,10 +180,7 @@
 <p><code>sql_thread</code>读取中转日志，然后进行解析执行。</p>
 </li>
 </ol>
-<h3 id="主备切换">主备切换</h3>
-<p>主备切换有两种方案。</p>
-<p>第一种：</p>
-<h2 id="change-master"><code>change master</code></h2>
+<h2 id="change-master">change master</h2>
 <p>配置主从复制的时候，需要在从库上执行<code>change master</code>语句，才能和主库保持同步。</p>
 <h3 id="语法">语法</h3>
 <p><code>change master</code>语法为：</p>
@@ -235,7 +231,7 @@
 </span><span class="w"></span><span class="n">master_password</span><span class="o">=</span><span class="s2">&#34;123456&#34;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="查看binlog">查看<code>binlog</code></h2>
+</div><h2 id="查看-binlog">查看 binlog</h2>
 <ol>
 <li>查看<code>binlog</code>是否开启。</li>
 </ol>
@@ -291,12 +287,12 @@
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">binlog</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="err">文件名</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h2 id="binlog格式"><code>binlog</code>格式</h2>
+</div><h2 id="binlog-格式">binlog 格式</h2>
 <p><code>binlog</code>有三种格式，<code>statement</code>、<code>row</code>和<code>mixed</code>。</p>
-<h3 id="statement"><code>statement</code></h3>
+<h3 id="statement">statement</h3>
 <p><code>binlog_format</code>设置为<code>statement</code>时，<code>binlog</code>里面记录的是<code>SQL</code>语句本身。</p>
 <p>使用<code>statement</code>可能会导致主备数据不一致。因为日志记录的是<code>sql</code>语句，因此主库在执行时使用的索引，可能和备库执行时使用的索引不一样，从而可能会造成数据不一致。</p>
-<h3 id="row"><code>row</code></h3>
+<h3 id="row">row</h3>
 <p><code>row</code>格式的<code>binlog</code>记录的不是语句原文，而是“操作的哪张表”和“对该表进行的操作”。如下示例中的<code>Table_map</code>和<code>Delete_rows</code>就是被记录的<code>event</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -324,13 +320,13 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>使用<code>row</code>格式，不会造成主备数据不一致。</p>
-<h3 id="mixed"><code>mixed</code></h3>
+<h3 id="mixed">mixed</h3>
 <p>如果使用<code>statement</code>，可能会导致主备不一致。如果使用<code>row</code>，生成的日志会占用大量的空间，消耗<code>io</code>资源，对语句性能造成影响。</p>
 <p>由于上述的种种原因，从而有了<code>mixed</code>格式。</p>
 <p>设置成<code>mixed</code>格式时，<code>MySQL</code>会判断语句是否会引起主备不一致。如果可能会，就用<code>row</code>格式，否则用<code>statement</code>格式。</p>
 <h3 id="数据恢复">数据恢复</h3>
 <p>因操作不当，导致数据出现错误时，还可以使用<code>row</code>格式的<code>binlog</code>将数据恢复到之前的状态。</p>
-<h3 id="binlog重放"><code>binlog</code>重放</h3>
+<h3 id="binlog-重放">binlog 重放</h3>
 <p><code>binlog</code>的一个重要使用场景是归档。使用某个时间点的备份，和该时间点之后的<code>binlog</code>日志，可以让数据恢复到指定时刻。</p>
 <p>需要注意的是，<code>binlog</code>重放时，不能直接执行<code>statement</code>格式记录的语句，因为有些语句是依赖上下文环境的，如时间等。正确做法是，使用<code>mysqlbinlog</code>工具解析，然后将整个解析结果发给<code>MySQL</code>执行。</p>
 <p>示例如下：</p>

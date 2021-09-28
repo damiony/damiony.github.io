@@ -1,7 +1,7 @@
 # 【MySQL】Order By执行流程
 
 
-## `sort_buffer`
+## sort_buffer
 
 `MySQL`会给每个连接线程分配一块内存，称为`sort_buffer`。`order by`的所有排序算法，都需要依靠这块内存来完成。
 
@@ -31,7 +31,7 @@ select city, name, age from t where city='杭州' order by name limit 1000;
 6. 取前`1000`行返回。
 
 
-## `rowid`排序
+## rowid 排序
 
 如果单行数据太大，`MySQL`会采用`rowid`排序。
 
@@ -58,7 +58,7 @@ select city, name, age from t where city='杭州' order by name limit 1000;
 6. 取前`1000`行，按照`id`的值回原表取`city`、`name`和`age`三个字段返回。
 
 
-## `sort_buffer_size`
+## sort_buffer_size
 
 排序操作可能在内存中完成，也可能使用外部排序。这取决于排序所需内存，和参数`sort_buffer_size`。
 

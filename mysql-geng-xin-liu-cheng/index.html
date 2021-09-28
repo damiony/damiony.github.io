@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【MySQL】InnoDB中一条更新语句的执行流程 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【MySQL】InnoDB中一条更新语句的执行流程" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/mysql-geng-xin-liu-cheng/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-09-28T01:58:01&#43;08:00" />
+<meta property="article:modified_time" content="2021-09-28T01:58:01&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【MySQL】InnoDB中一条更新语句的执行流程"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-geng-xin-liu-cheng/" /><link rel="prev" href="http://example.org/mysql-next-key-lock/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【MySQL】InnoDB中一条更新语句的执行流程",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/mysql-geng-xin-liu-cheng\/"
+        },"genre": "posts","keywords": "MySQL","wordcount":  76 ,
+        "url": "http:\/\/example.org\/mysql-geng-xin-liu-cheng\/","datePublished": "2021-09-28T01:58:01+08:00","dateModified": "2021-09-28T01:58:01+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【MySQL】InnoDB中一条更新语句的执行流程</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/mysql/"><i class="far fa-folder fa-fw"></i>MySQL</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2021-09-28">2021-09-28</time>&nbsp;
+                </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#sql语句执行流程">SQL语句执行流程</a></li>
+    <li><a href="#buffer-pool">Buffer Pool</a></li>
+    <li><a href="#undo-log">undo log</a></li>
+    <li><a href="#脏数据">脏数据</a></li>
+    <li><a href="#redo-log">redo log</a></li>
+    <li><a href="#bin-log">bin log</a></li>
+    <li><a href="#事务提交">事务提交</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="sql语句执行流程">SQL语句执行流程</h2>
+<p>一条<code>SQL</code>语句的执行，需要经过连接器、分析器、优化器、执行器和存储引擎等模块。</p>
+<p>连接器管理着<code>MySQL</code>和客户端的连接，分析器将<code>SQL</code>语句分析成语法树，优化器会选择合适的执行计划，执行器根据执行计划来调用存储引擎提供的接口。</p>
+<p><code>SQL</code>语句的总体执行流程都是一样，但不同类型的语句，执行器做出的操作会有所不同。</p>
+<h2 id="buffer-pool">Buffer Pool</h2>
+<p><code>Buffer Pool</code>是<code>InnoDB</code>存储引擎内部的一块内存组件，用于缓存各种数据。</p>
+<p>更新数据时，会先检查对应行是否在<code>Buffer Pool</code>缓存中。如果不在，就从磁盘读入缓存。</p>
+<p>如果<code>Buufer Pool</code>中有了所需数据，<code>InnoDB</code>会对该行加写锁，从而避免其他事务并发修改。</p>
+<h2 id="undo-log">undo log</h2>
+<p><code>undo log</code>是回滚日志，通过该日志可以将数据回滚到指定版本，事务回滚和一致性视图都应用到了它。</p>
+<p>更新数据时，<code>InnoDB</code>会将旧的数据信息写入<code>undo log</code>。</p>
+<h2 id="脏数据">脏数据</h2>
+<p>写完<code>undo log</code>后，<code>InnoDB</code>会更新<code>Buffer Pool</code>中的记录。</p>
+<p>这时，内存和磁盘中的数据是不一致的，所以称内存中的数据是脏数据，需要后续写入磁盘。</p>
+<p><code>MySQL</code>有一个后台线程，该线程会在某些时间点，将<code>Buffer Pool</code>中的脏数据刷新到磁盘中。</p>
+<h2 id="redo-log">redo log</h2>
+<p><code>redo log</code>是<code>InnoDB</code>特有的日志，用于记录数据页的修改信息。通常情况下，该日志会被存放在名为<code>redo log buffer</code>的内存缓冲区中。</p>
+<p>事务提交前，<code>InnoDB</code>会将修改信息写入<code>redo log</code>，并在<code>redo log</code>中添加<code>prepare</code>标记，表示准备提交事务。</p>
+<p>如果在脏数据刷新到磁盘之前，<code>MySQL</code>崩溃了，此时内存中的数据会丢失。有了<code>redo log</code>，<code>MySQL</code>重启后就能实现数据恢复。</p>
+<p>当然，服务崩溃后<code>redo log buffer</code>中的<code>redo log</code>也会被清除。因此，提交事务时需要将<code>redo log</code>写入磁盘。</p>
+<p>参数<code>innodb_flush_log_at_trx_commit</code>控制着<code>redo log</code>的刷盘策略。该参数有3个值：</p>
+<ul>
+<li>
+<p>0：提交事务时，不会把日志写入磁盘，而是每隔一秒进行写入。</p>
+</li>
+<li>
+<p>1：提交事务时，会将日志写入磁盘。</p>
+</li>
+<li>
+<p>2：提交事务时，只会将日志写入操作系统的文件缓存，操作系统崩溃时该缓存会丢失。</p>
+</li>
+</ul>
+<h2 id="bin-log">bin log</h2>
+<p><code>bin log</code>是<code>server</code>层的日志，与存储引擎无关，记录的是逻辑性的日志，比如“将满足条件的记录更新为指定值”。</p>
+<p>提交事务之前，除了会写<code>redo log</code>，还会写<code>bin log</code>。</p>
+<p><code>bin log</code>也有一个刷盘策略，由参数<code>sync_binlog</code>控制：</p>
+<ul>
+<li>
+<p>参数为0时，每次提交事务，都只是将日志写入操作系统的文件缓存中。</p>
+</li>
+<li>
+<p>参数为1时，每次提交事务都会将日志写入磁盘。</p>
+</li>
+<li>
+<p>参数为n时，表示每提交n个事务才写入一次磁盘，其余时间只写入文件缓存。</p>
+</li>
+</ul>
+<h2 id="事务提交">事务提交</h2>
+<p>事务提交后，会在<code>redo log</code>中写入<code>commit</code>标记。</p>
+<p>事务准备提交时，会先写<code>redo log</code>，并标记为<code>prepare</code>状态。然后写<code>bin log</code>，再提交事务，最后将<code>redo log</code>改为<code>commit</code>状态。该流程就是“两阶段提交”。</p>
+<p>在主备架构中，<code>bin log</code>会被用于进行主备库的数据同步。如果<code>bin log</code>已经写入，则备库就会执行对应事务。“两阶段提交”的设计目的，是为了保证数据一致性。</p>
+<p>如果写了<code>redo log</code>并标记为<code>repare</code>状态，崩溃重启后，<code>MySQL</code>会根据<code>redo log</code>中的<code>XID</code>去<code>bin log</code>进行查找。如果找到对应日志，就应用<code>redo log</code>进行数据恢复，否则丢弃该日志。</p>
+<p>如果写了<code>redo log</code>并标记为<code>commit</code>状态，崩溃重启后，<code>MySQL</code>会直接利用该日志进行数据恢复。</p>
+<p>至此，一条更新语句就执行结束了。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-09-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/mysql/">MySQL</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql-next-key-lock/" class="prev" rel="prev" title="【MySQL】next-key lock规则"><i class="fas fa-angle-left fa-fw"></i>【MySQL】next-key lock规则</a></div>
+</div>
+<div id="comments"><div id="gitalk" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://github.com/gitalk/gitalk"></a>Gitalk</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/gitalk/gitalk.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/gitalk/gitalk.min.js"></script><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{"gitalk":{"admin":[""],"clientID":"","clientSecret":"","id":"2021-09-28T01:58:01+08:00","owner":"","repo":"","title":"【MySQL】InnoDB中一条更新语句的执行流程"}},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

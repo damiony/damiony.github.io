@@ -1,13 +1,13 @@
 # 【MySQL】Join原理
 
 
-## `Join`原理
+## Join 原理
 
 常有人说，查询数据时不要使用`Join`，因为性能很差。然而，你是否好奇过，事实真的是这样吗？
 
 为了能准确分析出`Join`语法的执行效率，接下来将会对`Join`的原理进行讨论。
 
-### `Index Nested-Loop Join`
+### Index Nested-Loop Join
 
 `Index Nested-Loop Join`简称为`NLJ`，算法的具体执行流程为：
 
@@ -21,7 +21,7 @@
 
 上述算法的重要前提是，被驱动表可以使用索引。此时，因为使用到了表2的索引，所以`Join`的性能较好。
 
-### `Simple Nested-Loop Join`
+### Simple Nested-Loop Join
 
 该算法的使用前提是，被驱动表无法使用索引。
 
@@ -29,7 +29,7 @@
 
 注意，无索引情况下，`MySQL`使用的是`Block Nested-Loop Join`算法。
 
-### `Block Nested-Loop Join`
+### Block Nested-Loop Join
 
 `Block Nested-Loop Join`简称`BNL`，该算法也不会用到被驱动表的索引。
 
@@ -58,7 +58,7 @@
 `join_buffer`的大小受参数`join_buffer_size`控制，默认是256k。该参数设置的越大，可以容纳的表1数据就会越多，被驱动表的扫描次数越少，性能也会越好。
 
 
-## `Join`使用建议
+## Join 使用建议
 
 ### 1. 使用场景
 

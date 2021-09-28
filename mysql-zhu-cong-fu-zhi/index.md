@@ -7,7 +7,7 @@
 
 所谓的主备架构，即客户端从主节点读写数据，备节点是主节点的备份，和主节点的数据保持同步。进行切换时，备库被切成主库，主库被切成备库。
 
-### `readonly`
+### readonly
 
 通常情况下，会将备库设置为`readonly`模式。原因如下：
 
@@ -35,14 +35,8 @@
 
 6. `sql_thread`读取中转日志，然后进行解析执行。
 
-### 主备切换
 
-主备切换有两种方案。
-
-第一种：
-
-
-## `change master`
+## change master
 
 配置主从复制的时候，需要在从库上执行`change master`语句，才能和主库保持同步。
 
@@ -81,7 +75,7 @@ master_password="123456";
 ```
 
 
-## 查看`binlog`
+## 查看 binlog
 
 1. 查看`binlog`是否开启。
 
@@ -114,17 +108,17 @@ show binlog events in 文件名;
 ```
 
 
-## `binlog`格式
+## binlog 格式
 
 `binlog`有三种格式，`statement`、`row`和`mixed`。
 
-### `statement`
+### statement
 
 `binlog_format`设置为`statement`时，`binlog`里面记录的是`SQL`语句本身。
 
 使用`statement`可能会导致主备数据不一致。因为日志记录的是`sql`语句，因此主库在执行时使用的索引，可能和备库执行时使用的索引不一样，从而可能会造成数据不一致。
 
-### `row`
+### row
 
 `row`格式的`binlog`记录的不是语句原文，而是“操作的哪张表”和“对该表进行的操作”。如下示例中的`Table_map`和`Delete_rows`就是被记录的`event`。
 
@@ -145,7 +139,7 @@ mysqlbinlog -vv 日志路径 -start-position=310 --stop-position=437
 使用`row`格式，不会造成主备数据不一致。
 
 
-### `mixed`
+### mixed
 
 如果使用`statement`，可能会导致主备不一致。如果使用`row`，生成的日志会占用大量的空间，消耗`io`资源，对语句性能造成影响。
 
@@ -157,7 +151,7 @@ mysqlbinlog -vv 日志路径 -start-position=310 --stop-position=437
 
 因操作不当，导致数据出现错误时，还可以使用`row`格式的`binlog`将数据恢复到之前的状态。
 
-### `binlog`重放
+### binlog 重放
 
 `binlog`的一个重要使用场景是归档。使用某个时间点的备份，和该时间点之后的`binlog`日志，可以让数据恢复到指定时刻。
 

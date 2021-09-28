@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-join\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  63 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  65 ,
         "url": "http:\/\/example.org\/mysql-join\/","datePublished": "2021-09-17T17:54:30+08:00","dateModified": "2021-09-17T17:54:30+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,14 +115,14 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#join原理"><code>Join</code>原理</a>
+    <li><a href="#join-原理">Join 原理</a>
       <ul>
-        <li><a href="#index-nested-loop-join"><code>Index Nested-Loop Join</code></a></li>
-        <li><a href="#simple-nested-loop-join"><code>Simple Nested-Loop Join</code></a></li>
-        <li><a href="#block-nested-loop-join"><code>Block Nested-Loop Join</code></a></li>
+        <li><a href="#index-nested-loop-join">Index Nested-Loop Join</a></li>
+        <li><a href="#simple-nested-loop-join">Simple Nested-Loop Join</a></li>
+        <li><a href="#block-nested-loop-join">Block Nested-Loop Join</a></li>
       </ul>
     </li>
-    <li><a href="#join使用建议"><code>Join</code>使用建议</a>
+    <li><a href="#join-使用建议">Join 使用建议</a>
       <ul>
         <li><a href="#1-使用场景">1. 使用场景</a></li>
         <li><a href="#驱动表的选择">驱动表的选择</a></li>
@@ -131,10 +131,10 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="join原理"><code>Join</code>原理</h2>
+            </div><div class="content" id="content"><h2 id="join-原理">Join 原理</h2>
 <p>常有人说，查询数据时不要使用<code>Join</code>，因为性能很差。然而，你是否好奇过，事实真的是这样吗？</p>
 <p>为了能准确分析出<code>Join</code>语法的执行效率，接下来将会对<code>Join</code>的原理进行讨论。</p>
-<h3 id="index-nested-loop-join"><code>Index Nested-Loop Join</code></h3>
+<h3 id="index-nested-loop-join">Index Nested-Loop Join</h3>
 <p><code>Index Nested-Loop Join</code>简称为<code>NLJ</code>，算法的具体执行流程为：</p>
 <ol>
 <li>
@@ -151,11 +151,11 @@
 </li>
 </ol>
 <p>上述算法的重要前提是，被驱动表可以使用索引。此时，因为使用到了表2的索引，所以<code>Join</code>的性能较好。</p>
-<h3 id="simple-nested-loop-join"><code>Simple Nested-Loop Join</code></h3>
+<h3 id="simple-nested-loop-join">Simple Nested-Loop Join</h3>
 <p>该算法的使用前提是，被驱动表无法使用索引。</p>
 <p>因为无法使用索引，所以每次去被驱动表做匹配时，都需要进行全表扫描，性能很差。</p>
 <p>注意，无索引情况下，<code>MySQL</code>使用的是<code>Block Nested-Loop Join</code>算法。</p>
-<h3 id="block-nested-loop-join"><code>Block Nested-Loop Join</code></h3>
+<h3 id="block-nested-loop-join">Block Nested-Loop Join</h3>
 <p><code>Block Nested-Loop Join</code>简称<code>BNL</code>，该算法也不会用到被驱动表的索引。</p>
 <p>具体的执行流程为：</p>
 <ol>
@@ -189,7 +189,7 @@
 </li>
 </ol>
 <p><code>join_buffer</code>的大小受参数<code>join_buffer_size</code>控制，默认是256k。该参数设置的越大，可以容纳的表1数据就会越多，被驱动表的扫描次数越少，性能也会越好。</p>
-<h2 id="join使用建议"><code>Join</code>使用建议</h2>
+<h2 id="join-使用建议">Join 使用建议</h2>
 <h3 id="1-使用场景">1. 使用场景</h3>
 <p>如果能使用到被驱动表的索引，则可以使用<code>Join</code>。</p>
 <p>如果不能使用到被驱动表的索引，查询时会扫描过多行数。在这种情况下，尽量不要使用<code>Join</code>。</p>

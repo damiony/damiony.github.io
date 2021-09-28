@@ -1,7 +1,7 @@
 # 【MySQL】next-key lock规则
 
 
-## `next-key lock`
+## next-key lock
 
 `next-key lock`是行锁和间隙锁的组合，只有在`InnoDB`的可重复读隔离级别下，才可以使用。
 
@@ -38,7 +38,7 @@
 `delete`语句的规则类似于`select ... for update`。
 
 
-## `LIMIT`的影响
+## limit的影响
 
-如果使用了`LIMIT`关键字，当查询到的记录数量达到`LIMIT`要求时，会停止扫描，从而可以减小加锁范围。
+如果使用了`limit`关键字，当查询到的记录数量达到`limit`要求时，会停止扫描，从而可以减小加锁范围。
 
