@@ -173,11 +173,11 @@
 <li>从输入读取一行数据。</li>
 <li>按照命令对数据进行匹配。</li>
 <li>按照命令修改匹配到的数据。</li>
-<li>将新的数据输出到STDOUT。</li>
+<li>将新的数据输出到<code>STDOUT</code>。</li>
 <li>读取下一行数据，并重复上述过程。</li>
 <li>数据流读取完毕，则程序终止。</li>
 </ol>
-<p>sed命令格式：</p>
+<p><code>sed</code>命令格式：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -186,10 +186,10 @@
 <pre class="chroma"><code class="language-shell" data-lang="shell">sed <span class="o">[</span>options<span class="o">]</span> script file
 </code></pre></td></tr></table>
 </div>
-</div><p>options可以是：</p>
+</div><p><code>options</code>可以是：</p>
 <ul>
-<li><code>-e script</code>: 将script中的命令，添加到已有的命令列表。</li>
-<li><code>-f file</code>: 将file中指定的命令，添加到已有的命令列表。</li>
+<li><code>-e script</code>: 将<code>script</code>中的命令，添加到已有的命令列表。</li>
+<li><code>-f file</code>: 将<code>file</code>中指定的命令，添加到已有的命令列表。</li>
 <li><code>-n</code>：不输出每一行的处理结果。</li>
 </ul>
 <p><strong>注意：</strong></p>
@@ -219,7 +219,7 @@ this is number 1.
 this is number 2.
 </code></pre></td></tr></table>
 </div>
-</div><p><code>s/line/number/</code>是指，将line替换成number。</p>
+</div><p><code>s/line/number/</code>是指将<code>line</code>替换成<code>number</code>。</p>
 <h3 id="2-使用-e">2. 使用<code>-e</code></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

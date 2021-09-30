@@ -8,20 +8,20 @@ sed可以根据命令来编辑数据流，大致处理流程为：
 1. 从输入读取一行数据。
 2. 按照命令对数据进行匹配。
 3. 按照命令修改匹配到的数据。
-4. 将新的数据输出到STDOUT。
+4. 将新的数据输出到`STDOUT`。
 5. 读取下一行数据，并重复上述过程。
 6. 数据流读取完毕，则程序终止。
 
-sed命令格式：
+`sed`命令格式：
 
 ```shell
 sed [options] script file
 ```
 
-options可以是：
+`options`可以是：
 
-- `-e script`: 将script中的命令，添加到已有的命令列表。
-- `-f file`: 将file中指定的命令，添加到已有的命令列表。
+- `-e script`: 将`script`中的命令，添加到已有的命令列表。
+- `-f file`: 将`file`中指定的命令，添加到已有的命令列表。
 - `-n`：不输出每一行的处理结果。
 
 **注意：**
@@ -45,7 +45,7 @@ this is number 1.
 this is number 2.
 ```
 
-`s/line/number/`是指，将line替换成number。
+`s/line/number/`是指将`line`替换成`number`。
 
 ### 2. 使用`-e`
 
