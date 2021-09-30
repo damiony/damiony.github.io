@@ -8,7 +8,7 @@
         <title>【Golang】bufio包的使用 - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【Golang】bufio包的使用" />
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://example.org/golang_bufio_pkg/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="http://example.org/golang-bufio-pkg/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-03-06T03:03:00&#43;08:00" />
 <meta property="article:modified_time" content="2020-03-06T03:03:00&#43;08:00" />
 
@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/golang_bufio_pkg/" /><link rel="prev" href="http://example.org/golang_file/" /><link rel="next" href="http://example.org/golang_buffer_pkg/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/golang-bufio-pkg/" /><link rel="prev" href="http://example.org/golang-files/" /><link rel="next" href="http://example.org/golang-buffer-pkg/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,9 +28,9 @@
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/example.org\/golang_bufio_pkg\/"
-        },"genre": "posts","keywords": "Golang, bufio","wordcount":  413 ,
-        "url": "http:\/\/example.org\/golang_bufio_pkg\/","datePublished": "2020-03-06T03:03:00+08:00","dateModified": "2020-03-06T03:03:00+08:00","publisher": {
+            "@id": "http:\/\/example.org\/golang-bufio-pkg\/"
+        },"genre": "posts","keywords": "Golang, bufio","wordcount":  414 ,
+        "url": "http:\/\/example.org\/golang-bufio-pkg\/","datePublished": "2020-03-06T03:03:00+08:00","dateModified": "2020-03-06T03:03:00+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
@@ -128,18 +128,19 @@
     </li>
     <li><a href="#源码解析">源码解析</a>
       <ul>
-        <li><a href="#1-bufionewreader">1. <code>bufio.NewReader</code></a></li>
-        <li><a href="#2-bufioread">2. <code>bufio.Read</code></a></li>
-        <li><a href="#3-bufionewwriter">3. <code>bufio.NewWriter</code></a></li>
-        <li><a href="#4-bufiowrite">4. <code>bufio.Write</code></a></li>
+        <li><a href="#1-bufionewreader">1. bufio.NewReader</a></li>
+        <li><a href="#2-bufioread">2. bufio.Read</a></li>
+        <li><a href="#3-bufionewwriter">3. bufio.NewWriter</a></li>
+        <li><a href="#4-bufiowrite">4. bufio.Write</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="bufio包介绍">bufio包介绍</h2>
-<p>bufio包可以从文件或标准输入读取数据，还可以向文件中写入数据。</p>
+<p><code>bufio</code>包可以从文件或标准输入读取数据，还可以向文件写入数据。</p>
 <p>读取数据时，先将数据读入缓冲区，然后再从缓冲区中读取。写入数据时，先把数据写入缓冲区，然后在某个时间节点，一次性地将数据写入文件。</p>
 <p>通过缓冲区，能有效减少读写磁盘的次数。</p>
+<p>注意，此处的缓冲区是指<code>Golang</code>为应用程序分配的一块内存空间。</p>
 <h2 id="使用">使用</h2>
 <p>下面仅介绍一些常见用法。</p>
 <h3 id="1-读取数据">1. 读取数据</h3>
@@ -387,7 +388,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="源码解析">源码解析</h2>
-<h3 id="1-bufionewreader">1. <code>bufio.NewReader</code></h3>
+<h3 id="1-bufionewreader">1. bufio.NewReader</h3>
 <p>用于生成一个读缓冲区。</p>
 <p>方法的具体定义为：</p>
 <div class="highlight"><div class="chroma">
@@ -405,7 +406,7 @@
 </div><p>传入的参数<code>rd</code>需要实现<code>io.Reader</code>接口，通过<code>os.Open</code>或者<code>os.OpenFile</code>返回的<code>*File</code>对象就实现了这个接口。</p>
 <p><code>*Reader</code>结构体中包含<code>buf</code>字段，这是一个字节切片，用做缓冲区来存放数据。</p>
 <p><code>defaultBufSize</code>用于定义<code>buf</code>的长度和容量，默认4096个字节。</p>
-<h3 id="2-bufioread">2. <code>bufio.Read</code></h3>
+<h3 id="2-bufioread">2. bufio.Read</h3>
 <p>方法的声明为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -416,12 +417,20 @@
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>当p的长度为0时，不读取数据。</li>
-<li>当缓冲区为空，且p的长度大于等于缓冲区长度时，不经过缓冲区，直接从文件中读取数据。</li>
-<li>当缓冲区为空，且p的长度小于缓冲区长度时，先将数据读入缓冲区，再从缓冲区读取需要的字节。</li>
-<li>如果缓冲不为空，直接从缓冲区读取，当p读满了，或者缓冲区读空了，就返回结果。</li>
+<li>
+<p>当p的长度为0时，不读取数据。</p>
+</li>
+<li>
+<p>当缓冲区为空，且p的长度大于等于缓冲区长度时，不经过缓冲区，直接从文件中读取数据。</p>
+</li>
+<li>
+<p>当缓冲区为空，且p的长度小于缓冲区长度时，先将数据读入缓冲区，再从缓冲区读取需要的字节。</p>
+</li>
+<li>
+<p>如果缓冲不为空，直接从缓冲区读取，当p读满了，或者缓冲区读空了，就返回结果。</p>
+</li>
 </ul>
-<h3 id="3-bufionewwriter">3. <code>bufio.NewWriter</code></h3>
+<h3 id="3-bufionewwriter">3. bufio.NewWriter</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -436,7 +445,7 @@
 </div>
 </div><p>用于生成一个写缓冲区。逻辑类似于<code>bufio.NewReader</code>，返回一个<code>*Writer</code>结构体地址。</p>
 <p><code>Writer</code>中含有<code>buf</code>字段，用做缓冲区来存放数据，默认长度为4096个字节。</p>
-<h3 id="4-bufiowrite">4. <code>bufio.Write</code></h3>
+<h3 id="4-bufiowrite">4. bufio.Write</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -446,9 +455,15 @@
 </code></pre></td></tr></table>
 </div>
 </div><ul>
-<li>如果写入的数据大于缓冲区可用长度，当缓冲区内无数据时，直接写入文件。</li>
-<li>如果写入数据大于缓冲区可用长度，且缓冲区有数据，则先将数据写入缓冲区，再将缓冲区写入文件并清空缓冲区。不断重复该过程，直到剩余数据不大于缓冲区可用长度，然后仅将数据写入缓冲区，结束。</li>
-<li>如果写入数据小于等于缓冲区可用长度，则仅仅写入缓冲区。</li>
+<li>
+<p>如果写入的数据大于缓冲区可用长度，当缓冲区内无数据时，直接写入文件。</p>
+</li>
+<li>
+<p>如果写入数据大于缓冲区可用长度，且缓冲区有数据，则先将数据写入缓冲区，再将缓冲区写入文件并清空缓冲区。不断重复该过程，直到剩余数据不大于缓冲区可用长度，然后仅将数据写入缓冲区，结束。</p>
+</li>
+<li>
+<p>如果写入数据小于等于缓冲区可用长度，则仅仅写入缓冲区。</p>
+</li>
 </ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -473,8 +488,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/golang_file/" class="prev" rel="prev" title="【Golang】文件相关操作"><i class="fas fa-angle-left fa-fw"></i>【Golang】文件相关操作</a>
-            <a href="/golang_buffer_pkg/" class="next" rel="next" title="【Golang】buffer包的使用">【Golang】buffer包的使用<i class="fas fa-angle-right fa-fw"></i></a></div>
+    <div class="post-nav"><a href="/golang-files/" class="prev" rel="prev" title="【Golang】文件操作"><i class="fas fa-angle-left fa-fw"></i>【Golang】文件操作</a>
+            <a href="/golang-buffer-pkg/" class="next" rel="next" title="【Golang】buffer包的使用">【Golang】buffer包的使用<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

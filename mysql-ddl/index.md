@@ -1,9 +1,9 @@
 # 【MySQL】DDL数据定义
 
 
-## DDL
+## DDL解释
 
-`DDL`: （Data Define Language）数据定义语言，用于对数据库和表进行管理和操作。
+`DDL`: 数据定义语言`(Data Define Language)`，用于对数据库和表进行管理和操作。
 
 
 ## 库管理
@@ -97,11 +97,10 @@ CREATE TABLE [IF NOT EXISTS] 表名(
 示例：
 
 ```sql
-CREATE TABLE stuinfo(
-  stuid INT,
-  stuname VARCHAR(20),
-  stugender CHAR,
-  email VARCHAR(20)
+CREATE TABLE test(
+  id int,
+  a int,
+  b varchar(20)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 
@@ -218,46 +217,26 @@ WHERE 1=2;
 
 7. 列名规范同表名。
 
-## 常用查询命令
-
-- 查询版本
-
-```sql
-SELECT VERSION();
-```
-
-- 查询当前时间
-
-```sql
-SELECT NOW();
-```
-
-- 查看警告信息
-
-```sql
-SHOW WARNINGS;
-```
-
 
 ## 常用字段类型
 
 ### 1. 整数
 
-- `TINYINT`：1字节，有符号的范围是-128～127，无符号的范围是0~255。
+- `tinyint`：1字节，有符号的范围是-128～127，无符号的范围是0~255。
 
-- `SMALLINT`：2字节，有符号的范围是-32768~32767，无符号的范围是0~65535。
+- `smallint`：2字节，有符号的范围是-32768~32767，无符号的范围是0~65535。
 
-- `MEDIUMINT`：3字节，有符号的范围是-8388608~8388607，无符号的范围是0~16777215。
+- `mediumint`：3字节，有符号的范围是-8388608~8388607，无符号的范围是0~16777215。
 
-- `INT`：4字节，有符号的范围是-2147483648~2147483647，无符号的范围是0~4294967295。
+- `int`：4字节，有符号的范围是-2147483648~2147483647，无符号的范围是0~4294967295。
 
-- `BIGINT`：8字节。
+- `bigint`：8字节。
 
 ### 2. 浮点数
 
-- `FLOAT`: 4字节单精度浮点数
+- `float`: 4字节单精度浮点数
 
-- `DOUBLE`: 8字节双精度浮点数
+- `double`: 8字节双精度浮点数
 
 例如：double(5, 2)表示最多5位，其中有且仅有2位小数，即最大值为999.99。
 
@@ -338,7 +317,7 @@ SHOW WARNINGS;
 
 - `UNIQUE` 
 
-  唯一。限制字段不能重复，但是可以为空。
+  唯一键。限制字段不能重复，但是可以为空。
 
 - `CHECK` 
 

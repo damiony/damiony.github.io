@@ -5,10 +5,10 @@
         <description>buffer - 标签 - Damion&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 08 Mar 2020 15:23:16 &#43;0800</lastBuildDate><atom:link href="http://example.org/tags/buffer/" rel="self" type="application/rss+xml" /><item>
     <title>【Golang】buffer包的使用</title>
-    <link>http://example.org/golang_buffer_pkg/</link>
+    <link>http://example.org/golang-buffer-pkg/</link>
     <pubDate>Sun, 08 Mar 2020 15:23:16 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>http://example.org/golang_buffer_pkg/</guid>
+    <guid>http://example.org/golang-buffer-pkg/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

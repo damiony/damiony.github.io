@@ -1,14 +1,16 @@
 # 【MySQL】DML数据操作
 
 
-## DML
+## DML解释
 
-`DML`: (Data Manipulation Language) 数据操作语言。
+`DML`: 数据操作语言`(Data Manipulation Language)`。
 
 主要操作有：
 
 1. 插入数据
+
 2. 修改数据
+
 3. 删除数据   
 
 
@@ -92,7 +94,7 @@ DELETE FROM 表名 WHERE 筛选条件;
 TRUNCATE TABLE 表名;
 ```
 
-### 2. `DELETE`和`TRUNCATE`的比较
+### 2. DELETE 和 TRUNCATE 的比较
 
 - `DELETE`可以添加`WHERE`条件，`TRUNCATE`不能添加`WHERE`条件，一次性清除所有数据。
 
@@ -115,7 +117,7 @@ mysql -h ip -P port -u username -p 数据库名 < data.sql
 
 `data.sql`是包含表结构的备份文件。
 
-### 2. `source`
+### 2. source
 
 在`MySQL`客户端中使用`source`，也可以导入数据：
 
@@ -125,7 +127,7 @@ source data.sql;
 
 `data.sql`是包含表结构的数据文件。
 
-### 3. `LOAD DATA`
+### 3. LOAD DATA
 
 在`MySQL`客户端，可以使用`LOAD DATA`语句插入数据：
 
@@ -145,7 +147,7 @@ FIELDS TERMINATED BY '列分隔符'
 LINES TERMINATED BY '行分隔符';
 ```
 
-### 4. `mysqlimport`
+### 4. mysqlimport
 
 在命令行使用`mysqlimport`工具，也可以将数据插入数据库。
 
@@ -165,7 +167,7 @@ mysqlimport -h ip -P port -u username -p \
 
 ## 导出数据
 
-### 1. `SELECT ... INRO OUTFILE`
+### 1. SELECT ... INRO OUTFILE
 
 ```sql
 SELECT * FROM 表名 INTO OUTFILE '路径' FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' LINES TERMINATED BY '\n'; 
@@ -187,7 +189,7 @@ SELECT * FROM 表名 INTO OUTFILE '路径' FIELDS TERMINATED BY ',' OPTIONALLY E
 
 - 空值：对文件的生成不做限制。
 
-### 2. `mysqldump`
+### 2. mysqldump
 
 在命令行下使用`mysqldump`，可以实现数据导出备份。用法为：
 

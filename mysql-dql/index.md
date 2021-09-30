@@ -2,9 +2,9 @@
 
 
 
-## DQL
+## DQL解释
 
-`DQL`：（Data Query Language）数据查询语言，用来查询记录。
+`DQL`：数据查询语言`(Data Query Language)`，用来查询记录。
 
 
 ## 查询语法
@@ -20,7 +20,7 @@ SELECT 查询列表 FROM 表名;
 - 字段
 
   ```sql
-  SELECT `last_name` FROM `employees`
+  SELECT id FROM test;
   ```
 
 - 表达式
@@ -308,7 +308,7 @@ SELECT * FROM 表名 WHERE 字段 REGEXP 正则表达式;
   TIMESTAMPDIFF(时间类型, 时间1, 时间2)
   ```
 
-  时间类型可以是天day、小时hour、分钟minute、秒second等。
+  时间类型可以是天`day`、小时`hour`、分钟`minute`、秒`second`等。
 
   示例：
 
@@ -397,6 +397,35 @@ SELECT * FROM 表名 WHERE 字段 REGEXP 正则表达式;
   ```
 
 
+## 其他查询命令
+
+除了常见的函数外，还有一些偶尔会用到的查询命令。
+
+- 查询版本
+
+```sql
+SELECT VERSION();
+```
+
+- 查询当前数据库
+
+```sql
+SELECT DATABASE();
+```
+
+- 查询当前用户
+
+```sql
+SELECT USER();
+```
+
+- 查看警告信息
+
+```sql
+SHOW WARNINGS;
+```
+
+
 ## 条件查询
 
 ### 1. 语法
@@ -413,7 +442,7 @@ WHERE 筛选条件；
 
 - 按逻辑表达式筛选：`and`、`or`、`not`，也可以使用 `&&`、`||`、`!`。
 
-- 模糊查询：`like`、`in`、`not in`、`is null`、`is not null`、`between ... and ...`、`not bwtween ... and ... `。
+- 模糊查询：`like`、`in`、`not in`、`is null`、`is not null`、`between ... and ...`、`not between ... and ... `。
 
 ### 3. 示例
 
@@ -491,7 +520,7 @@ ORDER BY 排序列表;
 
 ### 2. 说明
 
-- 排序列表可以是单个字段、多个字段、表达式、函数、列数、以及以上的组合。
+- 排序列表可以是单个字段、多个字段、表达式、函数、字符序号、以及以上的组合。
 
 - 升序使用关键字`asc`，降序使用关键字`desc`。如果省略关键字，则默认升序。
 

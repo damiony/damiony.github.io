@@ -20,7 +20,7 @@
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-dcl/" /><link rel="prev" href="http://example.org/linux-common-commands/" /><link rel="next" href="http://example.org/mysql-ddl/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/mysql-dcl/" /><link rel="prev" href="http://example.org/linux-chang-jian-ming-ling/" /><link rel="next" href="http://example.org/mysql-ddl/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-dcl\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  128 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  121 ,
         "url": "http:\/\/example.org\/mysql-dcl\/","datePublished": "2020-06-18T19:15:08+08:00","dateModified": "2020-06-18T19:15:08+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,7 +115,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#dcl">DCL</a></li>
+    <li><a href="#dcl含义">DCL含义</a></li>
     <li><a href="#mysql的用户定义">MySQL的用户定义</a></li>
     <li><a href="#用户管理">用户管理</a>
       <ul>
@@ -129,25 +129,22 @@
     </li>
     <li><a href="#权限管理">权限管理</a>
       <ul>
-        <li><a href="#1-查看所有的权限">1. 查看所有的权限</a></li>
+        <li><a href="#1-查看可授予的权限">1. 查看可授予的权限</a></li>
         <li><a href="#2-授权">2. 授权</a></li>
         <li><a href="#3-回收权限">3. 回收权限</a></li>
         <li><a href="#4-查看单个用户权限">4. 查看单个用户权限</a></li>
         <li><a href="#5-查看所有用户的权限">5. 查看所有用户的权限</a></li>
       </ul>
     </li>
-    <li><a href="#连接管理">连接管理</a>
-      <ul>
-        <li><a href="#1-命令行客户端">1. 命令行客户端</a></li>
-      </ul>
-    </li>
+    <li><a href="#总结">总结</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="dcl">DCL</h2>
-<p><code>DCL</code>：（Data Control Language）数据控制语言，用来定义访问权限和安全级别。</p>
+            </div><div class="content" id="content"><h2 id="dcl含义">DCL含义</h2>
+<p><code>DCL</code>：数据控制语言<code>(Data Control Language)</code>，用来定义访问权限和安全级别。</p>
 <h2 id="mysql的用户定义">MySQL的用户定义</h2>
-<p>MySQL的用户格式为：<code>username@'白名单'</code>，白名单表示允许登陆MySQL的ip地址。如果省略白名单，则等同于<code>username@'%'</code>。</p>
-<p>如：</p>
+<p><code>MySQL</code>的用户格式为：<code>username@'白名单'</code>。</p>
+<p>白名单表示允许登陆MySQL的ip地址。如果省略白名单，则等同于<code>username@'%'</code>，即对<code>ip</code>地址不做限制。</p>
+<p>如下表示4个不同用户：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -170,7 +167,7 @@
 </div>
 </div><h2 id="用户管理">用户管理</h2>
 <h3 id="1-查看用户列表">1. 查看用户列表</h3>
-<p>用户信息存放在<code>mysql.user</code>表中。通常情况下，查看<code>host</code>, <code>user</code>, <code>authentication_string</code>即可。</p>
+<p>用户信息存放在<code>mysq【l.user</code>表中。通常情况下，查看<code>host</code>, <code>user</code>, <code>authentication_string</code>即可。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -185,7 +182,7 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="w"> </span><span class="p">[</span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">password</span><span class="p">];</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="w"> </span><span class="p">[</span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">password</span><span class="p">];</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>如果省略<code>IDENTIFIED BY password</code>部分，则默认该用户无密码。</p>
@@ -195,7 +192,7 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4-删除用户">4. 删除用户</h3>
@@ -204,11 +201,11 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="p">;</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="5-忘记密码">5. 忘记密码</h3>
-<p>如果遇到忘记密码的情况，用如下两个参数重启<code>MySQL</code>，从而跳过密码验证。</p>
+<p>如果遇到忘记密码的情况，用如下两个参数重启<code>MySQL</code>，可以跳过密码验证。</p>
 <ul>
 <li>
 <p><code>--skip-grant-tables</code>: 跳过授权表。</p>
@@ -229,16 +226,17 @@
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysqld_safe</span><span class="w"> </span><span class="c1">--skip-grant-tables --skip-networking
-</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">mysqld_safe --skip-grant-tables --skip-networking
+</code></pre></td></tr></table>
 </div>
-</div><div class="highlight"><div class="chroma">
+</div><p>或者：</p>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">service</span><span class="w"> </span><span class="n">mysqld</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="c1">--skip-grant-tales --skip-networking
-</span></code></pre></td></tr></table>
+<pre class="chroma"><code class="language-bash" data-lang="bash">service mysqld start --skip-grant-tales --skip-networking
+</code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -268,9 +266,9 @@
 </div></li>
 </ol>
 <h3 id="6-说明">6. 说明</h3>
-<p><code>MySQL8.0</code>之前，可以使用<code>grant</code>命令同时建立用户和授权，但是<code>8.0</code>之后不行。</p>
+<p><code>MySQL8.0</code>之前，可以使用<code>grant</code>命令同时完成建立用户和授权的操作，但是<code>8.0</code>之后不行。</p>
 <h2 id="权限管理">权限管理</h2>
-<h3 id="1-查看所有的权限">1. 查看所有的权限</h3>
+<h3 id="1-查看可授予的权限">1. 查看可授予的权限</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -307,8 +305,16 @@
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">用户</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">OPTION</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><p>“对象”是指库和表，如<code>*.*</code>表示所有库中的所有表。也可以只授予某几个列的权限，用法是<code>GRANT 权限(列字段...) ...</code>。</p>
-<h3 id="3-回收权限">3. 回收权限</h3>
+</div><p>“对象”是指库和表，如<code>*.*</code>表示所有库中的所有表。也可以只授予某几个列的权限，用法是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="p">(</span><span class="err">列字段</span><span class="p">...)</span><span class="w"> </span><span class="p">...</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3-回收权限">3. 回收权限</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -383,41 +389,8 @@
 </span></code></pre></td></tr></table>
 </div>
 </div><p>其他权限详情可以在<code>mysql</code>库中查看。</p>
-<h2 id="连接管理">连接管理</h2>
-<h3 id="1-命令行客户端">1. 命令行客户端</h3>
-<p>可以使用命令行客户端来登录<code>MySQL</code>：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">mysql <span class="o">[</span>options<span class="o">]</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>常见参数：</p>
-<ul>
-<li>
-<p><code>-u</code>：用户名</p>
-</li>
-<li>
-<p><code>-p</code>：密码</p>
-</li>
-<li>
-<p><code>-s</code>：本地<code>socket</code>文件路径</p>
-</li>
-<li>
-<p><code>-h</code>：数据库<code>ip</code>地址</p>
-</li>
-<li>
-<p><code>-P</code>：数据库监听的端口号</p>
-</li>
-<li>
-<p><code>-e</code>：免交互执行<code>sql</code>命令</p>
-</li>
-<li>
-<p><code>&lt;</code>：导入<code>sql</code>脚本</p>
-</li>
-</ul>
+<h2 id="总结">总结</h2>
+<p><code>DCL</code>主要作用是对用户进行管理，保证数据库的数据安全。用户管理和权限管理属于<code>DCL</code>的范畴，上述内容即为相关语法的说明。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -441,7 +414,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/linux-common-commands/" class="prev" rel="prev" title="【Linux】常见命令"><i class="fas fa-angle-left fa-fw"></i>【Linux】常见命令</a>
+    <div class="post-nav"><a href="/linux-chang-jian-ming-ling/" class="prev" rel="prev" title="【Linux】常见命令"><i class="fas fa-angle-left fa-fw"></i>【Linux】常见命令</a>
             <a href="/mysql-ddl/" class="next" rel="next" title="【MySQL】DDL数据定义">【MySQL】DDL数据定义<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>

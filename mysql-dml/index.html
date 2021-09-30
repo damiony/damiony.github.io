@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-dml\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  195 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  197 ,
         "url": "http:\/\/example.org\/mysql-dml\/","datePublished": "2020-06-20T00:48:54+08:00","dateModified": "2020-06-20T00:48:54+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,7 +115,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#dml">DML</a></li>
+    <li><a href="#dml解释">DML解释</a></li>
     <li><a href="#插入数据">插入数据</a>
       <ul>
         <li><a href="#1-语法">1. 语法</a></li>
@@ -131,32 +131,38 @@
     <li><a href="#删除数据">删除数据</a>
       <ul>
         <li><a href="#1-语法-2">1. 语法</a></li>
-        <li><a href="#2-delete和truncate的比较">2. <code>DELETE</code>和<code>TRUNCATE</code>的比较</a></li>
+        <li><a href="#2-delete-和-truncate-的比较">2. DELETE 和 TRUNCATE 的比较</a></li>
       </ul>
     </li>
     <li><a href="#导入数据">导入数据</a>
       <ul>
         <li><a href="#1-命令行导入">1. 命令行导入</a></li>
-        <li><a href="#2-source">2. <code>source</code></a></li>
-        <li><a href="#3-load-data">3. <code>LOAD DATA</code></a></li>
-        <li><a href="#4-mysqlimport">4. <code>mysqlimport</code></a></li>
+        <li><a href="#2-source">2. source</a></li>
+        <li><a href="#3-load-data">3. LOAD DATA</a></li>
+        <li><a href="#4-mysqlimport">4. mysqlimport</a></li>
       </ul>
     </li>
     <li><a href="#导出数据">导出数据</a>
       <ul>
-        <li><a href="#1-select--inro-outfile">1. <code>SELECT ... INRO OUTFILE</code></a></li>
-        <li><a href="#2-mysqldump">2. <code>mysqldump</code></a></li>
+        <li><a href="#1-select--inro-outfile">1. SELECT &hellip; INRO OUTFILE</a></li>
+        <li><a href="#2-mysqldump">2. mysqldump</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="dml">DML</h2>
-<p><code>DML</code>: (Data Manipulation Language) 数据操作语言。</p>
+            </div><div class="content" id="content"><h2 id="dml解释">DML解释</h2>
+<p><code>DML</code>: 数据操作语言<code>(Data Manipulation Language)</code>。</p>
 <p>主要操作有：</p>
 <ol>
-<li>插入数据</li>
-<li>修改数据</li>
-<li>删除数据</li>
+<li>
+<p>插入数据</p>
+</li>
+<li>
+<p>修改数据</p>
+</li>
+<li>
+<p>删除数据</p>
+</li>
 </ol>
 <h2 id="插入数据">插入数据</h2>
 <h3 id="1-语法">1. 语法</h3>
@@ -284,7 +290,7 @@
 <pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">TRUNCATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h3 id="2-delete和truncate的比较">2. <code>DELETE</code>和<code>TRUNCATE</code>的比较</h3>
+</div><h3 id="2-delete-和-truncate-的比较">2. DELETE 和 TRUNCATE 的比较</h3>
 <ul>
 <li>
 <p><code>DELETE</code>可以添加<code>WHERE</code>条件，<code>TRUNCATE</code>不能添加<code>WHERE</code>条件，一次性清除所有数据。</p>
@@ -313,7 +319,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><p><code>data.sql</code>是包含表结构的备份文件。</p>
-<h3 id="2-source">2. <code>source</code></h3>
+<h3 id="2-source">2. source</h3>
 <p>在<code>MySQL</code>客户端中使用<code>source</code>，也可以导入数据：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -324,7 +330,7 @@
 </span></code></pre></td></tr></table>
 </div>
 </div><p><code>data.sql</code>是包含表结构的数据文件。</p>
-<h3 id="3-load-data">3. <code>LOAD DATA</code></h3>
+<h3 id="3-load-data">3. LOAD DATA</h3>
 <p>在<code>MySQL</code>客户端，可以使用<code>LOAD DATA</code>语句插入数据：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -352,7 +358,7 @@
 </span><span class="w"></span><span class="n">LINES</span><span class="w"> </span><span class="n">TERMINATED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;行分隔符&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
-</div><h3 id="4-mysqlimport">4. <code>mysqlimport</code></h3>
+</div><h3 id="4-mysqlimport">4. mysqlimport</h3>
 <p>在命令行使用<code>mysqlimport</code>工具，也可以将数据插入数据库。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -375,7 +381,7 @@
 </div><p>注意，表名必须和文件名保持一致。</p>
 <p><code>mysqlimport</code>选项的含义与<code>LOAD DATA</code>语句类似。</p>
 <h2 id="导出数据">导出数据</h2>
-<h3 id="1-select--inro-outfile">1. <code>SELECT ... INRO OUTFILE</code></h3>
+<h3 id="1-select--inro-outfile">1. SELECT &hellip; INRO OUTFILE</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre class="chroma"><code><span class="lnt">1
@@ -408,7 +414,7 @@
 <p>空值：对文件的生成不做限制。</p>
 </li>
 </ul>
-<h3 id="2-mysqldump">2. <code>mysqldump</code></h3>
+<h3 id="2-mysqldump">2. mysqldump</h3>
 <p>在命令行下使用<code>mysqldump</code>，可以实现数据导出备份。用法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">

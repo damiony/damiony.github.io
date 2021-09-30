@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-ddl\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  239 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  228 ,
         "url": "http:\/\/example.org\/mysql-ddl\/","datePublished": "2020-06-19T00:46:11+08:00","dateModified": "2020-06-19T00:46:11+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -115,7 +115,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#ddl">DDL</a></li>
+    <li><a href="#ddl解释">DDL解释</a></li>
     <li><a href="#库管理">库管理</a>
       <ul>
         <li><a href="#1-查看所有的数据库列表">1. 查看所有的数据库列表</a></li>
@@ -138,7 +138,6 @@
       </ul>
     </li>
     <li><a href="#建表规范">建表规范</a></li>
-    <li><a href="#常用查询命令">常用查询命令</a></li>
     <li><a href="#常用字段类型">常用字段类型</a>
       <ul>
         <li><a href="#1-整数">1. 整数</a></li>
@@ -162,8 +161,8 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h2 id="ddl">DDL</h2>
-<p><code>DDL</code>: （Data Define Language）数据定义语言，用于对数据库和表进行管理和操作。</p>
+            </div><div class="content" id="content"><h2 id="ddl解释">DDL解释</h2>
+<p><code>DDL</code>: 数据定义语言<code>(Data Define Language)</code>，用于对数据库和表进行管理和操作。</p>
 <h2 id="库管理">库管理</h2>
 <h3 id="1-查看所有的数据库列表">1. 查看所有的数据库列表</h3>
 <div class="highlight"><div class="chroma">
@@ -301,14 +300,12 @@
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
-</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">stuinfo</span><span class="p">(</span><span class="w">
-</span><span class="w">  </span><span class="n">stuid</span><span class="w"> </span><span class="nb">INT</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">stuname</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span><span class="w">
-</span><span class="w">  </span><span class="n">stugender</span><span class="w"> </span><span class="nb">CHAR</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">email</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w">
+<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">test</span><span class="p">(</span><span class="w">
+</span><span class="w">  </span><span class="n">id</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="n">a</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w">
+</span><span class="w">  </span><span class="n">b</span><span class="w"> </span><span class="nb">varchar</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w">
 </span><span class="w"></span><span class="p">)</span><span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8mb4</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
@@ -491,66 +488,32 @@
 <p>列名规范同表名。</p>
 </li>
 </ol>
-<h2 id="常用查询命令">常用查询命令</h2>
-<ul>
-<li>查询版本</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">VERSION</span><span class="p">();</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>查询当前时间</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">NOW</span><span class="p">();</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><ul>
-<li>查看警告信息</li>
-</ul>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">WARNINGS</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
-</div>
-</div><h2 id="常用字段类型">常用字段类型</h2>
+<h2 id="常用字段类型">常用字段类型</h2>
 <h3 id="1-整数">1. 整数</h3>
 <ul>
 <li>
-<p><code>TINYINT</code>：1字节，有符号的范围是-128～127，无符号的范围是0~255。</p>
+<p><code>tinyint</code>：1字节，有符号的范围是-128～127，无符号的范围是0~255。</p>
 </li>
 <li>
-<p><code>SMALLINT</code>：2字节，有符号的范围是-32768~32767，无符号的范围是0~65535。</p>
+<p><code>smallint</code>：2字节，有符号的范围是-32768~32767，无符号的范围是0~65535。</p>
 </li>
 <li>
-<p><code>MEDIUMINT</code>：3字节，有符号的范围是-8388608~8388607，无符号的范围是0~16777215。</p>
+<p><code>mediumint</code>：3字节，有符号的范围是-8388608~8388607，无符号的范围是0~16777215。</p>
 </li>
 <li>
-<p><code>INT</code>：4字节，有符号的范围是-2147483648~2147483647，无符号的范围是0~4294967295。</p>
+<p><code>int</code>：4字节，有符号的范围是-2147483648~2147483647，无符号的范围是0~4294967295。</p>
 </li>
 <li>
-<p><code>BIGINT</code>：8字节。</p>
+<p><code>bigint</code>：8字节。</p>
 </li>
 </ul>
 <h3 id="2-浮点数">2. 浮点数</h3>
 <ul>
 <li>
-<p><code>FLOAT</code>: 4字节单精度浮点数</p>
+<p><code>float</code>: 4字节单精度浮点数</p>
 </li>
 <li>
-<p><code>DOUBLE</code>: 8字节双精度浮点数</p>
+<p><code>double</code>: 8字节双精度浮点数</p>
 </li>
 </ul>
 <p>例如：double(5, 2)表示最多5位，其中有且仅有2位小数，即最大值为999.99。</p>
@@ -606,7 +569,7 @@
 </div></li>
 <li>
 <p><code>UNIQUE</code></p>
-<p>唯一。限制字段不能重复，但是可以为空。</p>
+<p>唯一键。限制字段不能重复，但是可以为空。</p>
 </li>
 <li>
 <p><code>CHECK</code></p>

@@ -1,4 +1,4 @@
-# 【Golang】文件相关操作
+# 【Golang】文件操作
 
 
 ## 介绍
@@ -149,11 +149,12 @@ func main() {
 }
 ```
 
+
 ## 读取文件内容
 
 除了上述的文件基本操作外，golang还为读文件提供了多种方式。
 
-### `file.Read`
+### file.Read
 
 ```go
 func main() {
@@ -177,7 +178,7 @@ func main() {
 }
 ```
 
-### `io.ReadFull`
+### io.ReadFull
 
 ```go
   1 package main
@@ -207,7 +208,7 @@ func main() {
  25 }
 ```
 
-### `io.ReadAtLeast`
+### io.ReadAtLeast
 
 ```go
 func main() {
@@ -227,7 +228,7 @@ func main() {
 }
 ```
 
-### `bufio.NewReader`
+### bufio.NewReader
 
 bufio提供了多种读取文件的方法，但方法名都是以`Read`开头。
 
@@ -253,7 +254,7 @@ func main() {
 }
 ```
 
-### `ioutil.ReadAll`
+### ioutil.ReadAll
 
 ```go
 func main() {
@@ -271,7 +272,7 @@ func main() {
 }
 ```
 
-### `ioutil.ReadFile`
+### ioutil.ReadFile
 
 ```go
 func main() {
@@ -283,7 +284,7 @@ func main() {
 }
 ```
 
-### `bufio.NewScanner`
+### bufio.NewScanner
 
 ```go
 func main() {
@@ -327,7 +328,7 @@ func main() {
 }
 ```
 
-### `ioutil.WriteFile`
+### ioutil.WriteFile
 
 ```go
 func main() {
@@ -338,7 +339,7 @@ func main() {
 }
 ```
 
-### `bufio.NewWriter`
+### bufio.NewWriter
 
 bufio包中，写入文件的方法较多，但都是以`Write`开头。
 
@@ -355,3 +356,4 @@ bufio包中，写入文件的方法较多，但都是以`Write`开头。
      writer.Flush()
  }
 ```
+
