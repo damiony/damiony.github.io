@@ -3,41 +3,42 @@
 
 ## sed编辑器
 
-sed可以根据命令来编辑数据流，大致处理流程为：
+`sed`可以用指定命令来编辑数据流，其内部的处理流程大致为：
 
-1. 从输入读取一行数据。
-2. 按照命令对数据进行匹配。
+1. 读取一行数据。
+2. 对数据进行匹配。
 3. 按照命令修改匹配到的数据。
 4. 将新的数据输出到`STDOUT`。
 5. 读取下一行数据，并重复上述过程。
-6. 数据流读取完毕，则程序终止。
+6. 数据流读取完毕后，程序终止。
 
-`sed`命令格式：
+`sed`命令格式如下：
 
 ```shell
 sed [options] script file
 ```
 
-`options`可以是：
+其中，常见的`options`有：
 
 - `-e script`: 将`script`中的命令，添加到已有的命令列表。
 - `-f file`: 将`file`中指定的命令，添加到已有的命令列表。
 - `-n`：不输出每一行的处理结果。
 
-**注意：**
+注意，`Linux sed`和`Mac sed`，在语法上存在些许差异，需要根据具体使用来调整。本文的测试环境为`linux bash4.2`。
 
-`linux`中的sed和`mac`中的sed，在语法上存在一定差异，本文的测试环境为`linux bash4.2`。
 
 ## options的使用示例
 
-假设有一个`data.txt`文件：
+假设有一个`data.txt`文件，后续示例都是对该文件进行操作。
+
+文件内容为：
 
 ```shell
 This is line 1.
 This is line 2.
 ```
 
-### 1. 常规命令
+### 1. 常规替换命令
 
 ```shell
 $ sed 's/line/number/' data.txt
@@ -47,7 +48,7 @@ this is number 2.
 
 `s/line/number/`是指将`line`替换成`number`。
 
-### 2. 使用`-e`
+### 2. 选项`-e`
 
 ```shell
 $ sed -e 's/line/number/' -e 's/this/This/' data.txt
@@ -55,7 +56,7 @@ This is number 1.
 This is number 2.
 ```
 
-### 3. 使用`-f`
+### 3. 选项`-f`
 
 ```shell
 $ cat script.sed
@@ -67,9 +68,9 @@ This is number 1.
 This is number 2.
 ```
 
-### 4. 使用`-n`
+### 4. 选项`-n`
 
-默认情况下，不论数据行是否满足匹配要求，都会将结果输出。
+默认情况下，不论数据行是否满足匹配要求，都会将结果输出。使用`-n`后，将不会产生任何输出。
 
 ```shell
 $ sed -n 's/This/That/' data.txt # 不会有任何输出 
@@ -79,68 +80,11 @@ $ sed -n 's/This/That/' data.txt # 不会有任何输出
 
 ### 1. 替换`s`
 
-可以使用`s`命令来替换文本，还可以指定替换标记：
+可以使用`s`命令来替换文本：
 
 ```shell
 s/pattern/replacement/[flags]
 ```
-
-替换标记是可选的，具体有以下几种：
-
-- 数字：表明替换第几处匹配的地方，从1开始。
-
-  ```shell
-  $ cat data.txt
-  this is line 1.
-  this is line 2.
-
-  $ sed 's/is/was/2' data.txt
-  this was line 1.
-  this was line 2.
-  ```
-
-- g：替换所有匹配的文本。
-
-  ```shell
-  $ cat data.txt
-  this is line 1.
-  this is line 2.
-
-  $ sed 's/is/*/g' data.txt
-  th* * line 1.
-  th* * line 2.
-  ```
-
-- p：输出被修改后的行，本质上是输出模式空间的内容。
-
-  ```shell
-  $ cat data.txt
-  this is line 1.
-  this is line 2.
-
-  $ sed 's/line 1/*/p' data.txt
-  this is *.
-  this is *.
-  this is line 2.
-
-  $ sed -n 's/line 1/*/p' data.txt
-  this is *.
-  ```
-
-- w file：将替换的结果输出到file。
-
-  ```shell
-  $ cat data.txt
-  this is line 1.
-  this is line 2.
-
-  $ sed 's/line 1/*/w result.txt' data.txt
-  this is *.
-  this is line 2.
-
-  $ cat result.txt
-  this is *.
-  ```
 
 替换命令的分隔符`/`可以换成其他自定义字符：
 
@@ -154,53 +98,108 @@ this is number 1.
 this is number 2.
 ```
 
+替换标记`flags`是可选的，具体有以下几种：
+
+- 数字：表明替换第几处匹配的地方，从1开始。
+
+```shell
+$ cat data.txt
+this is line 1.
+this is line 2.
+
+$ sed 's/is/was/2' data.txt
+this was line 1.
+this was line 2.
+```
+
+- `g`：替换所有匹配的文本。
+
+```shell
+$ cat data.txt
+this is line 1.
+this is line 2.
+
+$ sed 's/is/*/g' data.txt
+th* * line 1.
+th* * line 2.
+```
+
+- `p`：默认情况下，会输出一次行结果，不管是否匹配。加`p`后会再次输出被匹配的行（本质上是输出模式空间的内容）。
+
+```shell
+$ cat data.txt
+this is line 1.
+this is line 2.
+
+$ sed 's/line 1/*/p' data.txt
+this is *.
+this is *.
+this is line 2.
+
+$ sed -n 's/line 1/*/p' data.txt
+this is *.
+```
+
+- `w file`：将替换的结果输出到file。
+
+```shell
+$ cat data.txt
+this is line 1.
+this is line 2.
+
+$ sed 's/line 1/*/w result.txt' data.txt
+this is *.
+this is line 2.
+
+$ cat result.txt
+this is *.
+```
+
 ### 2. 行寻址
 
-sed默认作用于所有行，如果想指定行号，命令格式为：
+`sed`默认作用于所有行，如果想指定行号，命令格式为：
 
 ```shell
 [address]command
 ```
 
-寻址方式有两种。
+寻址方式有两种，数字方式和文本模式。示例如下：
 
-- 数字方式。
+- 指定单个行号：
 
-  指定单个行号：
+```shell
+$ sed '2s/line/number/' data.txt
+this is line 1.
+this is number 2.
+```
 
-  ```shell
-  $ sed '2s/line/number/' data.txt
-  this is line 1.
-  this is number 2.
-  ```
+- 指定地址区间：
 
-  指定地址区间：
+```shell
+$ sed '1,2s/line/number/' data.txt
+this is number 1.
+this is number 2.
+```
 
-  ```shell
-  $ sed '1,2s/line/number/' data.txt
-  this is number 1.
-  this is number 2.
-  ```
+- `$`表示最后一行：
 
-  `$`表示最后一行：
+```shell
+$ sed '1,$s/line/number/' data.txt
+this is number 1.
+this is number 2.
+```
 
-  ```shell
-  $ sed '1,$s/line/number/' data.txt
-  this is number 1.
-  this is number 2.
-  ```
+- 匹配文本`line 2`：
 
-- 文本模式。
+```shell
+$ sed '/line 2/s/line/*/' data.txt
+this is line 1.
+this is * 2.
+```
 
-  ```shell
-  $ sed '/line 2/s/line/*/' data.txt
-  this is line 1.
-  this is * 2.
-  ```
-
-  文本模式是对模式空间内的文本进行匹配。
+文本模式是对模式空间内的文本进行匹配。
   
-  并且，文本模式可以使用正则表达式，正则表达式的具体语法此处不做说明。
+并且，文本模式可以使用正则表达式，正则表达式的具体语法此处不做说明。
 
 ### 3. 命令组合
 
@@ -247,11 +246,10 @@ this is line 2.
 插入命令`i`会在指定行前增加一个新行。
 
 ```shell
-$ sed '[address]i\
-new line' data.txt
+$ sed '[address]i new line' data.txt
 ```
 
-使用插入命令`i`时，需要保证新行文本和`i`位于同一行。如果想分成多行书写，需要使用`\`作为结尾。
+如果想添加多行，可以使用`\`作为新行结尾。
 
 如果省略`address`，则是在每行前增加新行。
 
@@ -260,11 +258,10 @@ new line' data.txt
 追加命令`a`会在指定行后增加一个新行。
 
 ```shell
-$ sed '[address]a\
-new line'
+$ sed '[address]a new line' data.txt
 ```
 
-新行文本的书写规则，同`i`。
+如果想添加多行，可以使用`\`作为新行结尾。
 
 如果省略address，则是在每行后增加新行。
 
@@ -273,13 +270,12 @@ new line'
 修改命令`c`可以修改整行的数据内容。
 
 ```shell
-$ sed '2c\
-> this is new line 2' data.txt
+$ sed '2c this is new line 2' data.txt
 this is line 1.
 this is new line 2
 ```
 
-如果使用区间寻址，c会对整个区间做替换。
+如果使用区间寻址，`c`会对整个区间做替换。
 
 如果省略寻址，则对每行数据做修改。
 
@@ -305,7 +301,7 @@ tHIs Is lIne 2.
 
 这是小写`p`。
 
-打印命令p和替换标记p类似，可以打印匹配到的数据行，即打印当前模式空间的所有数据。
+打印命令`p`和替换标记`p`类似，可以打印匹配到的数据行，即打印当前模式空间的所有数据。
 
 ```shell
 $ sed -n '1p' data.txt
@@ -350,7 +346,9 @@ this is line 1.$ # $是被打印的换行符
 
 ## sed script进阶语法
 
-假设数据文件`data.txt`为：
+假设数据文件`data.txt`为，如果无特别说明，示例都是对这个文件进行操作。
+
+文件内容为：
 
 ```shell
 this is line 1.
@@ -362,7 +360,7 @@ this is line 5.
 
 ### 1. 模式空间和保持空间
 
-sed在执行命令时，会保存待检查的文本。
+`sed`在执行命令时，会保存待检查的文本。
  
 保存文本时，需要用到两个缓冲区：模式空间和保持空间。
 
@@ -370,19 +368,19 @@ sed在执行命令时，会保存待检查的文本。
 
 与缓冲区有关的命令如下：
 
-- h: 将模式空间复制到保持空间。
-- H: 将模式空间追加到保持空间。
-- g: 将保持空间复制到模式空间。
-- G: 将保持空间追加到模式空间。
-- x: 交换模式空间和保持空间的内容。
+- `h`: 将模式空间复制到保持空间。
+- `H`: 将模式空间追加到保持空间。
+- `g`: 将保持空间复制到模式空间。
+- `G`: 将保持空间追加到模式空间。
+- `x`: 交换模式空间和保持空间的内容。
 
-### 2. 单行数据的next命令
+### 2. 单行数据的`next`命令
 
-单行`next`命令会将匹配数据的下一行，移到sed的模式空间，移动前会清空模式空间。
+单行`next`命令会将匹配数据的下一行移到`sed`的模式空间，移动前会清空模式空间。
 
 单行命令是`n`。
 
-注意，如果不存在下一行数据，则模式空间会为空。
+注意，如果不存在下一行数据，则模式空间为空。
 
 ```shell
 $ sed -n '/line 4/{n; p}' data.txt
@@ -391,7 +389,7 @@ this is line 5.
 
 ### 3. 多行数据的next命令
 
-多行`next`命令，会以追加的方式，将匹配行的下一行添加到模式空间。并且，sed会将模式空间中的数据当成一行处理。
+多行`next`命令，会以追加的方式，将匹配行的下一行添加到模式空间。并且，s`ed`会将模式空间中的数据当成一行处理。
 
 多行命令是`N`。
 
@@ -489,12 +487,14 @@ $ echo "The cat sleeps in his hat." | sed 's/.at/"&"/g'
 The "cat" sleeps in his "hat".
 ```
 
-也可以提取某个被匹配项。
+也可以提取匹配项组中的某一项。
 
 ```shell
+# 提取第一个匹配项.cat
 $ echo "That furry cat is pretty" | sed 's/furry \(.at\)/\1/'
 That cat is pretty
 ```
+
 
 ## sed 示例
 
@@ -551,20 +551,20 @@ this is line 5.
 
 ```shell
 $ nl data.txt
-     1	this is line 1.
-     2	this is line 2.
-     3	this is line 3.
+    1	this is line 1.
+    2	this is line 2.
+    3	this is line 3.
 
-     4	this is line 4.
-     5	this is line 5.
+    4	this is line 4.
+    5	this is line 5.
 
 $ cat -n data.txt
-     1	this is line 1.
-     2	this is line 2.
-     3	this is line 3.
-     4
-     5	this is line 4.
-     6	this is line 5.
+    1	this is line 1.
+    2	this is line 2.
+    3	this is line 3.
+    4
+    5	this is line 4.
+    6	this is line 5.
 
 $ sed '=' data.txt | sed 'N; s/\n/ /'
 1 this is line 1.
@@ -615,6 +615,8 @@ this is line 4.
 this is line 5.
 ```
 
+注意，`/./`和`/^$/`是正则表达式。
+
 ### 6. 删除开头空白行
 
 ```shell
@@ -634,6 +636,8 @@ this is line 3.
 this is line 4.
 this is line 5.
 ```
+
+注意，`/./`是正则表达式。
 
 ### 7. 删除结尾空白行
 
