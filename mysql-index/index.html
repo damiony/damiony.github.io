@@ -29,7 +29,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/example.org\/mysql-index\/"
-        },"genre": "posts","keywords": "MySQL","wordcount":  185 ,
+        },"genre": "posts","keywords": "MySQL","wordcount":  186 ,
         "url": "http:\/\/example.org\/mysql-index\/","datePublished": "2020-07-27T19:07:30+08:00","dateModified": "2020-07-27T19:07:30+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -249,8 +249,9 @@
 </li>
 </ol>
 <h2 id="索引组织表">索引组织表</h2>
-<p><code>InnoDB</code>中，表是根据主键的顺序，以索引形式存放，这种存储方式称为<strong>索引组织表</strong>。</p>
+<p><code>InnoDB</code>中，表的数据是根据主键顺序，以索引结构形式存放的，这种存储方式称为<strong>索引组织表</strong>。</p>
 <p>每个索引在<code>InnoDB</code>中对应了一颗<code>B+</code>树，而每棵<code>B+</code>树的叶子结点是双向循环链表。</p>
+<p>主键索引树的叶子节点是数据，普通索引的叶子节点是主键值。</p>
 <h2 id="使用b树的好处">使用<code>B+</code>树的好处</h2>
 <p>数据以数据块的形式存放在磁盘中，如果想从磁盘随机读取一个数据块，需要消耗较长的寻址时间。</p>
 <p>如果使用二叉树，树高太高，意味着访问磁盘的次数变多，查询会很慢。</p>
