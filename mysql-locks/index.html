@@ -9,8 +9,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/mysql-locks/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-08-02T00:38:11&#43;08:00" />
-<meta property="article:modified_time" content="2020-08-02T00:38:11&#43;08:00" />
+<meta property="article:published_time" content="2020-08-02T00:38:11+08:00" />
+<meta property="article:modified_time" content="2020-08-02T00:38:11+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -183,10 +183,10 @@
 <p>全局锁用于对整个数据库实例加锁。命令如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">flush</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">lock</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">flush</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="k">read</span><span class="w"> </span><span class="k">lock</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>加锁之后，数据库处于只读状态。使用<code>unlock tables</code>释放锁。</p>
@@ -211,10 +211,10 @@
 <p>语法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">readonly</span><span class="o">=</span><span class="k">true</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">set</span><span class="w"> </span><span class="k">global</span><span class="w"> </span><span class="n">readonly</span><span class="o">=</span><span class="k">true</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><code>readonly</code>也可以让全库进入只读状态，但是全局锁场景下不推荐。原因如下：</p>
@@ -232,10 +232,10 @@
 <p><strong>加锁语法如下：</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">lock</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="err">表名</span><span class="p">...</span><span class="w"> </span><span class="k">read</span><span class="o">/</span><span class="k">write</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">lock</span><span class="w"> </span><span class="n">tables</span><span class="w"> </span><span class="err">表名</span><span class="p">...</span><span class="w"> </span><span class="k">read</span><span class="o">/</span><span class="k">write</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><code>read</code>锁会阻塞本线程和其他线程的写操作，不会阻塞读操作。本线程不能对其他表进行读写操作，其他线程可以对其他表进行读写操作。</p>
@@ -302,10 +302,10 @@
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="k">open</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">In_use是1代表加了锁</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="k">open</span><span class="w"> </span><span class="n">tables</span><span class="p">;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">In_use是1代表加了锁</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
@@ -313,10 +313,10 @@
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;table%&#39;</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;table%&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -382,10 +382,10 @@
 <p>加共享锁：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">SQL查询语句</span><span class="w"> </span><span class="k">LOCK</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="k">SHARE</span><span class="w"> </span><span class="k">MODE</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">SQL查询语句</span><span class="w"> </span><span class="k">LOCK</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="k">SHARE</span><span class="w"> </span><span class="k">MODE</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -393,10 +393,10 @@
 <p>加排他锁：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">SQL查询语句</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">SQL查询语句</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="k">UPDATE</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -425,10 +425,10 @@
 <h3 id="查看行锁状态">查看行锁状态</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%innodb_row_lock%&#39;</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">show</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%innodb_row_lock%&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><ul>

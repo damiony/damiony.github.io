@@ -9,8 +9,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/linux_sed/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-10-05T17:52:47&#43;08:00" />
-<meta property="article:modified_time" content="2020-10-05T17:52:47&#43;08:00" />
+<meta property="article:published_time" content="2020-10-05T17:52:47+08:00" />
+<meta property="article:modified_time" content="2020-10-05T17:52:47+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -180,10 +180,10 @@
 <p><code>sed</code>命令格式如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sed <span class="o">[</span>options<span class="o">]</span> script file
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sed <span class="o">[</span>options<span class="o">]</span> script file
 </code></pre></td></tr></table>
 </div>
 </div><p>其中，常见的<code>options</code>有：</p>
@@ -198,23 +198,23 @@
 <p>文件内容为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">This is line 1.
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">This is line 1.
 This is line 2.
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="1-常规替换命令">1. 常规替换命令</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;s/line/number/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;s/line/number/&#39;</span> data.txt
 this is number 1.
 this is number 2.
 </code></pre></td></tr></table>
@@ -223,12 +223,12 @@ this is number 2.
 <h3 id="2-选项-e">2. 选项<code>-e</code></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed -e <span class="s1">&#39;s/line/number/&#39;</span> -e <span class="s1">&#39;s/this/This/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed -e <span class="s1">&#39;s/line/number/&#39;</span> -e <span class="s1">&#39;s/this/This/&#39;</span> data.txt
 This is number 1.
 This is number 2.
 </code></pre></td></tr></table>
@@ -236,7 +236,7 @@ This is number 2.
 </div><h3 id="3-选项-f">3. 选项<code>-f</code></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -245,7 +245,7 @@ This is number 2.
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat script.sed
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat script.sed
 s/line/number/
 s/this/This/
 
@@ -258,10 +258,10 @@ This is number 2.
 <p>默认情况下，不论数据行是否满足匹配要求，都会将结果输出。使用<code>-n</code>后，将不会产生任何输出。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;s/This/That/&#39;</span> data.txt <span class="c1"># 不会有任何输出 </span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;s/This/That/&#39;</span> data.txt <span class="c1"># 不会有任何输出 </span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="script的基本语法">script的基本语法</h2>
@@ -269,16 +269,16 @@ This is number 2.
 <p>可以使用<code>s</code>命令来替换文本：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">s/pattern/replacement/<span class="o">[</span>flags<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">s/pattern/replacement/<span class="o">[</span>flags<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>替换命令的分隔符<code>/</code>可以换成其他自定义字符：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -287,7 +287,7 @@ This is number 2.
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
 
@@ -302,7 +302,7 @@ this is number 2.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -311,7 +311,7 @@ this is number 2.
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
 
@@ -325,7 +325,7 @@ this was line 2.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -334,7 +334,7 @@ this was line 2.
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
 
@@ -348,7 +348,7 @@ th* * line 2.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -361,7 +361,7 @@ th* * line 2.
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
 
@@ -379,7 +379,7 @@ this is *.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -391,7 +391,7 @@ this is *.
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
 
@@ -407,10 +407,10 @@ this is *.
 <p><code>sed</code>默认作用于所有行，如果想指定行号，命令格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span><span class="nb">command</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span><span class="nb">command</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>寻址方式有两种，数字方式和文本模式。示例如下：</p>
@@ -419,12 +419,12 @@ this is *.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;2s/line/number/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;2s/line/number/&#39;</span> data.txt
 this is line 1.
 this is number 2.
 </code></pre></td></tr></table>
@@ -434,12 +434,12 @@ this is number 2.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1,2s/line/number/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1,2s/line/number/&#39;</span> data.txt
 this is number 1.
 this is number 2.
 </code></pre></td></tr></table>
@@ -449,12 +449,12 @@ this is number 2.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1,$s/line/number/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1,$s/line/number/&#39;</span> data.txt
 this is number 1.
 this is number 2.
 </code></pre></td></tr></table>
@@ -464,12 +464,12 @@ this is number 2.
 </ul>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;/line 2/s/line/*/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;/line 2/s/line/*/&#39;</span> data.txt
 this is line 1.
 this is * 2.
 </code></pre></td></tr></table>
@@ -480,12 +480,12 @@ this is * 2.
 <p>如果想执行多条命令，可以使用分号分隔。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1s/line/number/; 1s/is/*/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1s/line/number/; 1s/is/*/&#39;</span> data.txt
 th* is number 1.
 this is line 2.
 </code></pre></td></tr></table>
@@ -493,7 +493,7 @@ this is line 2.
 </div><p>可以将命令写成多行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -501,7 +501,7 @@ this is line 2.
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;
 </span><span class="s1">&gt; 1,$s/line/number/
 </span><span class="s1">&gt; 1,$s/is/*/
 </span><span class="s1">&gt; &#39;</span> data.txt
@@ -512,12 +512,12 @@ th* is number 2.
 </div><p>也可以使用花括号<code>{}</code>将多条命令组合在一起。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1,${s/line/number/ ; s/is/*/}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1,${s/line/number/ ; s/is/*/}&#39;</span> data.txt
 th* is number 1.
 th* is number 2.
 </code></pre></td></tr></table>
@@ -526,11 +526,11 @@ th* is number 2.
 <p>可以使用删除命令<code>d</code>删除指定行，删除时也可以使用行寻址。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1d&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;1d&#39;</span> data.txt
 this is line 2.
 </code></pre></td></tr></table>
 </div>
@@ -539,10 +539,10 @@ this is line 2.
 <p>插入命令<code>i</code>会在指定行前增加一个新行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;[address]i new line&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;[address]i new line&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
 </div><p>如果想添加多行，可以使用<code>\</code>作为新行结尾。</p>
@@ -551,10 +551,10 @@ this is line 2.
 <p>追加命令<code>a</code>会在指定行后增加一个新行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;[address]a new line&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;[address]a new line&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
 </div><p>如果想添加多行，可以使用<code>\</code>作为新行结尾。</p>
@@ -563,12 +563,12 @@ this is line 2.
 <p>修改命令<code>c</code>可以修改整行的数据内容。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;2c this is new line 2&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;2c this is new line 2&#39;</span> data.txt
 this is line 1.
 this is new line <span class="m">2</span>
 </code></pre></td></tr></table>
@@ -579,21 +579,21 @@ this is new line <span class="m">2</span>
 <p>转换命令<code>y</code>可以对单个字符做一对一映射转换。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>y/chars1/chars2/
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>y/chars1/chars2/
 </code></pre></td></tr></table>
 </div>
 </div><p><code>chars1</code>和<code>chars2</code>的长度必须一致，<code>chars1</code>中的字符，会被转换为<code>char2</code>中对应的字符。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;y/hijk/HIJK/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;y/hijk/HIJK/&#39;</span> data.txt
 tHIs Is lIne 1.
 tHIs Is lIne 2.
 </code></pre></td></tr></table>
@@ -604,11 +604,11 @@ tHIs Is lIne 2.
 <p>打印命令<code>p</code>和替换标记<code>p</code>类似，可以打印匹配到的数据行，即打印当前模式空间的所有数据。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;1p&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;1p&#39;</span> data.txt
 this is line 1.
 </code></pre></td></tr></table>
 </div>
@@ -616,13 +616,13 @@ this is line 1.
 <p>命令<code>=</code>可以打印被匹配数据在文本中的行号。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;/2/=&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;/2/=&#39;</span> data.txt
 this is line 1.
 <span class="m">2</span>
 this is line 2.
@@ -632,11 +632,11 @@ this is line 2.
 <p>列出命令<code>l</code>可以打印匹配数据，包括文本字符和不可打印的转义字符。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;1l&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;1l&#39;</span> data.txt
 this is line 1.$ <span class="c1"># $是被打印的换行符</span>
 </code></pre></td></tr></table>
 </div>
@@ -644,20 +644,20 @@ this is line 1.$ <span class="c1"># $是被打印的换行符</span>
 <p><code>w</code>命令可以将匹配数据写入文件。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>w filename
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>w filename
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="13-读取数据r">13. 读取数据<code>r</code></h3>
 <p>读取命令<code>r</code>从文件中读取数据，并将文件的所有数据插入到匹配行后面。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>r filename
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>r filename
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="sed-script进阶语法">sed script进阶语法</h2>
@@ -665,14 +665,14 @@ this is line 1.$ <span class="c1"># $是被打印的换行符</span>
 <p>文件内容为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">this is line 1.
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">this is line 1.
 this is line 2.
 this is line 3.
 this is line 4.
@@ -697,11 +697,11 @@ this is line 5.
 <p>注意，如果不存在下一行数据，则模式空间为空。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;/line 4/{n; p}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;/line 4/{n; p}&#39;</span> data.txt
 this is line 5.
 </code></pre></td></tr></table>
 </div>
@@ -711,12 +711,12 @@ this is line 5.
 <p>注意，如果不存在下一行数据，则模式空间会为空。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;/line 3/{N; p}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;/line 3/{N; p}&#39;</span> data.txt
 this is line 3.
 this is line 4.
 </code></pre></td></tr></table>
@@ -732,13 +732,13 @@ this is line 4.
 <p>排除命令<code>!</code>用于将后续命令作用于非匹配行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;1,2!p&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed -n <span class="s1">&#39;1,2!p&#39;</span> data.txt
 this is line 3.
 this is line 4.
 this is line 5.
@@ -748,16 +748,16 @@ this is line 5.
 <p>分支命令b可以用来改变命令的执行流程。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>b <span class="o">[</span>label<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>address<span class="o">]</span>b <span class="o">[</span>label<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>address用于寻址，label制定了跳转位置，如果省略label，则跳转到命令脚本的结尾。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -765,7 +765,7 @@ this is line 5.
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;3b ; s/this is line/*/&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ sed <span class="s1">&#39;3b ; s/this is line/*/&#39;</span> data.txt
 * 1.
 * 2.
 this is line 3.
@@ -775,7 +775,7 @@ this is line 3.
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -788,7 +788,7 @@ this is line 3.
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sed <span class="s1">&#39;
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sed <span class="s1">&#39;
 </span><span class="s1">&gt; 3b start
 </span><span class="s1">&gt; s/this is line/*/
 </span><span class="s1">&gt; :start
@@ -806,7 +806,7 @@ jump 3.
 <p>如果没有指定标签，则跳转到命令结尾。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -818,7 +818,7 @@ jump 3.
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">sed <span class="s1">&#39;
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sed <span class="s1">&#39;
 </span><span class="s1">&gt; s/line 3/*/
 </span><span class="s1">&gt; t
 </span><span class="s1">&gt; s/this is line/*/
@@ -834,23 +834,23 @@ this is *.
 <p><code>&amp;</code>符号代表替换命令中与模式匹配的文本。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nb">echo</span> <span class="s2">&#34;The cat sleeps in his hat.&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/.at/&#34;&amp;&#34;/g&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ <span class="nb">echo</span> <span class="s2">&#34;The cat sleeps in his hat.&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/.at/&#34;&amp;&#34;/g&#39;</span>
 The <span class="s2">&#34;cat&#34;</span> sleeps in his <span class="s2">&#34;hat&#34;</span>.
 </code></pre></td></tr></table>
 </div>
 </div><p>也可以提取匹配项组中的某一项。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 提取第一个匹配项.cat</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 提取第一个匹配项.cat</span>
 $ <span class="nb">echo</span> <span class="s2">&#34;That furry cat is pretty&#34;</span> <span class="p">|</span> sed <span class="s1">&#39;s/furry \(.at\)/\1/&#39;</span>
 That cat is pretty
 </code></pre></td></tr></table>
@@ -859,7 +859,7 @@ That cat is pretty
 <h3 id="1-反序输出文本">1. 反序输出文本</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -883,7 +883,7 @@ That cat is pretty
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
 this is line 3.
@@ -910,7 +910,7 @@ this is line 1.
 </div><h3 id="2-加倍行距">2. 加倍行距</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -929,7 +929,7 @@ this is line 1.
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
 this is line 3.
@@ -951,7 +951,7 @@ this is line 5.
 </div><h3 id="3-给文件的行编号">3. 给文件的行编号</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -976,7 +976,7 @@ this is line 5.
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ nl data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ nl data.txt
     1	this is line 1.
     2	this is line 2.
     3	this is line 3.
@@ -1004,7 +1004,7 @@ $ sed <span class="s1">&#39;=&#39;</span> data.txt <span class="p">|</span> sed 
 </div><h3 id="4-打印末尾行">4. 打印末尾行</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1018,7 +1018,7 @@ $ sed <span class="s1">&#39;=&#39;</span> data.txt <span class="p">|</span> sed 
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 打印最后10行</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 打印最后10行</span>
 $ sed <span class="s1">&#39;:start; N; 11,$D; b start&#39;</span> data.txt
 this is line 5.
 this is line 6.
@@ -1035,7 +1035,7 @@ this is line 14.
 </div><h3 id="5-删除文本中的连续空白行">5. 删除文本中的连续空白行</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1055,7 +1055,7 @@ this is line 14.
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 
 
@@ -1079,7 +1079,7 @@ this is line 5.
 <h3 id="6-删除开头空白行">6. 删除开头空白行</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1096,7 +1096,7 @@ this is line 5.
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 
 
 
@@ -1117,7 +1117,7 @@ this is line 5.
 <h3 id="7-删除结尾空白行">7. 删除结尾空白行</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1137,7 +1137,7 @@ this is line 5.
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cat data.txt
 this is line 1.
 this is line 2.
 this is line 3.

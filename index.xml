@@ -3,9 +3,16 @@
         <title>Damion&#39;s Blog</title>
         <link>http://example.org/</link>
         <description>Damon&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Sep 2021 01:58:01 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 05 Nov 2021 00:19:06 &#43;0800</lastBuildDate>
             <atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>【Elasticsearch】使用docker安装ElasticSearch</title>
+    <link>http://example.org/elasticsearch-an-zhuang/</link>
+    <pubDate>Fri, 05 Nov 2021 00:19:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/elasticsearch-an-zhuang/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>【MySQL】InnoDB中一条更新语句的执行流程</title>
     <link>http://example.org/mysql-geng-xin-liu-cheng/</link>
     <pubDate>Tue, 28 Sep 2021 01:58:01 &#43;0800</pubDate>
@@ -32,13 +39,6 @@
     <pubDate>Sun, 19 Sep 2021 22:52:26 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/mysql-order-by/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>【MySQL】版本并发控制MVCC</title>
-    <link>http://example.org/mysql-mvcc/</link>
-    <pubDate>Fri, 17 Sep 2021 22:00:17 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/mysql-mvcc/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

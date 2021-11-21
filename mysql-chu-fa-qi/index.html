@@ -9,8 +9,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/mysql-chu-fa-qi/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-07-29T16:46:10&#43;08:00" />
-<meta property="article:modified_time" content="2020-07-29T16:46:10&#43;08:00" />
+<meta property="article:published_time" content="2020-07-29T16:46:10+08:00" />
+<meta property="article:modified_time" content="2020-07-29T16:46:10+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -153,7 +153,7 @@
 <h3 id="1-创建触发器">1. 创建触发器</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -161,7 +161,7 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">trigger_name</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="k">trigger_name</span><span class="w">
 </span><span class="w"></span><span class="k">BEFORE</span><span class="o">/</span><span class="k">AFTER</span><span class="w"> </span><span class="k">INSERT</span><span class="o">/</span><span class="k">UPDATE</span><span class="o">/</span><span class="k">DELETE</span><span class="w">
 </span><span class="w"></span><span class="k">ON</span><span class="w"> </span><span class="err">表名</span><span class="w"> </span><span class="p">[</span><span class="k">FOR</span><span class="w"> </span><span class="k">EACH</span><span class="w"> </span><span class="k">ROW</span><span class="p">]</span><span class="w">
 </span><span class="w"></span><span class="k">BEGIN</span><span class="w">
@@ -187,26 +187,26 @@
 <h3 id="2-查看触发器">2. 查看触发器</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">TRIGGERS</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">TRIGGERS</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="3-删除触发器">3. 删除触发器</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="err">库名</span><span class="p">.</span><span class="err">触发器名</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="err">库名</span><span class="p">.</span><span class="err">触发器名</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h2 id="示例">示例</h2>
 <h3 id="1-记录数据的新增">1. 记录数据的新增</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -216,7 +216,7 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DELIMITER</span><span class="w"> </span><span class="err">$</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TRIGGER</span><span class="w"> </span><span class="n">trigger_test_insert</span><span class="w">
 </span><span class="w"></span><span class="k">AFTER</span><span class="w"> </span><span class="k">INSERT</span><span class="w">

@@ -9,8 +9,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/linux-gawk/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-02-10T11:28:36&#43;08:00" />
-<meta property="article:modified_time" content="2021-02-10T11:28:36&#43;08:00" />
+<meta property="article:published_time" content="2021-02-10T11:28:36+08:00" />
+<meta property="article:modified_time" content="2021-02-10T11:28:36+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -163,10 +163,10 @@
 <p><code>gawk</code>命令格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk options program file
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk options program file
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="1-options">1. options</h3>
@@ -190,31 +190,31 @@
 <p><code>gawk</code>的脚本命令必须放在花括号<code>{}</code>中，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print &#34;hello world&#34;}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print &#34;hello world&#34;}&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>程序命令可以有多条，如果多条命令位于同一行，需要用<code>;</code>分开。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print &#34;hello&#34;; print &#34;world&#34;}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print &#34;hello&#34;; print &#34;world&#34;}&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>多条命令也可以位于多行，此时，多条命令之间不需要分隔符。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{
 </span><span class="s1">print &#34;hello&#34;
 </span><span class="s1">print &#34;world&#34;
 </span><span class="s1">}&#39;</span>
@@ -223,19 +223,19 @@
 </div><p>在对数据进行处理前，可以执行指定命令，这些命令放在<code>BEGIN</code>命令块中。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{print &#34;Title&#34;}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{print &#34;Title&#34;}&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>数据处理结束后，也可以执行指定命令，这些命令放在<code>END</code>命令块中。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;END{print &#34;End of File&#34;}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;END{print &#34;End of File&#34;}&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div><p>如果只指定了<code>BEGIN</code>命令块或者<code>END</code>命令块，缺少数据处理命令，则不会对输入数据做任何操作。</p>
@@ -267,10 +267,10 @@
 <p>该命令后面会跟上一串数字，如<code>&quot;3 2 1&quot;</code>，用来定义每个数据字段的宽度。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{FIELDWIDTHS=&#34;3 2 1&#34;} {print $1, $2, $3}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{FIELDWIDTHS=&#34;3 2 1&#34;} {print $1, $2, $3}&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
 </div><p>使用了<code>FIELDWIDTHS</code>后，字段分隔符会被忽略。</p>
@@ -280,10 +280,10 @@
 <p>指定输入数据的字段分隔符。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{FS=&#34;:&#34;} {print $1, $2, $3}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{FS=&#34;:&#34;} {print $1, $2, $3}&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -292,11 +292,11 @@
 <p>指定输入数据的行分隔符。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 指定空白行为行分隔符</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 指定空白行为行分隔符</span>
 gawk <span class="s1">&#39;BEGIN{RS=&#34;&#34;} {print $0}&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
@@ -306,10 +306,10 @@ gawk <span class="s1">&#39;BEGIN{RS=&#34;&#34;} {print $0}&#39;</span> data.txt
 <p>指定输出数据的字段分隔符。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{OFS=&#34;;&#34;} {print $1, $2, $3}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{OFS=&#34;;&#34;} {print $1, $2, $3}&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -318,10 +318,10 @@ gawk <span class="s1">&#39;BEGIN{RS=&#34;&#34;} {print $0}&#39;</span> data.txt
 <p>指定输出数据的行分隔符。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{ORS=&#34;,&#34;} {print $0}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{ORS=&#34;,&#34;} {print $0}&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -330,10 +330,10 @@ gawk <span class="s1">&#39;BEGIN{RS=&#34;&#34;} {print $0}&#39;</span> data.txt
 <p>存放的是当前命令行参数的个数。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print ARGC}&#39;</span> data.txt data.txt <span class="c1"># 输出是3，脚本命令和选项不参与计数</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print ARGC}&#39;</span> data.txt data.txt <span class="c1"># 输出是3，脚本命令和选项不参与计数</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -342,12 +342,12 @@ gawk <span class="s1">&#39;BEGIN{RS=&#34;&#34;} {print $0}&#39;</span> data.txt
 <p>由命令行参数组成的数组。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print ARGC, ARGV[0], ARGV[1]}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print ARGC, ARGV[0], ARGV[1]}&#39;</span> data.txt
 
 <span class="c1"># 2 gawk data.txt</span>
 </code></pre></td></tr></table>
@@ -358,10 +358,10 @@ gawk <span class="s1">&#39;BEGIN{RS=&#34;&#34;} {print $0}&#39;</span> data.txt
 <p>表示当前文件在<code>ARGV</code>中的位置。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print ARGIND}&#39;</span> data.txt data.txt <span class="c1"># 1 2</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print ARGIND}&#39;</span> data.txt data.txt <span class="c1"># 1 2</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -370,11 +370,11 @@ gawk <span class="s1">&#39;BEGIN{RS=&#34;&#34;} {print $0}&#39;</span> data.txt
 <p>由当前<code>shell</code>环境变量组成的关联数组。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 输出HOME目录</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 输出HOME目录</span>
 gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
@@ -384,10 +384,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>当前文件的文件名。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print FILENAME}&#39;</span> data.txt <span class="c1"># data.txt</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print FILENAME}&#39;</span> data.txt <span class="c1"># data.txt</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -396,10 +396,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>当前行的字段总数。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print NF, $NF}&#39;</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print NF, $NF}&#39;</span> data.txt
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -408,10 +408,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>当前文件已读取的数据行数，遇到新的文件时，会重新从1开始计数。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print FNR}&#39;</span> data.txt data.txt <span class="c1"># 1 1</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print FNR}&#39;</span> data.txt data.txt <span class="c1"># 1 1</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -420,10 +420,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>已读取的总数据行数，遇到新文件时，会进行累计，而不是重新计数。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print NR}&#39;</span> data.txt data.txt <span class="c1"># 1 2</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print NR}&#39;</span> data.txt data.txt <span class="c1"># 1 2</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -436,12 +436,12 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>在程序脚本中定义变量。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{test=&#34;test line&#34;; print test; test=1; print test}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{test=&#34;test line&#34;; print test; test=1; print test}&#39;</span>
 <span class="c1"># test line</span>
 <span class="c1"># 1</span>
 </code></pre></td></tr></table>
@@ -451,10 +451,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>在命令行中定义变量，且变量定义位于程序脚本之后。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print $n}&#39;</span> <span class="nv">n</span><span class="o">=</span><span class="m">1</span> data.txt
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;{print $n}&#39;</span> <span class="nv">n</span><span class="o">=</span><span class="m">1</span> data.txt
 </code></pre></td></tr></table>
 </div>
 </div><p>这种方式定义的变量，不能在<code>BEGIN</code>命令块中使用。</p>
@@ -463,10 +463,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>在命令行中定义变量，且变量定义位于程序脚本之前。此时需要使用<code>-v</code>选项。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk -v <span class="nv">n</span><span class="o">=</span><span class="m">2</span> <span class="s1">&#39;BEGIN{print n}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk -v <span class="nv">n</span><span class="o">=</span><span class="m">2</span> <span class="s1">&#39;BEGIN{print n}&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -478,32 +478,32 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>定义方式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">arr<span class="o">[</span>index<span class="o">]</span> <span class="o">=</span> value
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">arr<span class="o">[</span>index<span class="o">]</span> <span class="o">=</span> value
 </code></pre></td></tr></table>
 </div>
 </div><p>索引查找方式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">arr<span class="o">[</span>index<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">arr<span class="o">[</span>index<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="2-遍历数组">2. 遍历数组</h3>
 <p>数组遍历的语法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">for</span> <span class="o">(</span>idx in array<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="k">for</span> <span class="o">(</span>idx in array<span class="o">)</span>
 <span class="o">{</span>
 	statements
 <span class="o">}</span>
@@ -512,11 +512,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 </div><p>如果<code>statements</code>只有一行，则可以省略外层的花括号，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">for</span> <span class="o">(</span>idx in array<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="k">for</span> <span class="o">(</span>idx in array<span class="o">)</span>
 	statements
 </code></pre></td></tr></table>
 </div>
@@ -525,10 +525,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>删除语法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">delete array<span class="o">[</span>index<span class="o">]</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">delete array<span class="o">[</span>index<span class="o">]</span>
 </code></pre></td></tr></table>
 </div>
 </div><h2 id="算数运算符">算数运算符</h2>
@@ -572,30 +572,30 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>可以使用正则表达式，来对数据行进行匹配。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;/root/{print $1}&#39;</span> /etc/passwd
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;/root/{print $1}&#39;</span> /etc/passwd
 </code></pre></td></tr></table>
 </div>
 </div><p>该命令会匹配包含<code>root</code>的数据行。</p>
 <p>还可以使用匹配操作符<code>~</code>，来对某个特定字段进行匹配，如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;$1 ~ /^root/{print $0}&#39;</span> /etc/passwd
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;$1 ~ /^root/{print $0}&#39;</span> /etc/passwd
 </code></pre></td></tr></table>
 </div>
 </div><p>该命令会匹配第一个字段以<code>root</code>开头的数据行。</p>
 <p>还可以使用<code>!~</code>来排除匹配行。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;$1 !~ /^root/{print $0}&#39;</span> /etc/passwd
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;$1 !~ /^root/{print $0}&#39;</span> /etc/passwd
 </code></pre></td></tr></table>
 </div>
 </div><p>该命令会过滤第一个字段以<code>root</code>开头的数据行。</p>
@@ -639,7 +639,7 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>语法格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -651,7 +651,7 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">if</span> <span class="o">(</span>condition1<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="k">if</span> <span class="o">(</span>condition1<span class="o">)</span>
 <span class="o">{</span>
 	statement1
 <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span>condition2<span class="o">)</span>
@@ -669,13 +669,13 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>语法格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">while</span> <span class="o">(</span>condition<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="k">while</span> <span class="o">(</span>condition<span class="o">)</span>
 <span class="o">{</span>
 	statements
 <span class="o">}</span>
@@ -686,13 +686,13 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>语法格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">do</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="k">do</span>
 <span class="o">{</span>
 	statements
 <span class="o">}</span> <span class="k">while</span> <span class="o">(</span>condition<span class="o">)</span>
@@ -702,13 +702,13 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p><code>gawk</code>支持<code>c</code>语言风格的<code>for</code>循环。语法格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="k">for</span> <span class="o">(</span>variable assignment<span class="p">;</span> condition<span class="p">;</span> iteration process<span class="o">)</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="k">for</span> <span class="o">(</span>variable assignment<span class="p">;</span> condition<span class="p">;</span> iteration process<span class="o">)</span>
 <span class="o">{</span>
 	statements
 <span class="o">}</span>
@@ -719,10 +719,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p><code>printf</code>的命令格式为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">printf</span> <span class="s2">&#34;format string&#34;</span>, var1, var2...
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">printf</span> <span class="s2">&#34;format string&#34;</span>, var1, var2...
 </code></pre></td></tr></table>
 </div>
 </div><p><code>format string</code>是格式化字符，其中包含文本字符和占位符。</p>
@@ -733,11 +733,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>c：以<code>ASCII</code>形式显示。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%c\n&#34;, 65}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%c\n&#34;, 65}&#39;</span>
 <span class="c1"># A</span>
 </code></pre></td></tr></table>
 </div>
@@ -746,11 +746,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>d：显示整数值。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%d\n&#34;, 65}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%d\n&#34;, 65}&#39;</span>
 <span class="c1"># 65</span>
 </code></pre></td></tr></table>
 </div>
@@ -759,10 +759,10 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>i：显示整数值，和<code>d</code>一样。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%i\n&#34;, 65}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%i\n&#34;, 65}&#39;</span>
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -770,11 +770,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>e：以科学记数法形式显示一个数。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%.2e\n&#34;, 100000}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%.2e\n&#34;, 100000}&#39;</span>
 <span class="c1"># 1.00e+05</span>
 </code></pre></td></tr></table>
 </div>
@@ -783,11 +783,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>f：显示浮点数。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%f\n&#34;, 3.141}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%f\n&#34;, 3.141}&#39;</span>
 <span class="c1"># 3.141000</span>
 </code></pre></td></tr></table>
 </div>
@@ -796,11 +796,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>g：用科学记数法或浮点数显示（选择较短的格式）。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%g\n&#34;, 0.0000001}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%g\n&#34;, 0.0000001}&#39;</span>
 <span class="c1"># 1e-07</span>
 </code></pre></td></tr></table>
 </div>
@@ -809,11 +809,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>o：显示为八进制。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%o\n&#34;, 10}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%o\n&#34;, 10}&#39;</span>
 <span class="c1"># 12</span>
 </code></pre></td></tr></table>
 </div>
@@ -822,11 +822,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>s：打印一个字符串。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%s\n&#34;, &#34;hello world&#34;}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%s\n&#34;, &#34;hello world&#34;}&#39;</span>
 <span class="c1"># hello world</span>
 </code></pre></td></tr></table>
 </div>
@@ -835,11 +835,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>x：显示为十六进制。如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%x\n&#34;, 10}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%x\n&#34;, 10}&#39;</span>
 <span class="c1"># a</span>
 </code></pre></td></tr></table>
 </div>
@@ -848,11 +848,11 @@ gawk <span class="s1">&#39;{print ENVIRON[&#34;HOME&#34;]}&#39;</span> data.txt
 <p>X：显示为十六进制，但是使用大写A~F。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%X\n&#34;, 10}&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gawk <span class="s1">&#39;BEGIN{printf &#34;%X\n&#34;, 10}&#39;</span>
 <span class="c1"># A</span>
 </code></pre></td></tr></table>
 </div>

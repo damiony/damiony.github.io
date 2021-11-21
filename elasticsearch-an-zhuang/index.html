@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>【Elasticsearch】使用docker安装ElasticSearch - Damion&#39;s Blog</title><meta name="Description" content="Damon&#39;s Blog"><meta property="og:title" content="【Elasticsearch】使用docker安装ElasticSearch" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/elasticsearch-an-zhuang/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-05T00:19:06+08:00" />
+<meta property="article:modified_time" content="2021-11-05T00:19:06+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://example.org/logo.png"/>
+
+<meta name="twitter:title" content="【Elasticsearch】使用docker安装ElasticSearch"/>
+<meta name="twitter:description" content=""/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://example.org/elasticsearch-an-zhuang/" /><link rel="prev" href="http://example.org/mysql-geng-xin-liu-cheng/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "【Elasticsearch】使用docker安装ElasticSearch",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/example.org\/elasticsearch-an-zhuang\/"
+        },"genre": "posts","keywords": "ElasticSearch","wordcount":  261 ,
+        "url": "http:\/\/example.org\/elasticsearch-an-zhuang\/","datePublished": "2021-11-05T00:19:06+08:00","dateModified": "2021-11-05T00:19:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "damion"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/portfolio"> 作品集 </a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i>  </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Damion&#39;s Blog">Damion&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/portfolio" title="">作品集</a><a class="menu-item" href="https://github.com/damiony" title="GitHub" rel="noopener noreffer" target="_blank"><i class="fab fa-github fa-fw"></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">【Elasticsearch】使用docker安装ElasticSearch</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i>damion</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/elasticsearch/"><i class="far fa-folder fa-fw"></i>ElasticSearch</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp; 发布于 <time datetime="2021-11-05">2021-11-05</time>&nbsp;
+                </div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#docker安装单节点elasticsearch">Docker安装单节点Elasticsearch</a>
+      <ul>
+        <li><a href="#1-下载镜像">1. 下载镜像</a></li>
+        <li><a href="#2-创建目录">2. 创建目录</a></li>
+        <li><a href="#3-运行容器">3. 运行容器</a></li>
+        <li><a href="#4-检验是否成功">4. 检验是否成功</a></li>
+      </ul>
+    </li>
+    <li><a href="#docker安装head插件">Docker安装HEAD插件</a></li>
+    <li><a href="#docker安装kibana">Docker安装kibana</a></li>
+    <li><a href="#安装分词器">安装分词器</a>
+      <ul>
+        <li><a href="#1-说明">1. 说明</a></li>
+        <li><a href="#2-安装">2. 安装</a></li>
+        <li><a href="#3-测试">3. 测试</a></li>
+        <li><a href="#4-配置自定义词库">4. 配置自定义词库</a></li>
+      </ul>
+    </li>
+    <li><a href="#结语">结语</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<p>每次搭建编程环境的时候，都会忘记<code>ElasticSearch</code>的安装方法，然后就得查资料研究好一会儿，因此现在将安装过程记录下来，方便以后查阅。</p>
+<p>本文使用的是<code>Docker</code>安装方式。</p>
+<h2 id="docker安装单节点elasticsearch">Docker安装单节点Elasticsearch</h2>
+<h3 id="1-下载镜像">1. 下载镜像</h3>
+<p>首先下载<code>ElasticSearch</code>的<code>Docker</code>镜像，具体版本可以根据自己的需要来指定，此处下载的是<code>7.8.0</code>版本。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker pull elasticsearch:7.8.0
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="2-创建目录">2. 创建目录</h3>
+<p>创建三个目录，用于存放数据、插件和配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 目录位置可以根据需要来指定</span>
+mkdir /data/elasticsearch/<span class="o">{</span>data, config, plugins<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在<code>config</code>目录下创建<code>elasticsearch.yml</code>文件，用于存放配置，并在配置文件中加入基本配置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 创建配置文件</span>
+touch elasticsearch.yml
+<span class="c1"># 写入配置</span>
+<span class="nb">echo</span> <span class="s1">&#39;cluster.name: &#34;elasticsearch&#34;\nnetwork.host: 0.0.0.0&#39;</span> &gt;&gt; elasticsearch.yml
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="3-运行容器">3. 运行容器</h3>
+<p>运行<code>Docker</code>容器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker run --name elasticsearch -p 9200:9200 -p 9300:9300 <span class="se">\
+</span><span class="se"></span>    -e <span class="s2">&#34;discovery.type=single-node&#34;</span> -e <span class="nv">ES_JAVA_OPTS</span><span class="o">=</span><span class="s2">&#34;-Xms128m -Xmx128m&#34;</span> <span class="se">\
+</span><span class="se"></span>    -v /data/elasticsearch/data:/usr/share/elasticsearch/data <span class="se">\
+</span><span class="se"></span>    -v /data/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml <span class="se">\
+</span><span class="se"></span>    -v /data/elasticsearch/plugins:/usr/share/elasticsearch/plugins <span class="se">\
+</span><span class="se"></span>    -d elasticsearch:7.8.0
+</code></pre></td></tr></table>
+</div>
+</div><p><code>discovery.type=single-node</code>表示安装的<code>es</code>为单节点。</p>
+<p><code>ES_JAVA_OPTS</code>用于指定<code>ElasticSearch</code>能使用的内存，如果内存过大会导致无法使用<code>Docker</code>容器。<code>-Xms128m</code>表示最少能用<code>128MB</code>，<code>-Xmx128m</code>表示最多能用<code>128MB</code>。</p>
+<p><code>-v</code>用于将宿主机的目录映射到容器内，注意得先分配目录的权限。</p>
+<h3 id="4-检验是否成功">4. 检验是否成功</h3>
+<p>浏览器打开<code>localhost:9200</code>，如果出现如下内容，则表示安装成功。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="o">{</span>
+    name: <span class="s2">&#34;e6810bbefb2b&#34;</span>,
+    cluster_name: <span class="s2">&#34;elasticsearch&#34;</span>,
+    cluster_uuid: <span class="s2">&#34;SFTOoP2eSTKPEjl-L4325A&#34;</span>,
+    version: <span class="o">{</span>
+        number: <span class="s2">&#34;7.8.0&#34;</span>,
+        build_flavor: <span class="s2">&#34;default&#34;</span>,
+        build_type: <span class="s2">&#34;docker&#34;</span>,
+        build_hash: <span class="s2">&#34;757314695644ea9a1dc2fecd26d1a43856725e65&#34;</span>,
+        build_date: <span class="s2">&#34;2020-06-14T19:35:50.234439Z&#34;</span>,
+        build_snapshot: false,
+        lucene_version: <span class="s2">&#34;8.5.1&#34;</span>,
+        minimum_wire_compatibility_version: <span class="s2">&#34;6.8.0&#34;</span>,
+        minimum_index_compatibility_version: <span class="s2">&#34;6.0.0-beta1&#34;</span>
+    <span class="o">}</span>,
+    tagline: <span class="s2">&#34;You Know, for Search&#34;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>name</code>是节点名称，<code>cluster_name</code>是集群名称，可以通过修改<code>elasticsearch.yml</code>来修改它们，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">cluster.name</span><span class="p">:</span><span class="w"> </span><span class="l">myes</span><span class="w">
+</span><span class="w"></span><span class="nt">node.name</span><span class="p">:</span><span class="w"> </span><span class="l">master</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>这样就完成了修改，重启<code>elasticsearch</code>即可看到变化。</p>
+<h2 id="docker安装head插件">Docker安装HEAD插件</h2>
+<p><code>HEAD</code>插件提供了一个可视化的界面，供我们查看集群信息。安装命令为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker run --name eshead -d -p 9100:9100 mobz/elasticsearch-head:5
+</code></pre></td></tr></table>
+</div>
+</div><p>接着浏览器访问<code>http://localhost:9100</code>，就能看到相应界面，但是此时还存在跨域问题，修改<code>elasticsearch.yml</code>即可解决。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">http.cors.enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w"></span><span class="nt">http.cors.allow-origin</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;*&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="docker安装kibana">Docker安装kibana</h2>
+<p><code>kibana</code>提供了一个操作<code>ElasticSearch</code>的图形化界面。当然，<code>kibana</code>不是必须得安装。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">docker run --name kibana -e <span class="nv">ELASTICSEARCH_HOSTS</span><span class="o">=</span>http://<span class="o">{</span>ip地址<span class="o">}</span>:9200 -p 5601:5601 -d kibana:7.8.0
+</code></pre></td></tr></table>
+</div>
+</div><p><code>docker pull</code>操作并不是必需的，如果<code>docker run</code>找不到镜像，<code>docker</code>内部也会先去执行<code>pull</code>操作。</p>
+<p>本文所有的<code>Elasticsearch</code>请求命令，都默认在<code>kibana</code>工具中操作。</p>
+<h2 id="安装分词器">安装分词器</h2>
+<h3 id="1-说明">1. 说明</h3>
+<p>进行搜索的时候，<code>ElasticSearch</code>内部往往会对输入语句进行分词操作，分成一个个单词短语，然后进行检索。但是<code>ElasticSearch</code>本身没有支持中文的分词器，所以需要自行安装。</p>
+<h3 id="2-安装">2. 安装</h3>
+<p>安装步骤为：</p>
+<ul>
+<li>在<code>elasticsearch/plugins/</code>目录下创建<code>ik</code>目录。</li>
+<li>进入下载页面<a href="https://github.com/medcl/elasticsearch-analysis-ik/releases" target="_blank" rel="noopener noreffer">https://github.com/medcl/elasticsearch-analysis-ik/releases</a>。</li>
+<li>下载所需版本，然后解压到<code>ik</code>，并重启<code>elasticsearch</code>。</li>
+</ul>
+<h3 id="3-测试">3. 测试</h3>
+<p>为了测试分词器是否安装成功，先创建一个索引：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">PUT /test
+</code></pre></td></tr></table>
+</div>
+</div><p>然后发送请求：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">POST /test/_analyze
+<span class="o">{</span>
+    <span class="s2">&#34;analyzer&#34;</span>: <span class="s2">&#34;ik_max_word&#34;</span>,
+    <span class="s2">&#34;text&#34;</span>: <span class="s2">&#34;美国留给伊拉克的是个烂摊子吗&#34;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果请求处理成功，则分词器安装成功。</p>
+<h3 id="4-配置自定义词库">4. 配置自定义词库</h3>
+<p>有时候，分词器的结果并不能符合我们的期望，这时候可以自定义词库。</p>
+<p>自定义词库是一个配置文件，文件内容为自定义的词，每个词独占一行，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">朝辞白帝彩云间
+千里江陵一日还
+</code></pre></td></tr></table>
+</div>
+</div><p>可以将配置文件命名为<code>ext.dic</code>，然后放置在<code>elasticsearch/plugins/ik/config</code>中。当然，文件名和位置可以根据自己的需要进行调整。</p>
+<p>打开<code>elasticsearch/plugins/ik/config/IKAnalyzer.cfg.xml</code>文件：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+<span class="cp">&lt;!DOCTYPE properties SYSTEM &#34;http://java.sun.com/dtd/properties.dtd&#34;&gt;</span>
+<span class="nt">&lt;properties&gt;</span>
+	<span class="nt">&lt;comment&gt;</span>IK Analyzer 扩展配置<span class="nt">&lt;/comment&gt;</span>
+	<span class="c">&lt;!--用户可以在这里配置自己的扩展字典 --&gt;</span>
+	<span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">&#34;ext_dict&#34;</span><span class="nt">&gt;&lt;/entry&gt;</span>
+	 <span class="c">&lt;!--用户可以在这里配置自己的扩展停止词字典--&gt;</span>
+	<span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">&#34;ext_stopwords&#34;</span><span class="nt">&gt;&lt;/entry&gt;</span>
+	<span class="c">&lt;!--用户可以在这里配置远程扩展字典 --&gt;</span>
+	<span class="c">&lt;!-- &lt;entry key=&#34;remote_ext_dict&#34;&gt;words_location&lt;/entry&gt; --&gt;</span>
+	<span class="c">&lt;!--用户可以在这里配置远程扩展停止词字典--&gt;</span>
+	<span class="c">&lt;!-- &lt;entry key=&#34;remote_ext_stopwords&#34;&gt;words_location&lt;/entry&gt; --&gt;</span>
+<span class="nt">&lt;/properties&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>修改第6行然后重启<code>elasticsearch</code>即可，注意<code>ext.dic</code>的路径必须正确。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;entry</span> <span class="na">key=</span><span class="s">&#34;ext_dict&#34;</span><span class="nt">&gt;</span>ext.dic<span class="nt">&lt;/entry&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上述步骤为配置本地自定义词库，还可以配置网络自定义词库，网络词库支持热更新。</p>
+<p>比如可以使用<code>nginx</code>或者自定义<code>http server</code>，来提供网络词库。</p>
+<h2 id="结语">结语</h2>
+<p>至此，<code>ElasticSearch</code>的环境就安装结束了。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-11-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/elasticsearch/">ElasticSearch</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/mysql-geng-xin-liu-cheng/" class="prev" rel="prev" title="【MySQL】InnoDB中一条更新语句的执行流程"><i class="fas fa-angle-left fa-fw"></i>【MySQL】InnoDB中一条更新语句的执行流程</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">damion</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":30},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -9,8 +9,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/mysql-dcl/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-06-18T19:15:08&#43;08:00" />
-<meta property="article:modified_time" content="2020-06-18T19:15:08&#43;08:00" />
+<meta property="article:published_time" content="2020-06-18T19:15:08+08:00" />
+<meta property="article:modified_time" content="2020-06-18T19:15:08+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -147,7 +147,7 @@
 <p>如下表示4个不同用户：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -156,7 +156,7 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">root</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">root可以本地登陆MySQL</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">root</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">root可以本地登陆MySQL</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="n">root</span><span class="o">@</span><span class="s1">&#39;10.0.0.1&#39;</span><span class="w"> </span><span class="o">#</span><span class="w"> </span><span class="n">root可以通过10</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="err">登陆</span><span class="n">MySQL</span><span class="w">
 </span><span class="w">
@@ -170,38 +170,38 @@
 <p>用户信息存放在<code>mysq【l.user</code>表中。通常情况下，查看<code>host</code>, <code>user</code>, <code>authentication_string</code>即可。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="k">host</span><span class="p">,</span><span class="w"> </span><span class="n">authentication_string</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="k">user</span><span class="p">,</span><span class="w"> </span><span class="k">host</span><span class="p">,</span><span class="w"> </span><span class="n">authentication_string</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2-创建用户">2. 创建用户</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="w"> </span><span class="p">[</span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">password</span><span class="p">];</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="w"> </span><span class="p">[</span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">password</span><span class="p">];</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>如果省略<code>IDENTIFIED BY password</code>部分，则默认该用户无密码。</p>
 <h3 id="3-修改密码">3. 修改密码</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;password&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4-删除用户">4. 删除用户</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="w"> </span><span class="n">username</span><span class="o">@</span><span class="s1">&#39;ip地址&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="5-忘记密码">5. 忘记密码</h3>
@@ -223,19 +223,19 @@
 <p>重启<code>MySQL</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">mysqld_safe --skip-grant-tables --skip-networking
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">mysqld_safe --skip-grant-tables --skip-networking
 </code></pre></td></tr></table>
 </div>
 </div><p>或者：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-bash" data-lang="bash">service mysqld start --skip-grant-tales --skip-networking
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">service mysqld start --skip-grant-tales --skip-networking
 </code></pre></td></tr></table>
 </div>
 </div></li>
@@ -243,10 +243,10 @@
 <p>手工加载授权表。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">flush</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">flush</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -257,10 +257,10 @@
 <p>正常模式重启<code>MySQL</code>。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">service</span><span class="w"> </span><span class="n">mysqld</span><span class="w"> </span><span class="k">restart</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="n">service</span><span class="w"> </span><span class="n">mysqld</span><span class="w"> </span><span class="k">restart</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -271,121 +271,121 @@
 <h3 id="1-查看可授予的权限">1. 查看可授予的权限</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">privileges</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2-授权">2. 授权</h3>
 <p><code>8.0</code>版本之前，使用如下语法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">用户</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;密码&#39;</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">用户</span><span class="w"> </span><span class="n">IDENTIFIED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="s1">&#39;密码&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><code>8.0</code>版本之后，需要先建立用户才能授权。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">用户</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">用户</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>权限<code>ALL</code>表示除<code>GRANT</code>之外的所有权限，如果想授予<code>GRANT</code>权限，<code>8.0</code>语法如下，<code>8.0</code>之前版本同理。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">用户</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">OPTION</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">TO</span><span class="w"> </span><span class="err">用户</span><span class="w"> </span><span class="k">WITH</span><span class="w"> </span><span class="k">GRANT</span><span class="w"> </span><span class="k">OPTION</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>“对象”是指库和表，如<code>*.*</code>表示所有库中的所有表。也可以只授予某几个列的权限，用法是：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="p">(</span><span class="err">列字段</span><span class="p">...)</span><span class="w"> </span><span class="p">...</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">GRANT</span><span class="w"> </span><span class="err">权限</span><span class="p">(</span><span class="err">列字段</span><span class="p">...)</span><span class="w"> </span><span class="p">...</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="3-回收权限">3. 回收权限</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">REVOKE</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">用户</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">REVOKE</span><span class="w"> </span><span class="err">权限</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">对象</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">用户</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>如：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">REVOKE</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">t1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_user</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">REVOKE</span><span class="w"> </span><span class="k">select</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">test</span><span class="p">.</span><span class="n">t1</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">test_user</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4-查看单个用户权限">4. 查看单个用户权限</h3>
 <p>查看自己：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>查看他人：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="err">用户</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="n">GRANTS</span><span class="w"> </span><span class="k">FOR</span><span class="w"> </span><span class="err">用户</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="5-查看所有用户的权限">5. 查看所有用户的权限</h3>
 <p>查看表相关的权限：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">tables_priv</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">tables_priv</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>查看库相关的权限：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">db</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">db</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>查看所有用户的权限：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="k">user</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>查看列相关权限：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">columns_priv</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">mysql</span><span class="p">.</span><span class="n">columns_priv</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p>其他权限详情可以在<code>mysql</code>库中查看。</p>

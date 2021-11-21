@@ -3,7 +3,14 @@
         <title>所有文章 - Damion&#39;s Blog</title>
         <link>http://example.org/posts/</link>
         <description>所有文章 | Damion&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 28 Sep 2021 01:58:01 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 05 Nov 2021 00:19:06 &#43;0800</lastBuildDate><atom:link href="http://example.org/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>【Elasticsearch】使用docker安装ElasticSearch</title>
+    <link>http://example.org/elasticsearch-an-zhuang/</link>
+    <pubDate>Fri, 05 Nov 2021 00:19:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>http://example.org/elasticsearch-an-zhuang/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
     <title>【MySQL】InnoDB中一条更新语句的执行流程</title>
     <link>http://example.org/mysql-geng-xin-liu-cheng/</link>
     <pubDate>Tue, 28 Sep 2021 01:58:01 &#43;0800</pubDate>
@@ -135,13 +142,6 @@
     <pubDate>Thu, 06 Aug 2020 18:25:37 &#43;0800</pubDate>
     <author>作者</author>
     <guid>http://example.org/mysql-information-schema/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>【MySQL】优化</title>
-    <link>http://example.org/mysql-optimizer/</link>
-    <pubDate>Tue, 04 Aug 2020 19:15:22 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>http://example.org/mysql-optimizer/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

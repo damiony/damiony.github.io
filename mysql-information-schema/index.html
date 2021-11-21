@@ -9,8 +9,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/mysql-information-schema/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-08-06T18:25:37&#43;08:00" />
-<meta property="article:modified_time" content="2020-08-06T18:25:37&#43;08:00" />
+<meta property="article:published_time" content="2020-08-06T18:25:37+08:00" />
+<meta property="article:modified_time" content="2020-08-06T18:25:37+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -166,12 +166,12 @@
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="k">TABLE_NAME</span><span class="p">),</span><span class="w"> </span><span class="n">group_concat</span><span class="p">(</span><span class="k">TABLE_NAME</span><span class="p">)</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="k">TABLE_NAME</span><span class="p">),</span><span class="w"> </span><span class="n">group_concat</span><span class="p">(</span><span class="k">TABLE_NAME</span><span class="p">)</span><span class="w">
 </span><span class="w"></span><span class="k">FROM</span><span class="w"> </span><span class="n">information_schema</span><span class="p">.</span><span class="n">TABLES</span><span class="w">
 </span><span class="w"></span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">TABLE_SCHEMA</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>

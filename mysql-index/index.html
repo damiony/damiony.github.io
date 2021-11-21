@@ -9,8 +9,8 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://example.org/mysql-index/" /><meta property="og:image" content="http://example.org/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-07-27T19:07:30&#43;08:00" />
-<meta property="article:modified_time" content="2020-07-27T19:07:30&#43;08:00" />
+<meta property="article:published_time" content="2020-07-27T19:07:30+08:00" />
+<meta property="article:modified_time" content="2020-07-27T19:07:30+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="http://example.org/logo.png"/>
@@ -275,37 +275,37 @@
 <p>创建语法为：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="p">[</span><span class="k">UNIQUE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FULLTEXT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SPATIAL</span><span class="p">]</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">table_name</span><span class="p">(</span><span class="n">index_col_name</span><span class="p">...);</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">CREATE</span><span class="w"> </span><span class="p">[</span><span class="k">UNIQUE</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">FULLTEXT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">SPATIAL</span><span class="p">]</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">table_name</span><span class="p">(</span><span class="n">index_col_name</span><span class="p">...);</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><p><code>index_col_name</code>可以指定字段的长度，并指明字段的排序规则，格式如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column_name</span><span class="p">[(</span><span class="k">length</span><span class="p">)]</span><span class="w"> </span><span class="p">[</span><span class="k">ASC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DESC</span><span class="p">]</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">column_name</span><span class="p">[(</span><span class="k">length</span><span class="p">)]</span><span class="w"> </span><span class="p">[</span><span class="k">ASC</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">DESC</span><span class="p">]</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="2-查看索引">2. 查看索引</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SHOW</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="3-删除索引">3. 删除索引</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">DROP</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="err">索引名</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="err">表名</span><span class="p">;</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div><h3 id="4-alter更新索引">4. <code>ALTER</code>更新索引</h3>
@@ -314,10 +314,10 @@
 <p>创建主键索引：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -325,10 +325,10 @@
 <p>创建唯一索引</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">table_naame</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">[</span><span class="k">KEY</span><span class="o">|</span><span class="k">INDEX</span><span class="p">]</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">table_naame</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="p">[</span><span class="k">KEY</span><span class="o">|</span><span class="k">INDEX</span><span class="p">]</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -336,10 +336,10 @@
 <p>创建普通索引</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">KEY</span><span class="o">|</span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="k">KEY</span><span class="o">|</span><span class="k">INDEX</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -347,10 +347,10 @@
 <p>创建全文索引</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">FULLTEXT</span><span class="w"> </span><span class="p">[</span><span class="k">KEY</span><span class="o">|</span><span class="k">INDEX</span><span class="p">]</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">table_name</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="n">FULLTEXT</span><span class="w"> </span><span class="p">[</span><span class="k">KEY</span><span class="o">|</span><span class="k">INDEX</span><span class="p">]</span><span class="w"> </span><span class="n">index_name</span><span class="p">(</span><span class="n">column_list</span><span class="p">);</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -362,10 +362,10 @@
 <p>创建主键索引</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -373,10 +373,10 @@
 <p>创建普通索引</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">KEY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="p">[</span><span class="n">index_name</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">KEY</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="p">[</span><span class="n">index_name</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
@@ -384,10 +384,10 @@
 <p>创建唯一索引</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">UNIQUE</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">index_name</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="k">UNIQUE</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="k">INDEX</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">[</span><span class="n">index_name</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="n">column_list</span><span class="p">)</span><span class="w">
 </span></code></pre></td></tr></table>
 </div>
 </div></li>
